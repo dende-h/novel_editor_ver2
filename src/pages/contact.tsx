@@ -1,6 +1,5 @@
 import Head from "next/head";
 import { useForm } from "react-hook-form";
-
 import { useRouter } from "next/router";
 import {
 	VStack,
