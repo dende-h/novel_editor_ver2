@@ -14,12 +14,11 @@ import {
 	useColorModeValue,
 	useDisclosure,
 	VStack,
-	Text,
 	Tooltip
 } from "@chakra-ui/react";
 import { FC } from "react";
-
 import { draftObject } from "../../globalState/selector/editorState";
+import { NovelViewer } from "./NovelViwer";
 
 export const DraftViweModal: FC<Pick<draftObject, "title" | "body">> = ({ title, body }) => {
 	const titleBgColor = useColorModeValue(
@@ -88,7 +87,7 @@ export const DraftViweModal: FC<Pick<draftObject, "title" | "body">> = ({ title,
 
 			<Modal isOpen={isOpen} onClose={onClose} size="full">
 				<ModalOverlay />
-				<ModalContent backgroundColor={backgroundColor} textAlign="right" position={"relative"}>
+				<ModalContent backgroundColor={backgroundColor} position={"relative"}>
 					<ModalHeader
 						maxW={"300px"}
 						textOverflow={"ellipsis"}
@@ -112,22 +111,9 @@ export const DraftViweModal: FC<Pick<draftObject, "title" | "body">> = ({ title,
 							h={"80%"}
 							p={6}
 							overflowX={"scroll"}
-							position="relative"
+							position={"relative"}
 						>
-							<Text
-								margin={2}
-								sx={css}
-								fontFamily={"Noto Serif JP"}
-								display="inline-block"
-								textAlign={"left"}
-								whiteSpace={"pre-wrap"}
-								fontSize={{ base: "12px", md: "14px", lg: "16px" }}
-								position="absolute"
-								right="0"
-								top="10px"
-							>
-								{body}
-							</Text>
+							<NovelViewer text={body} />
 						</Box>
 					</ModalBody>
 					<ModalFooter>

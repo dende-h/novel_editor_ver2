@@ -1,4 +1,4 @@
-import { IconButton, VStack } from "@chakra-ui/react";
+import { IconButton, Tooltip, VStack } from "@chakra-ui/react";
 import { memo } from "react";
 import { AiFillEdit, AiFillIdcard, AiFillMail } from "react-icons/ai";
 import { ImBlog } from "react-icons/im";
@@ -11,6 +11,14 @@ export const LeftMenuBar = memo(() => {
 	const router = useRouter();
 	// eslint-disable-next-line react/jsx-key
 	const menuIcons = [<AiFillEdit />, <AiFillIdcard />, <IoLibrarySharp />, <HiLibrary />, <ImBlog />, <AiFillMail />];
+	const tooltipLabels = [
+		"小説書くところ",
+		"実績をみるところ",
+		"書いた小説を読むところ",
+		"commingsoon",
+		"管理人のブログ",
+		"お問い合わせ"
+	];
 
 	const onClickMenu = (buttonIndex: number) => {
 		switch (buttonIndex) {
@@ -53,16 +61,17 @@ export const LeftMenuBar = memo(() => {
 			>
 				{menuIcons.map((item, index) => {
 					return (
-						<IconButton
-							key={index}
-							aria-label="menuList"
-							icon={item}
-							variant="ghost"
-							colorScheme={"twitter"}
-							fontSize="24px"
-							boxSize={10}
-							onClick={() => onClickMenu(index)}
-						/>
+						<Tooltip key={index} label={tooltipLabels[index]} placement={"right-end"}>
+							<IconButton
+								aria-label="menuList"
+								icon={item}
+								variant="ghost"
+								colorScheme={"twitter"}
+								fontSize="24px"
+								boxSize={10}
+								onClick={() => onClickMenu(index)}
+							/>
+						</Tooltip>
 					);
 				})}
 				<ColorSwitchButton
