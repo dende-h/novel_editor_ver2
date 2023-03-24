@@ -9,21 +9,27 @@ import {
 	Card,
 	CardBody,
 	HStack,
-	useColorModeValue
+	useColorModeValue,
+	Button
 } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRecoilValue } from "recoil";
 import { ChangeUserNameModal } from "../components/profilePage/ChangeUserNameModal";
 import { isClientState } from "../globalState/atoms/isClientState";
-
+import { isPublishedState } from "../globalState/atoms/isPublishedState";
+import { lastPublishedTime } from "../globalState/atoms/lastPublishedTime";
 import { userName } from "../globalState/atoms/userName";
 import { profileItem } from "../globalState/selector/profileItem";
+import { useNovelPublished } from "../hooks/useNovelPublished";
 
 export default function Profile() {
 	const isClient = useRecoilValue(isClientState);
 	const userPenName = useRecoilValue(userName);
 	const profileArray = useRecoilValue(profileItem);
 	const backgroundColor = useColorModeValue("gray.100", "gray.600");
+	const isPublished = useRecoilValue(isPublishedState);
+	const timeStamp = useRecoilValue(lastPublishedTime);
+	const { onPublishedNovel } = useNovelPublished();
 
 	return (
 		<>
@@ -48,9 +54,11 @@ export default function Profile() {
 
 					<Divider marginBottom={1} marginLeft={0.5} w={"auto"} />
 					<Divider borderWidth="2px" w={"auto"} />
-					<Box textAlign={"end"}>
-						<ChangeUserNameModal />
-					</Box>
+					{isPublished ? undefined : (
+						<Box textAlign={"end"} marginRight={"10%"}>
+							<ChangeUserNameModal />
+						</Box>
+					)}
 					<VStack padding={3} h={"auto"}>
 						{profileArray.map((item, index) => {
 							return (
@@ -71,9 +79,9 @@ export default function Profile() {
 												<Text fontSize={{ base: "sm", md: "md", lg: "xl" }}>
 													{index === 0
 														? undefined
-														: index === 1 || index === 2
+														: index === 1 || index === 2 || index === 3
 														? "Drafts"
-														: index === 3
+														: index === 4
 														? "Characters"
 														: undefined}
 												</Text>
@@ -84,6 +92,17 @@ export default function Profile() {
 							);
 						})}
 					</VStack>
+					<Box textAlign={"center"} marginTop={5}>
+						<Button
+							colorScheme={"teal"}
+							size={{ base: "xs", md: "sm", lg: "md" }}
+							fontSize={{ base: "xs", md: "sm", lg: "lg" }}
+							onClick={onPublishedNovel}
+						>
+							Publish The Novel
+						</Button>
+						<Text>{isPublished ? `最終更新日時：${timeStamp}` : timeStamp}</Text>
+					</Box>
 				</Box>
 			) : undefined}
 		</>

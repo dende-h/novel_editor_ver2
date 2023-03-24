@@ -113,6 +113,14 @@ export const useDraft = () => {
 		setUserName(newUserName);
 	}, []);
 
+	const onPublishedChange = () => {
+		setDraft(
+			draft.map((item) =>
+				item.isSelected ? (item.isPublished ? { ...item, isPublished: false } : { ...item, isPublished: true }) : item
+			)
+		);
+	};
+
 	return {
 		deleteAction,
 		onChangeTitleArea,
@@ -124,6 +132,7 @@ export const useDraft = () => {
 		selectStateReset,
 		onSetUserName,
 		onCopy,
-		hasCopied
+		hasCopied,
+		onPublishedChange
 	};
 };

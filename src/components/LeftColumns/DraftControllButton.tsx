@@ -3,6 +3,7 @@ import { memo } from "react";
 import { AddTagsFormModal } from "./AddTagsFormModal";
 import { AlertDialogDelete } from "./AlertDialogDelete";
 import { DownloadTXT } from "./DownloadTXT";
+import { PublishedChange } from "./PublishedChange";
 
 type Props = { isAccordionOpen: boolean };
 
@@ -15,6 +16,7 @@ export const DraftControllButton = memo((props: Props) => {
 				<AddTagsFormModal />
 				<DownloadTXT />
 				<AlertDialogDelete />
+				<PublishedChange />
 			</HStack>
 		</SlideFade>
 	);
