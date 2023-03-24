@@ -1,32 +1,9 @@
-import {
-	useDisclosure,
-	Button,
-	Modal,
-	ModalOverlay,
-	ModalContent,
-	ModalHeader,
-	ModalCloseButton,
-	ModalBody,
-	ModalFooter,
-	Input,
-	HStack,
-	List,
-	ListItem,
-	SimpleGrid,
-	GridItem,
-	Center,
-	Text,
-	useColorModeValue,
-	Box,
-	Tooltip
-} from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { ImCancelCircle, ImPlus, ImPriceTags } from "react-icons/im";
+import { Input, HStack, Center, Text, useColorModeValue, Box, Tooltip } from "@chakra-ui/react";
+import { useEffect } from "react";
+import { ImCancelCircle, ImPlus } from "react-icons/im";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { draftObjectArray, drafts } from "../../globalState/atoms/drafts";
 import { tagSearchState } from "../../globalState/atoms/tagSearchState";
 import { allTagsArray } from "../../globalState/selector/allTagsArray";
-import { editorState } from "../../globalState/selector/editorState";
 import { useCalcCharCount } from "../../hooks/useCalcCharCount";
 import { useEnterKeyEvent } from "../../hooks/useEnterKeyEvent";
 import { useInput } from "../../hooks/useInput";

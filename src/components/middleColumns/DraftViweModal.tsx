@@ -14,12 +14,11 @@ import {
 	useColorModeValue,
 	useDisclosure,
 	VStack,
-	Text,
 	Tooltip
 } from "@chakra-ui/react";
 import { FC } from "react";
-
 import { draftObject } from "../../globalState/selector/editorState";
+import { NovelViewer } from "./NovelViwer";
 
 export const DraftViweModal: FC<Pick<draftObject, "title" | "body">> = ({ title, body }) => {
 	const titleBgColor = useColorModeValue(
@@ -31,10 +30,12 @@ export const DraftViweModal: FC<Pick<draftObject, "title" | "body">> = ({ title,
 		"linear(to-r, green.500,green.600,green.700 ,green.700, green.700,green.600,green.500)",
 		"linear(to-r, green.400,green.500,green.600 ,green.600, green.600,green.500,green.400)"
 	);
-	const css = { "writing-mode": "vertical-rl", "text-orientation": "upright" };
-	const backgroundColor = useColorModeValue("gray.200", "gray.600");
+	const css = { writingMode: "vertical-rl", textOrientation: "upright" };
 
+	const backgroundColor = useColorModeValue("gray.200", "gray.600");
+	const textBackgroundColor = useColorModeValue("gray.100", "gray.500");
 	const { isOpen, onOpen, onClose } = useDisclosure();
+
 	return (
 		<>
 			<Tooltip hasArrow label={title} placement={"top-start"}>
@@ -86,16 +87,33 @@ export const DraftViweModal: FC<Pick<draftObject, "title" | "body">> = ({ title,
 
 			<Modal isOpen={isOpen} onClose={onClose} size="full">
 				<ModalOverlay />
-				<ModalContent backgroundColor={backgroundColor} textAlign="right" position={"relative"}>
-					<ModalHeader textOverflow={"ellipsis"} overflow={"hidden"} whiteSpace={"nowrap"} fontFamily={"Noto Serif JP"}>
+				<ModalContent backgroundColor={backgroundColor} position={"relative"}>
+					<ModalHeader
+						maxW={"300px"}
+						textOverflow={"ellipsis"}
+						overflow={"hidden"}
+						whiteSpace={"nowrap"}
+						fontFamily={"Noto Serif JP"}
+						marginX={"auto"}
+						fontSize={{ base: "14px", md: "16px", lg: "18px" }}
+					>
 						{title}
 					</ModalHeader>
 					<ModalCloseButton position={"absolute"} top={1} left={1} />
 					<ModalBody>
-						<Box overflowX={"scroll"} textAlign={"right"} display="inline-block" w={"1fr"}>
-							<Text sx={css} fontFamily={"Noto Serif JP"} textIndent={"1em"} display="inline-block" textAlign={"left"}>
-								{body}
-							</Text>
+						<Box
+							sx={css}
+							bgColor={textBackgroundColor}
+							borderRadius={"md"}
+							margin={"0"}
+							marginLeft={"auto"}
+							w={"100%"}
+							h={"80%"}
+							p={6}
+							overflowX={"scroll"}
+							position={"relative"}
+						>
+							<NovelViewer text={body} />
 						</Box>
 					</ModalBody>
 					<ModalFooter>

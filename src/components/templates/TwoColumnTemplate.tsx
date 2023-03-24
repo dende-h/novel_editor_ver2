@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
 import { memo, FC } from "react";
 import { LeftColumnArea } from "../LeftColumns/LeftColumnArea";
 import { EditorArea } from "../middleColumns/EditorArea";

@@ -1,26 +1,12 @@
-import {
-	Box,
-	Button,
-	Icon,
-	IconButton,
-	Input,
-	Text,
-	Textarea,
-	Tooltip,
-	useClipboard,
-	useColorModeValue,
-	VStack
-} from "@chakra-ui/react";
+import { Box, IconButton, Input, Text, Textarea, useColorModeValue, VStack } from "@chakra-ui/react";
 import { memo, useEffect, useState } from "react";
 import { ImCross, ImPlus } from "react-icons/im";
-import { GrCopy } from "react-icons/gr";
 import { useRecoilValue } from "recoil";
 import { isClientState } from "../../globalState/atoms/isClientState";
 import { draftObject, editorState } from "../../globalState/selector/editorState";
 import { useCalcCharCount } from "../../hooks/useCalcCharCount";
 import { useDraft } from "../../hooks/useDraft";
 import { useEnterKeyEvent } from "../../hooks/useEnterKeyEvent";
-import { PrimaryIconButton } from "../templates/PrimaryIconButton";
 import { SelectMaxLengthSlider } from "./SelectMaxLengthSlider";
 
 export const EditorArea = memo(() => {

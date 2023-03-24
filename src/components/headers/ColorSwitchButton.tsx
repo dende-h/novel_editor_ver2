@@ -5,7 +5,7 @@ export const ColorSwitchButton: React.FC<IconButtonProps> = (props) => {
 	const { colorMode, toggleColorMode } = useColorMode();
 	const tooltipLabel = colorMode === "light" ? "ダークモードへ切り替えます" : "ライトモードへ切り替えます";
 	return (
-		<Tooltip label={tooltipLabel}>
+		<Tooltip label={tooltipLabel} placement={"right-end"}>
 			<IconButton {...props} icon={colorMode === "light" ? <FaMoon /> : <FaSun />} onClick={toggleColorMode} />
 		</Tooltip>
 	);
