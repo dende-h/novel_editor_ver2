@@ -6,7 +6,7 @@ import { draftObjectArray, drafts } from "../atoms/drafts";
 import { publishedCount } from "../atoms/publishedCount";
 import { userName } from "../atoms/userName";
 import { lastEditedTimeSort } from "./lastEditedTimeSort";
-import { publishSettingsCountSelector } from "./publishSettingsCountSelector";
+import { publishSettingsDraftsSelector } from "./publishSettingsDraftsSelector";
 
 const profileHeading = userProfileItem;
 
@@ -16,7 +16,7 @@ export const profileItem = selector({
 		const userPenName: string = get(userName);
 		const draftsArray: draftObjectArray = get(drafts);
 		const totalNumberOfDrafts: number = draftsArray.length;
-		const numberOfPublishedDrafts: number = get(publishSettingsCountSelector);
+		const numberOfPublishedDrafts: number = get(publishSettingsDraftsSelector).length;
 		const published: number = get(publishedCount);
 		const totalNumberOfCharactersInTheDrafts: number = draftsArray
 			.map((item) => {

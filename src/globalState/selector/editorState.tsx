@@ -2,6 +2,7 @@ import { selector } from "recoil";
 import { drafts } from "../atoms/drafts";
 
 export type draftObject = {
+	id: string;
 	title: string;
 	body: string;
 	userName?: string;

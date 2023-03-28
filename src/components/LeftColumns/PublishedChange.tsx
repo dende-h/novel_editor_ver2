@@ -1,4 +1,3 @@
-import { use } from "react";
 import { useRecoilValue } from "recoil";
 import { editorState } from "../../globalState/selector/editorState";
 import { useDraft } from "../../hooks/useDraft";

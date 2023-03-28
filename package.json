@@ -34,7 +34,8 @@
 		"react-icons": "^4.7.1",
 		"recoil": "^0.7.6",
 		"recoil-persist": "^4.0.0",
-		"save": "^2.4.0"
+		"save": "^2.4.0",
+		"uuid": "^9.0.0"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.20.12",

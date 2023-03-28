@@ -10,7 +10,10 @@ import {
 	CardBody,
 	HStack,
 	useColorModeValue,
-	Button
+	Button,
+	Spinner,
+	Tooltip,
+	Textarea
 } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRecoilValue } from "recoil";
@@ -20,7 +23,9 @@ import { isPublishedState } from "../globalState/atoms/isPublishedState";
 import { lastPublishedTime } from "../globalState/atoms/lastPublishedTime";
 import { userName } from "../globalState/atoms/userName";
 import { profileItem } from "../globalState/selector/profileItem";
+import { publishSettingsDraftsSelector } from "../globalState/selector/publishSettingsDraftsSelector";
 import { useNovelPublished } from "../hooks/useNovelPublished";
+import { useUserIntroductionInput } from "../hooks/useUserIntroductionInput";
 
 export default function Profile() {
 	const isClient = useRecoilValue(isClientState);
@@ -29,7 +34,9 @@ export default function Profile() {
 	const backgroundColor = useColorModeValue("gray.100", "gray.600");
 	const isPublished = useRecoilValue(isPublishedState);
 	const timeStamp = useRecoilValue(lastPublishedTime);
-	const { onPublishedNovel } = useNovelPublished();
+	const { onPublishedNovel, isLoading, stopPublishedNovel, updatePublishedNovel } = useNovelPublished();
+	const publishedDrafts = useRecoilValue(publishSettingsDraftsSelector);
+	const { onChangeTextArea, textValue } = useUserIntroductionInput();
 
 	return (
 		<>
@@ -47,7 +54,7 @@ export default function Profile() {
 						textOverflow={"ellipsis"}
 						overflow={"hidden"}
 						whiteSpace={"nowrap"}
-						fontSize={{ base: "md", md: "xl", lg: "2xl", xl: "3xl" }}
+						fontSize={{ base: "md", md: "xl", lg: "2xl" }}
 					>
 						{userPenName}の書斎
 					</Heading>
@@ -64,19 +71,19 @@ export default function Profile() {
 							return (
 								<Card
 									key={index}
-									w={{ base: "300px", md: "400px", lg: "600px" }}
+									w={{ base: "300px", md: "400px", lg: "500px" }}
 									h={"auto"}
 									backgroundColor={backgroundColor}
 								>
 									<CardBody>
 										<Flex>
-											<Heading as={"h5"} fontSize={{ base: "md", lg: "x-large" }}>
+											<Heading as={"h5"} fontSize={{ base: "md", lg: "lg" }}>
 												{item.heading}
 											</Heading>
 											<Spacer />
 											<HStack>
-												<Text fontSize={{ base: "sm", md: "md", lg: "xl" }}>{item.description}</Text>
-												<Text fontSize={{ base: "sm", md: "md", lg: "xl" }}>
+												<Text fontSize={{ base: "sm", md: "md", lg: "lg" }}>{item.description}</Text>
+												<Text fontSize={{ base: "sm", md: "md", lg: "lg" }}>
 													{index === 0
 														? undefined
 														: index === 1 || index === 2 || index === 3
@@ -91,17 +98,80 @@ export default function Profile() {
 								</Card>
 							);
 						})}
+						<Card w={{ base: "300px", md: "400px", lg: "500px" }} h={"auto"} backgroundColor={backgroundColor}>
+							<CardBody>
+								<Heading as={"h5"} fontSize={"md"}>
+									{`自己紹介(${textValue.length}/80文字)`}
+								</Heading>
+								<Tooltip label={isPublished ? "公開中は編集できません" : "クリックで編集可能です"} placement="top">
+									<Textarea
+										value={textValue}
+										onChange={onChangeTextArea}
+										placeholder={"小説公開時に一緒に公開されます"}
+										maxLength={80}
+										fontSize={"sm"}
+										border="none"
+										isDisabled={isPublished}
+									/>
+								</Tooltip>
+							</CardBody>
+						</Card>
 					</VStack>
 					<Box textAlign={"center"} marginTop={5}>
-						<Button
-							colorScheme={"teal"}
-							size={{ base: "xs", md: "sm", lg: "md" }}
-							fontSize={{ base: "xs", md: "sm", lg: "lg" }}
-							onClick={onPublishedNovel}
-						>
-							Publish The Novel
-						</Button>
-						<Text>{isPublished ? `最終更新日時：${timeStamp}` : timeStamp}</Text>
+						{isPublished ? (
+							isLoading ? (
+								<Spinner />
+							) : (
+								<Tooltip label={"公開設定を同期します"} placement="top">
+									<Button
+										colorScheme={"teal"}
+										size={{ base: "xs", md: "sm", lg: "md" }}
+										fontSize={{ base: "xs", md: "sm", lg: "lg" }}
+										onClick={updatePublishedNovel}
+										isDisabled={isLoading}
+										margin={2}
+									>
+										追加更新
+									</Button>
+								</Tooltip>
+							)
+						) : undefined}
+						{isLoading ? (
+							<Spinner />
+						) : isPublished ? (
+							<Tooltip label={"小説の公開を停止できます"} placement="top">
+								<Button
+									colorScheme={"teal"}
+									size={{ base: "xs", md: "sm", lg: "md" }}
+									fontSize={{ base: "xs", md: "sm", lg: "lg" }}
+									onClick={stopPublishedNovel}
+									isDisabled={isLoading}
+									margin={2}
+								>
+									{"公開中"}
+								</Button>
+							</Tooltip>
+						) : (
+							<Tooltip
+								label={
+									publishedDrafts.length === 0 ? "公開設定済みの小説がありません" : "公開設定済みの小説を公開できます"
+								}
+								placement="top"
+							>
+								<Button
+									colorScheme={"red"}
+									size={{ base: "xs", md: "sm", lg: "md" }}
+									fontSize={{ base: "xs", md: "sm", lg: "lg" }}
+									onClick={onPublishedNovel}
+									isDisabled={publishedDrafts.length === 0}
+									margin={2}
+								>
+									{"公開停止中"}
+								</Button>
+							</Tooltip>
+						)}
+
+						<Text>{isPublished ? `最終公開日時：${timeStamp}` : timeStamp}</Text>
 					</Box>
 				</Box>
 			) : undefined}

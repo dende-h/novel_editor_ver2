@@ -1,21 +1,22 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { drafts } from "../globalState/atoms/drafts";
 import { draftObjectArray } from "../globalState/atoms/drafts";
-import { useCallback } from "react";
+import { MutableRefObject, useCallback } from "react";
 import { isSelected } from "../globalState/atoms/isSelected";
 import { draftObject } from "../globalState/selector/editorState";
 import { isEdited } from "../globalState/atoms/isEdited";
 import { lastEditedTimeSort } from "../globalState/selector/lastEditedTimeSort";
 import { userName } from "../globalState/atoms/userName";
 import { useClipboard } from "@chakra-ui/react";
+import { v4 as uuidv4 } from "uuid";
 
 //タイトルエリアの編集時のカスタムフック
 export const useDraft = () => {
 	const setDraft = useSetRecoilState<draftObjectArray>(drafts); //下書きのオブジェクトを配列で取得
 	const draft = useRecoilValue(lastEditedTimeSort);
 	const [isSelect, setIsSelect] = useRecoilState(isSelected);
-	const setIsEdit = useSetRecoilState(isEdited);
-	const setUserName = useSetRecoilState(userName);
+	const [isEdit, setIsEdit] = useRecoilState(isEdited);
+	const [defaultUserName, setUserName] = useRecoilState(userName);
 	const { onCopy, setValue, hasCopied } = useClipboard("");
 
 	//オブジェクト内のisSelectedプロパティにより処理を行う
@@ -23,6 +24,7 @@ export const useDraft = () => {
 
 	//ノベル追加ボタンで新規の小説を追加する
 	const onAddNovel = () => {
+		const id = uuidv4();
 		const createTime = new Date();
 		setDraft(
 			draft.map((item) => {
@@ -31,9 +33,10 @@ export const useDraft = () => {
 		);
 		setIsSelect(false);
 		const newDraft: draftObject = {
+			id: id,
 			title: "",
 			body: "",
-			userName: "名無し",
+			userName: defaultUserName,
 			isSelected: true,
 			maxLength: 3800,
 			isPublished: false,
@@ -48,23 +51,36 @@ export const useDraft = () => {
 	};
 
 	const selectStateReset = () => {
-		setDraft(
-			draft.map((item) => {
-				return { ...item, isSelected: false };
-			})
-		);
-		setIsSelect(false);
-		setIsEdit(false);
+		if (isEdit) {
+			const editTime = new Date();
+			setDraft(
+				draft.map((item) => {
+					return item.isSelected
+						? { ...item, isSelected: false, lastEditedTime: editTime }
+						: { ...item, isSelected: false };
+				})
+			);
+			setIsSelect(false);
+		} else {
+			setDraft(
+				draft.map((item) => {
+					return { ...item, isSelected: false };
+				})
+			);
+			setIsSelect(false);
+			setIsEdit(false);
+		}
 	};
 
 	//下書き一覧をクリックもしくはフォーカスしてエンターキーでセレクトのオンオフ
-	const onClickOpenDraft = (selectIndex: number) => {
+	const onClickOpenDraft = async (selectIndex: number) => {
 		if (isSelect === false) {
 			setDraft(
 				draft.map((item, index) =>
 					selectIndex === index ? { ...item, isSelected: true } : { ...item, isSelected: false }
 				)
 			);
+			setIsEdit(false);
 			setIsSelect(true);
 		} else {
 			selectStateReset();
@@ -85,18 +101,16 @@ export const useDraft = () => {
 
 	//タイトルの入力を受け取ってオブジェクトのタイトルプロパティを更新
 	const onChangeTitleArea: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-		const editTime = new Date();
 		const newTitle = e.target.value;
-		setDraft(draft.map((item) => (item.isSelected ? { ...item, title: newTitle, lastEditedTime: editTime } : item)));
+		setDraft(draft.map((item) => (item.isSelected ? { ...item, title: newTitle } : item)));
 		setIsEdit(true);
 	};
 
 	//本文の入力を受け取ってオブジェクトのボディプロパティを更新
 	const onChangeTextArea: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
-		const editTime = new Date();
 		const newBody = e.target.value;
 		setValue(newBody); //textコピー用
-		setDraft(draft.map((item) => (item.isSelected ? { ...item, body: newBody, lastEditedTime: editTime } : item)));
+		setDraft(draft.map((item) => (item.isSelected ? { ...item, body: newBody } : item)));
 		setIsEdit(true);
 	};
 
