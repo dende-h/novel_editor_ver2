@@ -14,6 +14,7 @@ export const PublishedChange = () => {
 			icon={selectedDraft ? selectedDraft.isPublished ? <MdPublic /> : <MdPublicOff /> : <MdPublicOff />}
 			colorScheme={selectedDraft ? (selectedDraft.isPublished ? "green" : "gray") : "gray"}
 			focusOutline={"none"}
+			isDisabled={selectedDraft && selectedDraft.lengthOver}
 			onClick={(e) => {
 				onPublishedChange();
 				e.stopPropagation(); //親要素へのバブリングを停止

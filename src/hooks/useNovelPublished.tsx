@@ -34,7 +34,6 @@ export const useNovelPublished = () => {
 			const findId = data.findIndex((fetchData) => fetchData.id === item.id);
 			return findId !== -1 ? data[findId] : item;
 		});
-		console.log(newData);
 		setFetchDraftsData(newData); // 更新が完了するまで待つ
 		return newData;
 	};

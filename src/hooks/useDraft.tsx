@@ -1,7 +1,7 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { drafts } from "../globalState/atoms/drafts";
 import { draftObjectArray } from "../globalState/atoms/drafts";
-import { MutableRefObject, useCallback } from "react";
+import { useCallback } from "react";
 import { isSelected } from "../globalState/atoms/isSelected";
 import { draftObject } from "../globalState/selector/editorState";
 import { isEdited } from "../globalState/atoms/isEdited";
@@ -9,7 +9,7 @@ import { lastEditedTimeSort } from "../globalState/selector/lastEditedTimeSort";
 import { userName } from "../globalState/atoms/userName";
 import { useClipboard } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
-import { publishedDraftsData } from "../globalState/atoms/publishedDraftsData";
+import { draftData, publishedDraftsData } from "../globalState/atoms/publishedDraftsData";
 
 //タイトルエリアの編集時のカスタムフック
 export const useDraft = () => {
@@ -44,6 +44,7 @@ export const useDraft = () => {
 			body: "",
 			userName: defaultUserName,
 			isSelected: true,
+			lengthOver: false,
 			maxLength: 3800,
 			isPublished: false,
 			tag: [],
@@ -124,7 +125,12 @@ export const useDraft = () => {
 	//draftObjectの削除処理
 	const deleteAction = useCallback(() => {
 		const newDraft = draft.filter((item) => item.isSelected === false);
+		const newFetchDraftsData: draftData = fetchDraftsData.filter((item) => {
+			const findId = newDraft.findIndex((draft) => draft.id === item.id);
+			return findId !== -1;
+		});
 		setDraft(newDraft);
+		setFetchDraftsData(newFetchDraftsData);
 		setIsSelect(false);
 		setIsEdit(false);
 	}, []);
@@ -142,6 +148,18 @@ export const useDraft = () => {
 		);
 	};
 
+	const onLengthOver = (lengthOver: boolean) => {
+		setDraft(
+			draft.map((item) => {
+				return item.isSelected
+					? lengthOver
+						? { ...item, isPublished: false, lengthOver: true }
+						: { ...item, lengthOver: false }
+					: item;
+			})
+		);
+	};
+
 	return {
 		deleteAction,
 		onChangeTitleArea,
@@ -154,6 +172,7 @@ export const useDraft = () => {
 		onSetUserName,
 		onCopy,
 		hasCopied,
-		onPublishedChange
+		onPublishedChange,
+		onLengthOver
 	};
 };

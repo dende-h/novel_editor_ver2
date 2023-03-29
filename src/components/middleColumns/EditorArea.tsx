@@ -10,7 +10,7 @@ import { useEnterKeyEvent } from "../../hooks/useEnterKeyEvent";
 import { SelectMaxLengthSlider } from "./SelectMaxLengthSlider";
 
 export const EditorArea = memo(() => {
-	const { onChangeTitleArea, onBlurFocusTitleInput, onChangeTextArea, onCopy, hasCopied } = useDraft(); //Draftオブジェクトの操作hooks
+	const { onChangeTitleArea, onBlurFocusTitleInput, onChangeTextArea, onCopy, hasCopied, onLengthOver } = useDraft(); //Draftオブジェクトの操作hooks
 	const { focus, onEnterKeyFocusEvent, setConposing } = useEnterKeyEvent();
 	const { charCount, calcCharCount, isCharCountOverflow } = useCalcCharCount(); //文字数計算のロジック部
 	const selectedDraft: draftObject = useRecoilValue(editorState);
@@ -23,6 +23,11 @@ export const EditorArea = memo(() => {
 		calcCharCount(selectedDraft ? selectedDraft.body : "", selectedDraft ? selectedDraft.maxLength : 0);
 		setBodyMaxLength(selectedDraft ? selectedDraft.maxLength : 0);
 	}, [selectedDraft]);
+
+	useEffect(() => {
+		onLengthOver(isCharCountOverflow);
+		console.log(isCharCountOverflow);
+	}, [charCount]);
 
 	return (
 		<>

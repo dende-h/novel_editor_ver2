@@ -122,7 +122,8 @@ export const LeftColumnArea = memo(() => {
 									w={"300px"}
 									marginTop={3}
 									borderRadius={5}
-									border={"none"}
+									border={item.lengthOver ? "2px" : "none"}
+									borderColor="red"
 									css={cssTranstionPropaty}
 									transitionDuration="0.8s"
 									transitionTimingFunction={"ease-out"}
@@ -163,7 +164,7 @@ export const LeftColumnArea = memo(() => {
 												</Text>
 											</HStack>
 										)}
-										<VStack position={"absolute"} top={5} left={1}>
+										<VStack position={"absolute"} top={5} left={1} spacing={0}>
 											<Text fontSize={"xs"} fontWeight={"bold"} fontStyle={"italic"}>
 												{item.maxLength <= veryShortNovel
 													? "《 掌編 》"

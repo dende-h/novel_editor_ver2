@@ -7,6 +7,7 @@ export type draftObject = {
 	body: string;
 	userName?: string;
 	isSelected: boolean;
+	lengthOver: boolean;
 	maxLength: number;
 	isPublished?: boolean;
 	tag?: string[];
