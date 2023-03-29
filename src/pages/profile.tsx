@@ -117,11 +117,13 @@ export default function Profile() {
 							</CardBody>
 						</Card>
 					</VStack>
-					<Box textAlign={"center"} marginTop={5}>
-						{isPublished ? (
-							isLoading ? (
-								<Spinner />
-							) : (
+					{isLoading ? (
+						<Box textAlign={"center"} marginTop={5}>
+							<Spinner />
+						</Box>
+					) : (
+						<Box textAlign={"center"} marginTop={5}>
+							{isPublished ? (
 								<Tooltip label={"公開設定を同期します"} placement="top">
 									<Button
 										colorScheme={"teal"}
@@ -134,45 +136,43 @@ export default function Profile() {
 										追加更新
 									</Button>
 								</Tooltip>
-							)
-						) : undefined}
-						{isLoading ? (
-							<Spinner />
-						) : isPublished ? (
-							<Tooltip label={"小説の公開を停止できます"} placement="top">
-								<Button
-									colorScheme={"teal"}
-									size={{ base: "xs", md: "sm", lg: "md" }}
-									fontSize={{ base: "xs", md: "sm", lg: "lg" }}
-									onClick={stopPublishedNovel}
-									isDisabled={isLoading}
-									margin={2}
+							) : undefined}
+							{isPublished ? (
+								<Tooltip label={"小説の公開を停止できます"} placement="top">
+									<Button
+										colorScheme={"teal"}
+										size={{ base: "xs", md: "sm", lg: "md" }}
+										fontSize={{ base: "xs", md: "sm", lg: "lg" }}
+										onClick={stopPublishedNovel}
+										isDisabled={isLoading}
+										margin={2}
+									>
+										{"公開中"}
+									</Button>
+								</Tooltip>
+							) : (
+								<Tooltip
+									label={
+										publishedDrafts.length === 0 ? "公開設定済みの小説がありません" : "公開設定済みの小説を公開できます"
+									}
+									placement="top"
 								>
-									{"公開中"}
-								</Button>
-							</Tooltip>
-						) : (
-							<Tooltip
-								label={
-									publishedDrafts.length === 0 ? "公開設定済みの小説がありません" : "公開設定済みの小説を公開できます"
-								}
-								placement="top"
-							>
-								<Button
-									colorScheme={"red"}
-									size={{ base: "xs", md: "sm", lg: "md" }}
-									fontSize={{ base: "xs", md: "sm", lg: "lg" }}
-									onClick={onPublishedNovel}
-									isDisabled={publishedDrafts.length === 0}
-									margin={2}
-								>
-									{"公開停止中"}
-								</Button>
-							</Tooltip>
-						)}
+									<Button
+										colorScheme={"red"}
+										size={{ base: "xs", md: "sm", lg: "md" }}
+										fontSize={{ base: "xs", md: "sm", lg: "lg" }}
+										onClick={onPublishedNovel}
+										isDisabled={publishedDrafts.length === 0 || userPenName === "Ghost Writer"}
+										margin={2}
+									>
+										{"公開停止中"}
+									</Button>
+								</Tooltip>
+							)}
 
-						<Text>{isPublished ? `最終公開日時：${timeStamp}` : timeStamp}</Text>
-					</Box>
+							<Text>{isPublished ? `最終公開日時：${timeStamp}` : timeStamp}</Text>
+						</Box>
+					)}
 				</Box>
 			) : undefined}
 		</>

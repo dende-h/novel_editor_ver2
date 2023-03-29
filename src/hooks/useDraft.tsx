@@ -9,6 +9,7 @@ import { lastEditedTimeSort } from "../globalState/selector/lastEditedTimeSort";
 import { userName } from "../globalState/atoms/userName";
 import { useClipboard } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
+import { publishedDraftsData } from "../globalState/atoms/publishedDraftsData";
 
 //タイトルエリアの編集時のカスタムフック
 export const useDraft = () => {
@@ -18,6 +19,7 @@ export const useDraft = () => {
 	const [isEdit, setIsEdit] = useRecoilState(isEdited);
 	const [defaultUserName, setUserName] = useRecoilState(userName);
 	const { onCopy, setValue, hasCopied } = useClipboard("");
+	const [fetchDraftsData, setFetchDraftsData] = useRecoilState(publishedDraftsData);
 
 	//オブジェクト内のisSelectedプロパティにより処理を行う
 	//isSelectedプロパティは配列内でtrueは常に一つであり重複しない。重複する場合想定する動作をしないため修正必要
@@ -32,6 +34,10 @@ export const useDraft = () => {
 			})
 		);
 		setIsSelect(false);
+		const setId = {
+			id: id,
+			good_mark: 0
+		};
 		const newDraft: draftObject = {
 			id: id,
 			title: "",
@@ -47,6 +53,7 @@ export const useDraft = () => {
 			return { ...item, isSelected: false };
 		});
 		setDraft([newDraft, ...oldDraft]);
+		setFetchDraftsData([setId, ...fetchDraftsData]);
 		setIsSelect(true);
 	};
 
