@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { memo, FC } from "react";
 import { LeftColumnArea } from "../LeftColumns/LeftColumnArea";
 import { EditorArea } from "../middleColumns/EditorArea";
-import ProfileArea from "../profilePage/profileArea";
+import ProfileArea from "../profilePage/ProfileArea";
 
 const TwoColumnTemplate: FC = memo(() => {
 	const router = useRouter();
