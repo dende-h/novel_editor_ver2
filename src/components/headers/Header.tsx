@@ -50,8 +50,9 @@ export const Header = memo(() => {
 					<ColorSwitchButton aria-label={"darkTheme"} boxSize={8} borderRadius={"full"} />
 
 					{/* 特定のパス以外はドロワーメニューを表示させない */}
-					{router.pathname === "/" ||
-						(router.pathname === "/profile" && <DrawerLeftArea colorScheme={isSelect ? "orange" : "gray"} />)}
+					{(router.pathname === "/" || router.pathname === "/profile") && (
+						<DrawerLeftArea colorScheme={isSelect ? "orange" : "gray"} />
+					)}
 				</HStack>
 			</Center>
 		</>
