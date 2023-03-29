@@ -8,10 +8,11 @@ import { DrawerLeftArea } from "../LeftColumns/DrawerLeftArea";
 import { ColorSwitchButton } from "./ColorSwitchButton";
 import { HeaderMenu } from "./HeaderMenu";
 
+//ヘッダーコンポーネント
 export const Header = memo(() => {
-	const headerBgColor = useColorModeValue("gray.300", "gray.700");
-	const isSelect = useRecoilValue(isSelected);
-	const router = useRouter();
+	const headerBgColor = useColorModeValue("gray.300", "gray.700"); //カラーモードごと背景色
+	const isSelect = useRecoilValue(isSelected); //小説がセレクト状態かどうかのフラグ
+	const router = useRouter(); //path判定用にuseRouterを利用
 
 	return (
 		<>
@@ -47,7 +48,10 @@ export const Header = memo(() => {
 					display={{ base: "block", lg: "none" }}
 				>
 					<ColorSwitchButton aria-label={"darkTheme"} boxSize={8} borderRadius={"full"} />
-					{router.pathname === "/" && <DrawerLeftArea colorScheme={isSelect ? "orange" : "gray"} />}
+
+					{/* 特定のパス以外はドロワーメニューを表示させない */}
+					{router.pathname === "/" ||
+						(router.pathname === "/profile" && <DrawerLeftArea colorScheme={isSelect ? "orange" : "gray"} />)}
 				</HStack>
 			</Center>
 		</>
