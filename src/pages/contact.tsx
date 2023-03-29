@@ -153,3 +153,11 @@ export default function Contact() {
 		</>
 	);
 }
+
+export const getStaticProps = async () => {
+	return {
+		props: {
+			data: "This is static data"
+		}
+	};
+};

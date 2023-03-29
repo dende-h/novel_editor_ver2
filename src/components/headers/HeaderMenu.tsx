@@ -40,6 +40,7 @@ export const HeaderMenu = () => {
 						<MenuItem as={"a"} href={"/commingsoon"} bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
 							Novel Site
 						</MenuItem>
+						{/* 外部サイトへのリンク */}
 						<MenuItem
 							as={"a"}
 							href={"https://notion-blog-nextjs-nine.vercel.app/"}
