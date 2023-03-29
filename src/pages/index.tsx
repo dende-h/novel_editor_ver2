@@ -20,4 +20,12 @@ const Index: NextPage = () => {
 	);
 };
 
+export const getStaticProps = async () => {
+	return {
+		props: {
+			data: "This is static data"
+		}
+	};
+};
+
 export default Index;
