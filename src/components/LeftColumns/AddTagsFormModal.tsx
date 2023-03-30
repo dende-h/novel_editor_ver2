@@ -29,6 +29,7 @@ import { useInput } from "../../hooks/useInput";
 import { useToastTemplate } from "../../hooks/useToastTemplate";
 import { PrimaryIconButton } from "../templates/PrimaryIconButton";
 
+//タグを追加するためのフォームモーダル
 export const AddTagsFormModal = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const displayDraft = useRecoilValue(editorState);
@@ -49,6 +50,7 @@ export const AddTagsFormModal = () => {
 		setTags(displayDraft.tag);
 	}, [isOpen]);
 
+	//フォーム入力でエンターキーを押したあとの動作
 	const onEnterKeyUp = () => {
 		if (value.length === 0) {
 			praimaryErrorToast("入力がありません");

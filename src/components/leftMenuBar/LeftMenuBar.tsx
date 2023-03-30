@@ -6,6 +6,7 @@ import { IoLibrarySharp } from "react-icons/io5";
 import { HiLibrary } from "react-icons/hi";
 import { ColorSwitchButton } from "../headers/ColorSwitchButton";
 import Link from "next/link";
+import { TimerPopover } from "../Timer/TimerPopover";
 
 export const LeftMenuBar = memo(() => {
 	// eslint-disable-next-line react/jsx-key
@@ -58,6 +59,9 @@ export const LeftMenuBar = memo(() => {
 					variant="ghost"
 					colorScheme={"teal"}
 				/>
+				<Tooltip label={"ポモドーロタイマー"} placement={"right-end"}>
+					<TimerPopover />
+				</Tooltip>
 			</VStack>
 		</>
 	);
