@@ -26,7 +26,6 @@ export const EditorArea = memo(() => {
 
 	useEffect(() => {
 		onLengthOver(isCharCountOverflow);
-		console.log(isCharCountOverflow);
 	}, [charCount]);
 
 	return (
