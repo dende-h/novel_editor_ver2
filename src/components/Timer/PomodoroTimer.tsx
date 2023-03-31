@@ -15,7 +15,7 @@ const PomodoroTimer = () => {
 	});
 	const [alarmState, setAlarmState] = useState({
 		isOn: false, // アラームが鳴っているかどうかを表すフラグ
-		audio: new Audio("https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg") // アラーム音を表すAudioオブジェクト
+		audio: new Audio("/fromNewWorld.mp3") // アラーム音を表すAudioオブジェクト
 	});
 
 	const startTimer = () => {
