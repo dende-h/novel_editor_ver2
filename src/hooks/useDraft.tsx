@@ -45,10 +45,13 @@ export const useDraft = () => {
 			userName: defaultUserName,
 			isSelected: true,
 			lengthOver: false,
+			isImageUpload: false,
 			maxLength: 3800,
 			isPublished: false,
 			tag: [],
-			lastEditedTime: createTime
+			lastEditedTime: createTime,
+			imageUrl: "",
+			imageName: ""
 		};
 		const oldDraft = [...draft].map((item) => {
 			return { ...item, isSelected: false };
@@ -160,6 +163,18 @@ export const useDraft = () => {
 		);
 	};
 
+	const onAddImage = (url: string, name: string) => {
+		setDraft(
+			draft.map((item) => (item.isSelected ? { ...item, isImageUpload: true, imageUrl: url, imageName: name } : item))
+		);
+	};
+
+	const onRemoveImage = () => {
+		setDraft(
+			draft.map((item) => (item.isSelected ? { ...item, isImageUpload: false, imageUrl: "", imageName: "" } : item))
+		);
+	};
+
 	return {
 		deleteAction,
 		onChangeTitleArea,
@@ -173,6 +188,8 @@ export const useDraft = () => {
 		onCopy,
 		hasCopied,
 		onPublishedChange,
-		onLengthOver
+		onLengthOver,
+		onRemoveImage,
+		onAddImage
 	};
 };
