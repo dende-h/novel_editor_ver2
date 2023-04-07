@@ -64,6 +64,7 @@ export const useNovelPublished = () => {
 				tag3: item.tag[2],
 				tag4: item.tag[3],
 				user_name: item.userName,
+				image_url: item.imageUrl,
 				good_mark: goodMark ? goodMark : 0
 			};
 		});
