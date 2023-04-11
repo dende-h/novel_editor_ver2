@@ -26,6 +26,7 @@ import { publishSettingsDraftsSelector } from "../../globalState/selector/publis
 import { useNovelPublished } from "../../hooks/useNovelPublished";
 import { useUserIntroductionInput } from "../../hooks/useUserIntroductionInput";
 import { ChangeUserNameModal } from "./ChangeUserNameModal";
+import { UploadProfileImageModal } from "./UploadProfileImageModal";
 
 export default function ProfileArea() {
 	const isClient = useRecoilValue(isClientState);
@@ -63,7 +64,10 @@ export default function ProfileArea() {
 					<Divider borderWidth="2px" w={"auto"} />
 					{isPublished ? undefined : (
 						<Box textAlign={"end"} marginRight={"10%"}>
-							<ChangeUserNameModal />
+							<HStack>
+								<ChangeUserNameModal />
+								<UploadProfileImageModal />
+							</HStack>
 						</Box>
 					)}
 					<VStack padding={3} h={"auto"}>

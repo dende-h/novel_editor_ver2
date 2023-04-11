@@ -11,6 +11,7 @@ import { useState } from "react";
 import { userIntroduction } from "../globalState/atoms/userIntroduction";
 import { draftData, publishedDraftsData } from "../globalState/atoms/publishedDraftsData";
 import { SupabaseClient } from "@supabase/supabase-js";
+import { userImageUrl } from "../globalState/atoms/userImageUrl";
 
 export const useNovelPublished = () => {
 	const setTimeStamp = useSetRecoilState<string>(lastPublishedTime);
@@ -18,6 +19,7 @@ export const useNovelPublished = () => {
 	const setIsPublished = useSetRecoilState<boolean>(isPublishedState);
 	const penName = useRecoilValue<string>(userName);
 	const introduction = useRecoilValue<string>(userIntroduction);
+	const userImage = useRecoilValue<{ url: string; fileName: string }>(userImageUrl);
 	const toast = useToastTemplate();
 	const setPublished = useSetRecoilState<number>(publishedCount);
 	const [isLoading, setIsLoading] = useState(false);
@@ -76,7 +78,9 @@ export const useNovelPublished = () => {
 	};
 
 	const uploadUserName = async (userName: string) => {
-		const { error } = await supabase.from("user").insert({ user_name: userName, Introduction: introduction });
+		const { error } = await supabase
+			.from("user")
+			.insert({ user_name: userName, Introduction: introduction, image_url: userImage.url });
 		if (error) {
 			error.code === "23505" && toast.praimaryErrorToast("そのペンネームは既に利用されています");
 			return Promise.reject(error);

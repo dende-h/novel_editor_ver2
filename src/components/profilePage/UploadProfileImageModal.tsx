@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { RiImageAddFill } from "react-icons/ri";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { editorState } from "../../globalState/selector/editorState";
 import { useToastTemplate } from "../../hooks/useToastTemplate";
 import { PrimaryIconButton } from "../templates/PrimaryIconButton";
@@ -25,26 +25,24 @@ import Dropzone, { FileWithPath } from "react-dropzone";
 import { supabase } from "../../../lib/supabaseClient";
 import Image from "next/image";
 import { useDraft } from "../../hooks/useDraft";
+import { userImageUrl } from "../../globalState/atoms/userImageUrl";
 
 //画像を追加するためのフォームモーダル
-export const UploadImageModal = () => {
+export const UploadProfileImageModal = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const displayDraft = useRecoilValue(editorState);
 	const [uploading, setUploading] = useState(false);
 	const [uploadProgress, setUploadProgress] = useState(0);
 	const toast = useToastTemplate();
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	const buttonHoverBgColor = useColorModeValue("gray.300", "gray.500");
-	const { onAddImage, onRemoveImage } = useDraft();
+	const [profileImage, setProfileImage] = useRecoilState<{ url: string; fileName: string }>(userImageUrl);
 
 	const uploadFile = async (fileName: string, fileExt: string, fileData: ArrayBuffer) => {
-		const { data, error } = await supabase.storage
-			.from("images")
-			.upload(`images/novelThumbnail/${fileName}`, fileData, {
-				cacheControl: "public, max-age=31536000", // optional cache control
-				upsert: false, // optional upsert flag (if updating existing file)
-				contentType: `image/${fileExt}` // optional content type
-			});
+		const { data, error } = await supabase.storage.from("images").upload(`images/profileImage/${fileName}`, fileData, {
+			cacheControl: "public, max-age=31536000", // optional cache control
+			upsert: false, // optional upsert flag (if updating existing file)
+			contentType: `image/${fileExt}` // optional content type
+		});
 		if (error) {
 			toast.praimaryErrorToast(error.message);
 			return Promise.reject(error);
@@ -52,7 +50,7 @@ export const UploadImageModal = () => {
 	};
 
 	const removeFile = async (fileName: string) => {
-		const { error } = await supabase.storage.from("images").remove([`images/novelThumbnail/${fileName}`]);
+		const { error } = await supabase.storage.from("images").remove([`images/profileImage/${fileName}`]);
 		if (error) {
 			toast.praimaryErrorToast(error.message);
 			return Promise.reject(error);
@@ -60,7 +58,7 @@ export const UploadImageModal = () => {
 	};
 
 	const getPublicUrl = async (fileName: string) => {
-		const url = supabase.storage.from("images").getPublicUrl(`images/novelThumbnail/${fileName}`);
+		const url = supabase.storage.from("images").getPublicUrl(`images/profileImage/${fileName}`);
 		return url;
 	};
 
@@ -75,12 +73,12 @@ export const UploadImageModal = () => {
 
 			try {
 				const publicUrl = (await getPublicUrl(fileName)).data.publicUrl;
-				onAddImage(publicUrl, fileName);
+				setProfileImage({ url: publicUrl, fileName: fileName });
 				setUploading(false);
 				setUploadProgress(0);
 			} catch (error) {
 				await removeFile(fileName);
-				onRemoveImage();
+				setProfileImage({ url: "", fileName: "" });
 			}
 		} catch (error) {
 			setUploading(false);
@@ -89,11 +87,11 @@ export const UploadImageModal = () => {
 	};
 
 	const handleRemove = async () => {
-		const fileName = displayDraft.imageName;
+		const fileName = profileImage.fileName;
 
 		removeFile(fileName);
 
-		onRemoveImage();
+		setProfileImage({ url: "", fileName: "" });
 	};
 
 	const handleDrop = (acceptedFiles: FileWithPath[]) => {
@@ -118,10 +116,10 @@ export const UploadImageModal = () => {
 				<Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose} size={"3xl"}>
 					<ModalOverlay />
 					<ModalContent backgroundColor={backgroundColor}>
-						<ModalHeader>サムネイル画像の追加</ModalHeader>
+						<ModalHeader>プロフィール画像の追加</ModalHeader>
 						<ModalCloseButton />
 						<ModalBody pb={6}>
-							{displayDraft?.isImageUpload ? (
+							{profileImage.url !== "" ? (
 								<Center>
 									<Box
 										w="200px"
@@ -132,7 +130,7 @@ export const UploadImageModal = () => {
 										position={"relative"}
 									>
 										<Image
-											src={displayDraft?.imageUrl}
+											src={profileImage.url}
 											alt="image description"
 											object-fit="contain"
 											width={200}
@@ -175,7 +173,7 @@ export const UploadImageModal = () => {
 							)}
 						</ModalBody>
 						<ModalFooter>
-							{displayDraft?.isImageUpload && (
+							{profileImage.url !== "" && (
 								<Button onClick={handleRemove} variant={"ghost"} _hover={{ bg: buttonHoverBgColor }}>
 									Remove
 								</Button>

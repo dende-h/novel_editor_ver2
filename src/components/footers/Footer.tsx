@@ -9,7 +9,7 @@ export const Footer = memo(() => {
 	return (
 		<>
 			<Box width={"full"} bgColor={footerBgColor} h={"25px"}>
-				<Center>©2022 dende-h</Center>
+				<Center>©2023 dende-h</Center>
 			</Box>
 		</>
 	);
