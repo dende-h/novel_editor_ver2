@@ -44,12 +44,17 @@ export const HeaderMenu = () => {
 								Draft Preview
 							</MenuItem>
 						</Link>
-						<Link href={"/commingsoon"} passHref>
-							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								Novel Site
-							</MenuItem>
-						</Link>
 						{/* 外部サイトへのリンク */}
+						<MenuItem
+							as={"a"}
+							target="_blank"
+							rel="noopener noreferrer"
+							bgColor={"gray.800"}
+							_hover={{ bgColor: headerMenuHoverColor }}
+							href={"https://next-novel-site.vercel.app/"}
+						>
+							ShortNovelVillage
+						</MenuItem>
 
 						<MenuItem
 							as={"a"}
@@ -57,6 +62,7 @@ export const HeaderMenu = () => {
 							rel="noopener noreferrer"
 							bgColor={"gray.800"}
 							_hover={{ bgColor: headerMenuHoverColor }}
+							href={"https://notion-blog-nextjs-nine.vercel.app/"}
 						>
 							Blog
 						</MenuItem>

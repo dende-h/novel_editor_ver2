@@ -15,11 +15,18 @@ export const LeftMenuBar = memo(() => {
 		"小説書くところ",
 		"実績をみるところ",
 		"書いた小説を読むところ",
-		"commingsoon",
+		"みんなの書いた小説を読むところ",
 		"管理人のブログ",
 		"お問い合わせ"
 	];
-	const path = ["/", "/profile", "/drafts", "/commingsoon", "https://notion-blog-nextjs-nine.vercel.app/", "/contact"];
+	const path = [
+		"/",
+		"/profile",
+		"/drafts",
+		"https://next-novel-site.vercel.app/",
+		"https://notion-blog-nextjs-nine.vercel.app/",
+		"/contact"
+	];
 
 	return (
 		<>
