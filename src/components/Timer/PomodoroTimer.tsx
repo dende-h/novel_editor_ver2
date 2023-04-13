@@ -1,22 +1,35 @@
 import React, { useState, useEffect } from "react";
-import { Box, Button, Heading, IconButton, Text, Tooltip, useColorModeValue, useToast } from "@chakra-ui/react";
+import { Box, Heading, IconButton, Text, Tooltip, useColorModeValue, useToast } from "@chakra-ui/react";
 import { GiSoundOn, GiSoundOff } from "react-icons/gi";
+import { BiBellOff } from "react-icons/bi";
 import { RxReset } from "react-icons/rx";
 import { BsPauseCircleFill, BsFillPlayCircleFill } from "react-icons/bs";
 import { useToastTemplate } from "../../hooks/useToastTemplate";
 
 const PomodoroTimer = () => {
+	// 画面にToastを表示するための関数
+	const { praimaryInfoToast } = useToastTemplate();
+	//タイマーの状態を表す
 	const [timerState, setTimerState] = useState({
 		isRunning: false, // タイマーが実行中かどうかを表すフラグ
 		isWorking: true, // 作業中かどうかを表すフラグ
-		workTime: 25 * 60, // 作業時間（秒数）
-		breakTime: 5 * 60, // 休憩時間（秒数）
-		timeLeft: 25 * 60 // 残り時間（秒数）
+		workTime: 1 * 60, // 作業時間（秒数）
+		breakTime: 1 * 60, // 休憩時間（秒数）
+		timeLeft: 1 * 60 // 残り時間（秒数）
 	});
 	const [alarmState, setAlarmState] = useState({
-		isOn: false, // アラームが鳴っているかどうかを表すフラグ
 		audio: new Audio("/fromNewWorld.mp3") // アラーム音を表すAudioオブジェクト
 	});
+
+	const [isAlarmOn, setIsAlarmOn] = useState(true);
+
+	const showToast = (message: string) => {
+		praimaryInfoToast(message);
+	};
+
+	const showEndMessage = () => {
+		showToast(timerState.isWorking ? "Work Complete!" : "Break Complete!");
+	};
 
 	const startTimer = () => {
 		setTimerState((prevState) => ({ ...prevState, isRunning: true }));
@@ -26,9 +39,17 @@ const PomodoroTimer = () => {
 		setTimerState((prevState) => ({ ...prevState, isRunning: false }));
 	};
 
+	const stopAlarm = () => {
+		setAlarmState((prevState) => {
+			prevState.audio.pause();
+			prevState.audio.currentTime = 0;
+			showToast("Alarm is stop");
+			return prevState;
+		});
+	};
+
 	useEffect(() => {
 		let interval = null;
-		// タイマーが実行中の場合、1秒ごとにtimeLeftを1減らす
 		if (timerState.isRunning) {
 			interval = setInterval(() => {
 				setTimerState((prevState) => ({
@@ -36,11 +57,11 @@ const PomodoroTimer = () => {
 					timeLeft: prevState.timeLeft - 1
 				}));
 			}, 1000);
-		} else {
-			clearInterval(interval); // タイマーが実行されていない場合はintervalをクリアする
 		}
-
-		return () => clearInterval(interval); // cleanup関数でintervalをクリアする
+		// cleanup関数でintervalをクリアする
+		return () => {
+			clearInterval(interval);
+		};
 	}, [timerState.isRunning]);
 
 	useEffect(() => {
@@ -54,14 +75,15 @@ const PomodoroTimer = () => {
 			}));
 			setAlarmState((prevState) => {
 				// アラームがONの場合、音声を再生する
-				if (prevState.isOn) {
+				if (isAlarmOn) {
 					prevState.audio.play();
+				} else {
+					showEndMessage();
 				}
 				return prevState;
 			});
-			showEndMessage();
 		}
-	}, [timerState.timeLeft]);
+	}, [timerState.timeLeft, isAlarmOn]);
 
 	// タイマーの状態を初期値に戻す
 	const resetTimer = () => {
@@ -71,46 +93,34 @@ const PomodoroTimer = () => {
 			isWorking: true,
 			timeLeft: prevState.workTime
 		}));
-		// アラームがONの場合、音声を停止し、再生位置を最初に戻す
+		// 音声を停止し、再生位置を最初に戻す
 		setAlarmState((prevState) => {
-			if (prevState.isOn) {
-				prevState.audio.pause();
-				prevState.audio.currentTime = 0;
-			}
+			prevState.audio.pause();
+			prevState.audio.currentTime = 0;
+
 			return prevState;
 		});
 	};
 
 	const toggleAlarm = () => {
-		// AlarmをONにする場合、prevStateのaudioを再生し、toastでメッセージを表示する
-		setAlarmState((prevState) => {
-			if (!prevState.isOn) {
-				prevState.audio.loop = true;
-				prevState.audio.play();
-				showToast("Alarm is on");
-				// AlarmをOFFにする場合、prevStateのaudioを停止し、toastでメッセージを表示する
-			} else {
-				prevState.audio.pause();
-				prevState.audio.currentTime = 0;
+		// AlarmをONにする場合、toastでメッセージを表示する
+		setIsAlarmOn((prevState) => {
+			if (prevState) {
 				showToast("Alarm is off");
+
+				alarmState.audio.pause();
+				alarmState.audio.currentTime = 0;
+			} else {
+				showToast("Alarm is on");
+				alarmState.audio.pause();
+				alarmState.audio.currentTime = 0;
 			}
-			// Alarmの状態を反転させる
-			return { ...prevState, isOn: !prevState.isOn };
+			return !prevState;
 		});
-	};
-	// 画面にToastを表示するための関数
-	const { praimaryInfoToast } = useToastTemplate();
-	const showToast = (message: string) => {
-		praimaryInfoToast(message);
-	};
-	const showEndMessage = () => {
-		if (!alarmState.isOn) {
-			showToast(timerState.isWorking ? "Work Complete!" : "Break Complete!");
-		}
 	};
 
 	// timerStateから必要な値を取得する
-	const { isRunning, isWorking, timeLeft } = timerState;
+	const { isWorking, timeLeft } = timerState;
 	// 残り時間を分単位と秒単位に変換する
 	const minutes = Math.floor(timeLeft / 60);
 	const seconds = timeLeft - minutes * 60;
@@ -162,17 +172,30 @@ const PomodoroTimer = () => {
 						onClick={resetTimer}
 					/>
 				</Tooltip>
-				<Tooltip label={alarmState.isOn ? "現在アラームがON状態" : "現在アラームがOff状態"} placement={"right-end"}>
+				<Tooltip label={isAlarmOn ? "現在アラームがON状態" : "現在アラームがOff状態"} placement={"right-end"}>
 					<IconButton
-						aria-label="alarm"
-						icon={alarmState.isOn ? <GiSoundOn /> : <GiSoundOff />}
+						aria-label="togglealarm"
+						icon={isAlarmOn ? <GiSoundOn /> : <GiSoundOff />}
 						variant="ghost"
-						colorScheme={alarmState.isOn ? "telegram" : "gray"}
+						colorScheme={isAlarmOn ? "telegram" : "gray"}
 						fontSize="24px"
 						boxSize={10}
 						onClick={toggleAlarm}
 					/>
 				</Tooltip>
+				<Box display={isAlarmOn ? "block" : "none"}>
+					<Tooltip label={"アラームを止める"} placement={"right-end"}>
+						<IconButton
+							aria-label="alarmstop"
+							icon={<BiBellOff />}
+							variant="ghost"
+							colorScheme={"red"}
+							fontSize="24px"
+							boxSize={10}
+							onClick={stopAlarm}
+						/>
+					</Tooltip>
+				</Box>
 			</Box>
 		</Box>
 	);
