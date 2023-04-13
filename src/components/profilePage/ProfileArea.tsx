@@ -144,14 +144,14 @@ export default function ProfileArea() {
 							{isPublished ? (
 								<Tooltip label={"小説の公開を停止できます"} placement="top">
 									<Button
-										colorScheme={"teal"}
+										colorScheme={"red"}
 										size={{ base: "xs", md: "sm", lg: "md" }}
 										fontSize={{ base: "xs", md: "sm", lg: "lg" }}
 										onClick={stopPublishedNovel}
 										isDisabled={isLoading}
 										margin={2}
 									>
-										{"公開中"}
+										{"公開を停止"}
 									</Button>
 								</Tooltip>
 							) : (
@@ -162,14 +162,14 @@ export default function ProfileArea() {
 									placement="top"
 								>
 									<Button
-										colorScheme={"red"}
+										colorScheme={"teal"}
 										size={{ base: "xs", md: "sm", lg: "md" }}
 										fontSize={{ base: "xs", md: "sm", lg: "lg" }}
 										onClick={onPublishedNovel}
 										isDisabled={publishedDrafts.length === 0 || userPenName === "Ghost Writer"}
 										margin={2}
 									>
-										{"公開停止中"}
+										{"小説を投稿"}
 									</Button>
 								</Tooltip>
 							)}
