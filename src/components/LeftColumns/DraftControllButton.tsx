@@ -4,6 +4,7 @@ import { AddTagsFormModal } from "./AddTagsFormModal";
 import { AlertDialogDelete } from "./AlertDialogDelete";
 import { DownloadTXT } from "./DownloadTXT";
 import { PublishedChange } from "./PublishedChange";
+import { UploadImageModal } from "./UploadImageModal";
 
 type Props = { isAccordionOpen: boolean };
 
@@ -17,6 +18,7 @@ export const DraftControllButton = memo((props: Props) => {
 				<DownloadTXT />
 				<AlertDialogDelete />
 				<PublishedChange />
+				<UploadImageModal />
 			</HStack>
 		</SlideFade>
 	);

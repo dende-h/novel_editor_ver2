@@ -8,10 +8,13 @@ export type draftObject = {
 	userName?: string;
 	isSelected: boolean;
 	lengthOver: boolean;
+	isImageUpload: boolean;
 	maxLength: number;
 	isPublished?: boolean;
 	tag?: string[];
 	lastEditedTime: Date;
+	imageUrl: string;
+	imageName: string;
 };
 
 export const editorState = selector({
