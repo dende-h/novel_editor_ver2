@@ -13,9 +13,9 @@ const PomodoroTimer = () => {
 	const [timerState, setTimerState] = useState({
 		isRunning: false, // タイマーが実行中かどうかを表すフラグ
 		isWorking: true, // 作業中かどうかを表すフラグ
-		workTime: 1 * 60, // 作業時間（秒数）
+		workTime: 25 * 60, // 作業時間（秒数）
 		breakTime: 1 * 60, // 休憩時間（秒数）
-		timeLeft: 1 * 60 // 残り時間（秒数）
+		timeLeft: 25 * 60 // 残り時間（秒数）
 	});
 	const [alarmState, setAlarmState] = useState({
 		audio: new Audio("/fromNewWorld.mp3") // アラーム音を表すAudioオブジェクト
@@ -76,6 +76,7 @@ const PomodoroTimer = () => {
 			setAlarmState((prevState) => {
 				// アラームがONの場合、音声を再生する
 				if (isAlarmOn) {
+					prevState.audio.currentTime = 0;
 					prevState.audio.play();
 				} else {
 					showEndMessage();

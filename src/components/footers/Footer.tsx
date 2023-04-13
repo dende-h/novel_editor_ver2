@@ -1,4 +1,4 @@
-import { Box, Center, useColorModeValue } from "@chakra-ui/react";
+import { Box, Center, Container, Flex, Heading, Link, useColorModeValue } from "@chakra-ui/react";
 import { memo } from "react";
 
 export const Footer = memo(() => {
@@ -8,7 +8,21 @@ export const Footer = memo(() => {
 	//固定のfooter
 	return (
 		<>
-			<Box width={"full"} bgColor={footerBgColor} h={"25px"}>
+			<Box width={"full"} bgColor={footerBgColor} h={"43px"}>
+				<Flex justify="center">
+					<Link href="contact" _hover={{ textDecoration: "none" }}>
+						<Box mr={4}>
+							<Heading as="h4" fontSize="sm">
+								お問い合わせ
+							</Heading>
+						</Box>
+					</Link>
+					<Box>
+						<Heading as="h4" fontSize="sm">
+							プライバシーポリシー
+						</Heading>
+					</Box>
+				</Flex>
 				<Center>©2023 dende-h</Center>
 			</Box>
 		</>
