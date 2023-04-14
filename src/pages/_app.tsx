@@ -8,10 +8,13 @@ import "@fontsource/raleway/400.css";
 import "@fontsource/open-sans/700.css";
 import { IsClient } from "../components/util/IsClient";
 import { Global } from "@emotion/react";
+import GoogleAnalytics from "../components/util/GoogleAnalytics";
+import usePageView from "../hooks/usePageView";
 
 const SiteKey = process.env.NEXT_PUBLIC_GOOGLE_RECAOTCHA_KEY;
 
 function MyApp({ Component, pageProps }: AppProps) {
+	usePageView();
 	return (
 		<ChakraProvider resetCSS={true} theme={theme}>
 			<Global
@@ -36,6 +39,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 				<HeaderFooterLayout>
 					<GoogleReCaptchaProvider reCaptchaKey={SiteKey} language="ja">
 						<IsClient />
+						<GoogleAnalytics />
 						<Component {...pageProps} />
 					</GoogleReCaptchaProvider>
 				</HeaderFooterLayout>

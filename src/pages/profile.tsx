@@ -1,17 +1,18 @@
 import { Box } from "@chakra-ui/react";
-import Head from "next/head";
+import Seo from "../components/util/Seo";
 import TwoColumnTemplate from "../components/templates/TwoColumnTemplate";
 
 export default function Profile() {
 	return (
 		<>
-			<Head>
-				<title>ユーザーページ</title>
-				<meta
-					name="description"
-					content="短い小説を繰り返し書いて、小説のトレーニングをすることを目的とした小説ライターアプリです。"
-				/>
-			</Head>
+			<Seo
+				pageTitle="ユーザー管理ページ"
+				pageDescription="書いた小説の数や文字数を確認したり、小説の公開設定、ペンネーム、自己紹介などの変更ができます"
+				pagePath="https://next-novel-editor.vercel.app/profile"
+				pageImg="/meta.jpg"
+				pageImgWidth="1200"
+				pageImgHeight="630"
+			/>
 			<Box>
 				<TwoColumnTemplate />
 			</Box>
