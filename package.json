@@ -3,6 +3,7 @@
 	"scripts": {
 		"dev": "next",
 		"build": "next build",
+		"postbuild": "next-sitemap --config next-sitemap.config.js",
 		"start": "node_modules/next/dist/bin/next start -p $PORT",
 		"storybook": "start-storybook -p 6006",
 		"build-storybook": "build-storybook",
