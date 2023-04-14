@@ -1,4 +1,4 @@
-import Head from "next/head";
+import Seo from "../components/util/Seo";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import {
@@ -61,10 +61,14 @@ export default function Contact() {
 	});
 	return (
 		<>
-			<Head>
-				<title>NoA問い合わせフォーム</title>
-				<meta name="description" content="NoAに関する問い合わせフォームです" />
-			</Head>
+			<Seo
+				pageTitle="問い合わせフォーム"
+				pageDescription="管理人への問い合わせメールを送信できます"
+				pagePath="https://next-novel-editor.vercel.app/contact"
+				pageImg="/meta.jpg"
+				pageImgWidth="1200"
+				pageImgHeight="630"
+			/>
 			<Box p="6" w="100%" h={"90vh"}>
 				<VStack spacing="6">
 					<Heading as="h1" size="xl">
