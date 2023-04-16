@@ -22,10 +22,9 @@ const customStorage = () => {
 		getItem: (key) => {
 			// handle getItem
 			// this function should return something
-			const a = localforage.getItem(key, function (err, value) {
-				// if err is non-null, we got an error. otherwise, value is the value
+			return localforage.getItem(key).then((value) => {
+				return value as string;
 			});
-			return a;
 		},
 		clear: () => {
 			// clear the whole db
