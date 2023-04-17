@@ -2,6 +2,8 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 import { draftObject } from "../selector/editorState";
+
+
 import localforage from "localforage";
 import { PersistStorage } from "recoil-persist";
 
@@ -48,6 +50,7 @@ const { persistAtom } = recoilPersist({
 	key: "recoil-persist",
 	// @ts-ignore
 	storage: typeof window === "undefined" ? undefined : customStorage()
+
 });
 
 const defaultArray: draftObjectArray = [];
