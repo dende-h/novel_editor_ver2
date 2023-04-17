@@ -22,7 +22,7 @@ const customStorage = () => {
 		getItem: (key) => {
 			// handle getItem
 			// this function should return something
-			const a = localforage.getItem(key, function (err, value) {
+			const a: Promise<string> = localforage.getItem(key, function (err, value) {
 				// if err is non-null, we got an error. otherwise, value is the value
 			});
 			return a;
