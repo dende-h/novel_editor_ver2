@@ -35,6 +35,8 @@ export default function PrivacyPolicy() {
 				<Text>
 					本サイトは、利用者に事前の通知なく、いつでもプライバシーポリシーを変更することができます。変更後のプライバシーポリシーは、本サイトに掲載した時点で効力を発揮します。
 				</Text>
+				<Text fontWeight="bold">7. 最終更新日</Text>
+				<Text>本プライバシーポリシーは2023年4月17日に最終更新されました。</Text>
 			</VStack>
 		</VStack>
 	);
