@@ -3,24 +3,19 @@ import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 import { draftObject } from "../selector/editorState";
 
-
 import localforage from "localforage";
 import { PersistStorage } from "recoil-persist";
 
 export type draftObjectArray = draftObject[];
 
 localforage.config({
-	driver: localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
+	driver: localforage.INDEXEDDB,
 	name: "drafts",
-	version: 1.0,
-	storeName: "draftObject" // Should be alphanumeric, with underscores.
+	version: 2,
+	storeName: "draftObject"
 });
 
-interface CustomStorage extends PersistStorage {
-	clear: () => void;
-}
-
-const customStorage = (): CustomStorage => {
+const customStorage = (): PersistStorage => {
 	return {
 		setItem: (key: string, value: string) => {
 			// handle setItem
@@ -39,9 +34,6 @@ const customStorage = (): CustomStorage => {
 					}
 				});
 			});
-		},
-		clear: () => {
-			// clear the whole db
 		}
 	};
 };
@@ -50,7 +42,6 @@ const { persistAtom } = recoilPersist({
 	key: "recoil-persist",
 	// @ts-ignore
 	storage: typeof window === "undefined" ? undefined : customStorage()
-
 });
 
 const defaultArray: draftObjectArray = [];
