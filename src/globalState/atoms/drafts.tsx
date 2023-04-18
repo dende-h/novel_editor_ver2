@@ -18,13 +18,9 @@ localforage.config({
 const customStorage = (): PersistStorage => {
 	return {
 		setItem: (key: string, value: string) => {
-			// handle setItem
 			localforage.setItem(key, value);
-			// if err is non-null, we got an error
 		},
 		getItem: (key: string) => {
-			// handle getItem
-			// this function should return something
 			return new Promise<string>((resolve, reject) => {
 				localforage.getItem(key, (err, value: string | null) => {
 					if (err) {
@@ -40,7 +36,7 @@ const customStorage = (): PersistStorage => {
 
 const { persistAtom } = recoilPersist({
 	key: "recoil-persist",
-	// @ts-ignore
+
 	storage: typeof window === "undefined" ? undefined : customStorage()
 });
 

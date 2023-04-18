@@ -63,7 +63,7 @@ export default function ProfileArea() {
 					<Divider marginBottom={1} marginLeft={0.5} w={"auto"} />
 					<Divider borderWidth="2px" w={"auto"} />
 					{isPublished ? undefined : (
-						<Box textAlign={"end"} marginRight={"10%"}>
+						<Box ml={"60%"}>
 							<HStack>
 								<ChangeUserNameModal />
 								<UploadProfileImageModal />
