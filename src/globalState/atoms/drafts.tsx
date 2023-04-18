@@ -17,11 +17,15 @@ localforage.config({
 const customStorage = (): PersistStorage => {
 	return {
 		setItem: async (key: string, value: string) => {
+			console.log(`Saving data for key ${key}: ${value}`);
 			await localforage.setItem(key, value);
+			console.log(`Saved data for key ${key}: ${value}`);
 		},
 		getItem: async (key: string): Promise<string> => {
+			console.log(`Retrieving data for key ${key}`);
 			const value: string = await localforage.getItem(key);
-			return value || "";
+			console.log(`Retrieved data for key ${key}: ${value}`);
+			return value === null ? undefined : value;
 		}
 	};
 };
@@ -32,10 +36,8 @@ const { persistAtom } = recoilPersist({
 	storage: typeof window === "undefined" ? undefined : customStorage()
 });
 
-const defaultArray: draftObjectArray = [];
-
 export const drafts = atom({
 	key: "drafts",
-	default: defaultArray,
+	default: [],
 	effects_UNSTABLE: [persistAtom]
 });
