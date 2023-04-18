@@ -2,7 +2,6 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 import { draftObject } from "../selector/editorState";
-
 import localforage from "localforage";
 import { PersistStorage } from "recoil-persist";
 
@@ -17,19 +16,12 @@ localforage.config({
 
 const customStorage = (): PersistStorage => {
 	return {
-		setItem: (key: string, value: string) => {
-			localforage.setItem(key, value);
+		setItem: async (key: string, value: string) => {
+			await localforage.setItem(key, value);
 		},
-		getItem: (key: string) => {
-			return new Promise<string>((resolve, reject) => {
-				localforage.getItem(key, (err, value: string | null) => {
-					if (err) {
-						reject(err);
-					} else {
-						resolve(value || "");
-					}
-				});
-			});
+		getItem: async (key: string): Promise<string> => {
+			const value: string = await localforage.getItem(key);
+			return value || "";
 		}
 	};
 };
