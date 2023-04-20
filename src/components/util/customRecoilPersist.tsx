@@ -1,14 +1,19 @@
+/* eslint-disable prefer-const */
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import { AtomEffect } from "recoil";
+
 type PersistItemValue = string | undefined | null;
+
 export interface PersistStorage {
 	setItem(key: string, value: string): any;
 	mergeItem?(key: string, value: string): any;
 	getItem(key: string): PersistItemValue | Promise<PersistItemValue>;
 }
+
 export interface PersistState {}
+
 export interface PersistConfiguration {
 	key: string;
 	storage: PersistStorage;
@@ -44,32 +49,38 @@ export const recoilPersist = (config: Partial<PersistConfiguration> = {}): { per
 		reset: {}
 	};
 
+	let firstFlug = false;
+
 	const persistAtom: AtomEffect<any> = ({ onSet, node, trigger, setSelf }) => {
 		if (trigger === "get") {
 			getState().then((s) => {
 				if (s.hasOwnProperty(node.key)) {
 					setSelf(s[node.key]);
+					firstFlug = true;
+				} else {
+					if (!firstFlug) firstFlug = true;
 				}
 			});
 		}
 
 		onSet((newValue, _, isReset) => {
-			if (isReset) {
-				pendingChanges.reset[node.key] = true;
-				delete pendingChanges.updates[node.key];
-				console.log(`Reset value for key "${node.key}"`);
-			} else {
-				pendingChanges.updates[node.key] = newValue;
-				console.log(`Updated value for key "${node.key}" to`, newValue);
-			}
-			if (!pendingChanges.queue) {
-				pendingChanges.queue = getState().then((state) => {
-					updateState(state, pendingChanges);
-					pendingChanges.queue = null;
-					pendingChanges.reset = {};
-					pendingChanges.updates = {};
-					console.log(`State persisted to storage with updates:`, pendingChanges.updates);
-				});
+			if (firstFlug) {
+				if (isReset) {
+					pendingChanges.reset[node.key] = true;
+					delete pendingChanges.updates[node.key];
+				} else {
+					pendingChanges.updates[node.key] = newValue;
+				}
+				if (!pendingChanges.queue) {
+					pendingChanges.queue = getState().then((state) => {
+						if (JSON.stringify(state[node.key]) !== JSON.stringify(newValue)) {
+							updateState(state, pendingChanges);
+						}
+						pendingChanges.queue = null;
+						pendingChanges.reset = {};
+						pendingChanges.updates = {};
+					});
+				}
 			}
 		});
 	};
@@ -95,6 +106,7 @@ export const recoilPersist = (config: Partial<PersistConfiguration> = {}): { per
 			return {};
 		}
 	};
+
 	const getState = (): Promise<PersistState> => Promise.resolve(storage.getItem(key)).then(parseState);
 	const setState = (state: PersistState): void => {
 		try {
