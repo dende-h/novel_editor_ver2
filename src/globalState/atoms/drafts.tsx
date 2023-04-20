@@ -1,10 +1,9 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { atom } from "recoil";
-import { recoilPersist } from "recoil-persist";
+import { recoilPersist } from "../../components/util/customRecoilPersist";
 import { draftObject } from "../selector/editorState";
-
 import localforage from "localforage";
-import { PersistStorage } from "recoil-persist";
 
 export type draftObjectArray = draftObject[];
 
@@ -15,35 +14,14 @@ localforage.config({
 	storeName: "draftObject"
 });
 
-const customStorage = (): PersistStorage => {
-	return {
-		setItem: (key: string, value: string) => {
-			localforage.setItem(key, value);
-		},
-		getItem: (key: string) => {
-			return new Promise<string>((resolve, reject) => {
-				localforage.getItem(key, (err, value: string | null) => {
-					if (err) {
-						reject(err);
-					} else {
-						resolve(value || "");
-					}
-				});
-			});
-		}
-	};
-};
-
 const { persistAtom } = recoilPersist({
-	key: "recoil-persist",
+	key: "recoil-indexeddb",
 
-	storage: typeof window === "undefined" ? undefined : customStorage()
+	storage: typeof window === "undefined" ? undefined : localforage
 });
-
-const defaultArray: draftObjectArray = [];
 
 export const drafts = atom({
 	key: "drafts",
-	default: defaultArray,
+	default: [],
 	effects_UNSTABLE: [persistAtom]
 });
