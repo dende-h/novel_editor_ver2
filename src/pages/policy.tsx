@@ -4,11 +4,11 @@ export default function PrivacyPolicy() {
 	return (
 		<VStack maxW="800px" mx="auto" px={4} py={8} spacing={8}>
 			<Heading as="h1" size="lg">
-				Write Novel Nowのプライバシーポリシー
+				Re:teratureのプライバシーポリシー
 			</Heading>
 			<VStack align="start" spacing={4}>
 				<Text>
-					このドキュメントでは、Write Novel Nowアプリにおいて個人情報を収集、使用、保護する方法について説明します。
+					このドキュメントでは、Re:teratureアプリにおいて個人情報を収集、使用、保護する方法について説明します。
 				</Text>
 				<Text fontWeight="bold">1. 収集する情報</Text>
 				<Text>
