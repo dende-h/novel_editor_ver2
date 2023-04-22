@@ -2,7 +2,7 @@
 import Head from "next/head";
 
 const Seo = ({ pageTitle, pageDescription, pagePath, pageImg, pageImgWidth, pageImgHeight }) => {
-	const defaultTitle = "Write Novel Now";
+	const defaultTitle = "Re:terature";
 	const defaultDescription =
 		"掌編、ショートショート、短編などの短い小説を文字数を決めて書くことで、小説を書くトレーニングをすることを目的にしているアプリです。書いた小説はTXT形式のダウンロードと、Web上での公開が出来ます。会員登録不要で誰でも無料で利用できます。";
 
