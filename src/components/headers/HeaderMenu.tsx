@@ -65,6 +65,16 @@ export const HeaderMenu = () => {
 								お問い合わせフォーム
 							</MenuItem>
 						</Link>
+						<Link
+							href={"https://perpetual-hemisphere-7a3.notion.site/How-to-use-Write-Novel-Now-a746fd05c74a42cda7bd15fb2886b580"}
+							passHref
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
+								How to use
+							</MenuItem>
+						</Link>
 					</MenuList>
 				</>
 			)}
