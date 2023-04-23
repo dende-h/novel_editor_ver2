@@ -1,9 +1,17 @@
+import localforage from "localforage";
 import { atom } from "recoil";
-import { recoilPersist } from "recoil-persist";
+import { recoilPersist } from "../../components/util/customRecoilPersist";
+
+localforage.config({
+	driver: localforage.INDEXEDDB,
+	name: "tagSearchState",
+	version: 2,
+	storeName: "tagSearchState"
+});
 
 const { persistAtom } = recoilPersist({
 	key: "recoil-persist",
-	storage: typeof window === "undefined" ? undefined : localStorage
+	storage: typeof window === "undefined" ? undefined : localforage
 });
 
 const defaultValue: string[] = [];

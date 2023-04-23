@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { atom } from "recoil";
 import { recoilPersist } from "../../components/util/customRecoilPersist";
 import { draftObject } from "../selector/editorState";
@@ -16,12 +14,13 @@ localforage.config({
 
 const { persistAtom } = recoilPersist({
 	key: "recoil-indexeddb",
-
 	storage: typeof window === "undefined" ? undefined : localforage
 });
 
+const defaultObjectArray: draftObjectArray = [];
+
 export const drafts = atom({
 	key: "drafts",
-	default: [],
+	default: defaultObjectArray,
 	effects_UNSTABLE: [persistAtom]
 });
