@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { atom } from "recoil";
 import { recoilPersist } from "../../components/util/customRecoilPersist";
 import { draftObject } from "../selector/editorState";

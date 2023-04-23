@@ -104,7 +104,7 @@ export const UploadImageModal = () => {
 
 	return (
 		<>
-			<Box display={{ base: "none", lg: "block" }}>
+			<Box>
 				<PrimaryIconButton
 					icon={<RiImageAddFill />}
 					colorScheme={"facebook"}
