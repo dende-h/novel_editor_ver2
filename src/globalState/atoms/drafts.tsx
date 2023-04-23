@@ -16,12 +16,13 @@ localforage.config({
 
 const { persistAtom } = recoilPersist({
 	key: "recoil-indexeddb",
-
 	storage: typeof window === "undefined" ? undefined : localforage
 });
 
+const defaultObjectArray: draftObjectArray = [];
+
 export const drafts = atom({
 	key: "drafts",
-	default: [],
+	default: defaultObjectArray,
 	effects_UNSTABLE: [persistAtom]
 });
