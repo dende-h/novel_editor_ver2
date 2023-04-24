@@ -1,4 +1,5 @@
-import { Box, Center, Container, Flex, Heading, Link, useColorModeValue } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading, useColorModeValue } from "@chakra-ui/react";
+import Link from "next/link";
 import { memo } from "react";
 
 export const Footer = memo(() => {
@@ -10,14 +11,14 @@ export const Footer = memo(() => {
 		<>
 			<Box width={"full"} bgColor={footerBgColor} h={"43px"}>
 				<Flex justify="center">
-					<Link href="/contact" _hover={{ textDecoration: "none" }}>
+					<Link href="/contact" passHref>
 						<Box mr={4}>
 							<Heading as="h4" fontSize="sm">
 								お問い合わせ
 							</Heading>
 						</Box>
 					</Link>
-					<Link href="/policy" _hover={{ textDecoration: "none" }}>
+					<Link href="/policy" passHref>
 						<Box>
 							<Heading as="h4" fontSize="sm">
 								プライバシーポリシー
