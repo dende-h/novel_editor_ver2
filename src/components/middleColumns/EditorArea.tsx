@@ -1,4 +1,14 @@
-import { Box, IconButton, Input, Text, Textarea, useColorModeValue, VStack } from "@chakra-ui/react";
+import {
+	Box,
+	Button,
+	FormControl,
+	IconButton,
+	Input,
+	Text,
+	Textarea,
+	useColorModeValue,
+	VStack
+} from "@chakra-ui/react";
 import { memo, useEffect, useState } from "react";
 import { ImCross, ImPlus } from "react-icons/im";
 import { useRecoilValue } from "recoil";
@@ -8,6 +18,7 @@ import { useCalcCharCount } from "../../hooks/useCalcCharCount";
 import { useDraft } from "../../hooks/useDraft";
 import { useEnterKeyEvent } from "../../hooks/useEnterKeyEvent";
 import { SelectMaxLengthSlider } from "./SelectMaxLengthSlider";
+import {} from "react-undoable";
 
 export const EditorArea = memo(() => {
 	const { onChangeTitleArea, onBlurFocusTitleInput, onChangeTextArea, onCopy, hasCopied, onLengthOver } = useDraft(); //Draftオブジェクトの操作hooks
@@ -18,6 +29,7 @@ export const EditorArea = memo(() => {
 	const { onAddNovel, selectStateReset } = useDraft();
 	const inputFocusBgColor = useColorModeValue("gray.100", "gray.700");
 	const isClient = useRecoilValue(isClientState);
+	const { undo, redo, canUndo, canRedo } = IUndoable({ historyLimit: 50 });
 
 	useEffect(() => {
 		calcCharCount(selectedDraft ? selectedDraft.body : "", selectedDraft ? selectedDraft.maxLength : 0);
@@ -27,6 +39,14 @@ export const EditorArea = memo(() => {
 	useEffect(() => {
 		onLengthOver(isCharCountOverflow);
 	}, [charCount]);
+
+	const handleUndo = () => {
+		undo();
+	};
+
+	const handleRedo = () => {
+		redo();
+	};
 
 	return (
 		<>
@@ -66,25 +86,34 @@ export const EditorArea = memo(() => {
 								<SelectMaxLengthSlider maxLength={bodyMaxLength} />
 							</VStack>
 							<Box zIndex={1} w={"100%"} h={"100%"} textAlign={"center"} position={"relative"}>
-								<Textarea
-									fontSize={{ base: "sm", lg: "md" }}
-									placeholder="Enter the text of your novel here"
-									width={"85%"}
-									height={{ base: "65vh", lg: "70vh" }}
-									resize={"none"}
-									borderRadius={0}
-									border={"none"}
-									onChange={onChangeTextArea}
-									value={selectedDraft.body}
-									isInvalid={isCharCountOverflow}
-									ref={focus}
-									_focus={{ backgroundColor: inputFocusBgColor, boxShadow: "none" }}
-									transitionProperty="all"
-									transitionDuration="1.0s"
-									transitionTimingFunction={"ease-out"}
-									autoFocus={selectedDraft.title !== "" ? true : false}
-									padding={5}
-								/>
+								<FormControl id="text">
+									<Textarea
+										fontSize={{ base: "sm", lg: "md" }}
+										placeholder="Enter the text of your novel here"
+										width={"85%"}
+										height={{ base: "65vh", lg: "70vh" }}
+										resize={"none"}
+										borderRadius={0}
+										border={"none"}
+										value={selectedDraft.body}
+										isInvalid={isCharCountOverflow}
+										ref={focus}
+										_focus={{ backgroundColor: inputFocusBgColor, boxShadow: "none" }}
+										transitionProperty="all"
+										transitionDuration="1.0s"
+										transitionTimingFunction={"ease-out"}
+										autoFocus={selectedDraft.title !== "" ? true : false}
+										padding={5}
+										onChange={onChangeTextArea}
+									/>
+									<Button onClick={handleUndo} disabled={!canUndo}>
+										Undo
+									</Button>
+									<Button onClick={handleRedo} disabled={!canRedo}>
+										Redo
+									</Button>
+								</FormControl>
+
 								<Text
 									fontFamily={"heading"}
 									fontSize={{ base: "11px", md: "12px", lg: "13px" }}
