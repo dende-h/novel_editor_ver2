@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { Box } from "@chakra-ui/react";
 import { FC } from "react";
 
@@ -15,14 +16,29 @@ function addBrTags(text: string) {
 	return text.replace(/\r?\n/g, "<br>");
 }
 
+//リンクの生成とHTMLエスケープ
+function addLinkTags(text: string) {
+	const linkRegex = /\[([^\]]+)\]\((http[^\)]+)\)/g;
+	const escapedText = text
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;")
+		.replace(/'/g, "&#x27;")
+		.replace(/\//g, "&#x2F;");
+	return escapedText.replace(linkRegex, function (match, p1, p2) {
+		return `<a href="${p2}" style="text-decoration: underline; color: blue;">${p1}</a>`;
+	});
+}
+
 const css = {
 	writingMode: "vertical-rl",
 	textOrientation: "upright"
 };
 export const NovelViewer: FC<Props> = ({ text }) => {
-	const rubyText = addRubyTags(text);
+	const aText = addLinkTags(text);
+	const rubyText = addRubyTags(aText);
 	const brText = addBrTags(rubyText);
-
 	return (
 		<Box
 			sx={css}
