@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { RiTimerFill } from "react-icons/ri";
-import PomodoroTimer from "./PomodoroTimer";
+import { PomodoroTimer } from "./PomodoroTimer";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 
 export const TimerPopover = React.forwardRef<HTMLDivElement>((props, ref) => {

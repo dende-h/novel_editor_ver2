@@ -11,7 +11,7 @@ import { HeaderMenu } from "./HeaderMenu";
 //ヘッダーコンポーネント
 export const Header = memo(() => {
 	const headerBgColor = useColorModeValue("gray.300", "gray.700"); //カラーモードごと背景色
-	const isSelect = useRecoilValue(isSelected); //小説がセレクト状態かどうかのフラグ
+	const isSelect = useRecoilValue<boolean>(isSelected); //小説がセレクト状態かどうかのフラグ
 	const router = useRouter(); //path判定用にuseRouterを利用
 
 	return (

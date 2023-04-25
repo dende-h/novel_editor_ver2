@@ -16,6 +16,7 @@ import {
 	Textarea
 } from "@chakra-ui/react";
 import Head from "next/head";
+import { memo } from "react";
 import { useRecoilValue } from "recoil";
 import { isClientState } from "../../globalState/atoms/isClientState";
 import { isPublishedState } from "../../globalState/atoms/isPublishedState";
@@ -28,7 +29,7 @@ import { useUserIntroductionInput } from "../../hooks/useUserIntroductionInput";
 import { ChangeUserNameModal } from "./ChangeUserNameModal";
 import { UploadProfileImageModal } from "./UploadProfileImageModal";
 
-export default function ProfileArea() {
+export const ProfileArea = memo(() => {
 	const isClient = useRecoilValue(isClientState);
 	const userPenName = useRecoilValue(userName);
 	const profileArray = useRecoilValue(profileItem);
@@ -181,4 +182,5 @@ export default function ProfileArea() {
 			) : undefined}
 		</>
 	);
-}
+});
+ProfileArea.displayName = "ProfileArea";

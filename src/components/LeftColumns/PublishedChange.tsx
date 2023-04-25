@@ -3,8 +3,9 @@ import { editorState } from "../../globalState/selector/editorState";
 import { useDraft } from "../../hooks/useDraft";
 import { PrimaryIconButton } from "../templates/PrimaryIconButton";
 import { MdPublicOff, MdPublic } from "react-icons/md";
+import { memo } from "react";
 
-export const PublishedChange = () => {
+export const PublishedChange = memo(() => {
 	const selectedDraft = useRecoilValue(editorState);
 
 	const { onPublishedChange } = useDraft();
@@ -21,4 +22,5 @@ export const PublishedChange = () => {
 			}}
 		/>
 	);
-};
+});
+PublishedChange.displayName = "PublishedChange";

@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-escape */
 import { Box } from "@chakra-ui/react";
-import { FC } from "react";
+import { FC, memo } from "react";
 
 type Props = {
 	text: string;
@@ -35,9 +35,12 @@ const css = {
 	writingMode: "vertical-rl",
 	textOrientation: "upright"
 };
-export const NovelViewer: FC<Props> = ({ text }) => {
+
+
+export const NovelViewer: FC<Props> = memo(({ text }) => {
 	const aText = addLinkTags(text);
 	const rubyText = addRubyTags(aText);
+
 	const brText = addBrTags(rubyText);
 	return (
 		<Box
@@ -50,4 +53,5 @@ export const NovelViewer: FC<Props> = ({ text }) => {
 			margin="10px"
 		/>
 	);
-};
+});
+NovelViewer.displayName = "NovelViewer";

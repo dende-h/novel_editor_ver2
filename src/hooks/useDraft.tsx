@@ -118,8 +118,8 @@ export const useDraft = () => {
 	};
 
 	//本文の入力を受け取ってオブジェクトのボディプロパティを更新
-	const onChangeTextArea: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
-		const newBody = e.target.value;
+	const onChangeTextArea = (text: string) => {
+		const newBody = text;
 		setValue(newBody); //textコピー用
 		setDraft(draft.map((item) => (item.isSelected ? { ...item, body: newBody } : item)));
 		setIsEdit(true);

@@ -1,5 +1,5 @@
 import { Input, HStack, Center, Text, useColorModeValue, Box, Tooltip } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { ImCancelCircle, ImPlus } from "react-icons/im";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { tagSearchState } from "../../globalState/atoms/tagSearchState";
@@ -10,7 +10,7 @@ import { useInput } from "../../hooks/useInput";
 import { useToastTemplate } from "../../hooks/useToastTemplate";
 import { PrimaryIconButton } from "../templates/PrimaryIconButton";
 
-export const TagSearchBar = () => {
+export const TagSearchBar = memo(() => {
 	const { setConposing, onEnterKeySubmitEvent } = useEnterKeyEvent();
 	const { praimaryErrorToast } = useToastTemplate();
 	const { onChangeInputForm, value, setValue } = useInput();
@@ -139,4 +139,5 @@ export const TagSearchBar = () => {
 			</Box>
 		</>
 	);
-};
+});
+TagSearchBar.displayName = "TagSearchBar";

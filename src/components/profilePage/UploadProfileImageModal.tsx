@@ -15,20 +15,18 @@ import {
 	Progress,
 	Center
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { RiImageAddFill } from "react-icons/ri";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { editorState } from "../../globalState/selector/editorState";
+import { useRecoilState } from "recoil";
 import { useToastTemplate } from "../../hooks/useToastTemplate";
 import { PrimaryIconButton } from "../templates/PrimaryIconButton";
 import Dropzone, { FileWithPath } from "react-dropzone";
 import { supabase } from "../../../lib/supabaseClient";
 import Image from "next/image";
-import { useDraft } from "../../hooks/useDraft";
 import { userImageUrl } from "../../globalState/atoms/userImageUrl";
 
 //画像を追加するためのフォームモーダル
-export const UploadProfileImageModal = () => {
+export const UploadProfileImageModal = memo(() => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [uploading, setUploading] = useState(false);
 	const [uploadProgress, setUploadProgress] = useState(0);
@@ -187,4 +185,5 @@ export const UploadProfileImageModal = () => {
 			</Box>
 		</>
 	);
-};
+});
+UploadProfileImageModal.displayName = "UploadProfileImageModal";
