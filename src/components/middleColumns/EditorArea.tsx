@@ -10,7 +10,7 @@ import {
 	useColorModeValue,
 	VStack
 } from "@chakra-ui/react";
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { ImCross, ImPlus } from "react-icons/im";
 import { useRecoilValue } from "recoil";
 import { isClientState } from "../../globalState/atoms/isClientState";
@@ -72,6 +72,31 @@ export const EditorArea = memo(() => {
 		onLengthOver(isCharCountOverflow);
 	}, [charCount]);
 
+	const editorRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		const handleKeyDown = (event: KeyboardEvent) => {
+			if (event.shiftKey && event.key === "Z") {
+				event.preventDefault();
+				undoDoc();
+			} else if (event.shiftKey && event.key === "Y") {
+				event.preventDefault();
+				redoDoc();
+			}
+		};
+
+		const editor = editorRef.current;
+		if (editor) {
+			editor.addEventListener("keydown", handleKeyDown);
+		}
+
+		return () => {
+			if (editor) {
+				editor.removeEventListener("keydown", handleKeyDown);
+			}
+		};
+	}, [undoDoc, redoDoc]);
+
 	return (
 		<>
 			{isClient ? (
@@ -109,7 +134,7 @@ export const EditorArea = memo(() => {
 								</Text>
 								<SelectMaxLengthSlider maxLength={bodyMaxLength} />
 							</VStack>
-							<Box zIndex={1} w={"100%"} h={"100%"} textAlign={"center"} position={"relative"}>
+							<Box zIndex={1} w={"100%"} h={"100%"} textAlign={"center"} position={"relative"} ref={editorRef}>
 								<Textarea
 									fontSize={{ base: "sm", lg: "md" }}
 									placeholder="Enter the text of your novel here"
