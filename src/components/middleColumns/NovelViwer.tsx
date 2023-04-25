@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import { FC } from "react";
+import { FC, memo } from "react";
 
 type Props = {
 	text: string;
@@ -19,7 +19,7 @@ const css = {
 	writingMode: "vertical-rl",
 	textOrientation: "upright"
 };
-export const NovelViewer: FC<Props> = ({ text }) => {
+export const NovelViewer: FC<Props> = memo(({ text }) => {
 	const rubyText = addRubyTags(text);
 	const brText = addBrTags(rubyText);
 
@@ -34,4 +34,5 @@ export const NovelViewer: FC<Props> = ({ text }) => {
 			margin="10px"
 		/>
 	);
-};
+});
+NovelViewer.displayName = "NovelViewer";

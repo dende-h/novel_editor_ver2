@@ -16,11 +16,11 @@ import {
 	VStack,
 	Tooltip
 } from "@chakra-ui/react";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { draftObject } from "../../globalState/selector/editorState";
 import { NovelViewer } from "./NovelViwer";
 
-export const DraftViweModal: FC<Pick<draftObject, "title" | "body">> = ({ title, body }) => {
+export const DraftViweModal: FC<Pick<draftObject, "title" | "body">> = memo(({ title, body }) => {
 	const titleBgColor = useColorModeValue(
 		"linear(to-r,gray.100,gray.200,gray.300,gray.200,gray.100)",
 		"linear(to-r,gray.500,gray.600,gray.700,gray.600,gray.500)"
@@ -125,4 +125,5 @@ export const DraftViweModal: FC<Pick<draftObject, "title" | "body">> = ({ title,
 			</Modal>
 		</>
 	);
-};
+});
+DraftViweModal.displayName = "DraftViweModal";

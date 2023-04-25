@@ -15,7 +15,7 @@ import {
 	Progress,
 	Center
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { RiImageAddFill } from "react-icons/ri";
 import { useRecoilValue } from "recoil";
 import { editorState } from "../../globalState/selector/editorState";
@@ -27,7 +27,7 @@ import Image from "next/image";
 import { useDraft } from "../../hooks/useDraft";
 
 //画像を追加するためのフォームモーダル
-export const UploadImageModal = () => {
+export const UploadImageModal = memo(() => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const displayDraft = useRecoilValue(editorState);
 	const [uploading, setUploading] = useState(false);
@@ -189,4 +189,5 @@ export const UploadImageModal = () => {
 			</Box>
 		</>
 	);
-};
+});
+UploadImageModal.displayName = "UploadImageModal";

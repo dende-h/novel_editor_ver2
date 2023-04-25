@@ -1,8 +1,9 @@
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import { Menu, MenuButton, Button, MenuList, MenuItem, useColorModeValue } from "@chakra-ui/react";
 import Link from "next/link";
+import { memo } from "react";
 
-export const HeaderMenu = () => {
+export const HeaderMenu = memo(() => {
 	const headerMenuHoverColor = useColorModeValue("gray.500", "gray.700");
 	const headerBgColor = useColorModeValue("gray.300", "gray.700");
 
@@ -82,4 +83,5 @@ export const HeaderMenu = () => {
 			)}
 		</Menu>
 	);
-};
+});
+HeaderMenu.displayName = "HeaderMenu";

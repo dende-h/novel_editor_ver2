@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { Box, Heading, IconButton, Text, Tooltip, useColorModeValue, useToast } from "@chakra-ui/react";
 import { GiSoundOn, GiSoundOff } from "react-icons/gi";
 import { BiBellOff } from "react-icons/bi";
@@ -6,7 +6,7 @@ import { RxReset } from "react-icons/rx";
 import { BsPauseCircleFill, BsFillPlayCircleFill } from "react-icons/bs";
 import { useToastTemplate } from "../../hooks/useToastTemplate";
 
-const PomodoroTimer = () => {
+export const PomodoroTimer = memo(() => {
 	// 画面にToastを表示するための関数
 	const { praimaryInfoToast } = useToastTemplate();
 	//タイマーの状態を表す
@@ -200,6 +200,6 @@ const PomodoroTimer = () => {
 			</Box>
 		</Box>
 	);
-};
+});
 
-export default PomodoroTimer;
+PomodoroTimer.displayName = "PomodoroTimer";

@@ -18,7 +18,7 @@ import {
 	Text,
 	useColorModeValue
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { ImCancelCircle, ImPlus, ImPriceTags } from "react-icons/im";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { draftObjectArray, drafts } from "../../globalState/atoms/drafts";
@@ -30,7 +30,7 @@ import { useToastTemplate } from "../../hooks/useToastTemplate";
 import { PrimaryIconButton } from "../templates/PrimaryIconButton";
 
 //タグを追加するためのフォームモーダル
-export const AddTagsFormModal = () => {
+export const AddTagsFormModal = memo(() => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const displayDraft = useRecoilValue(editorState);
 	const { setConposing, onEnterKeySubmitEvent } = useEnterKeyEvent();
@@ -199,4 +199,5 @@ export const AddTagsFormModal = () => {
 			</Modal>
 		</>
 	);
-};
+});
+AddTagsFormModal.displayName = "AddTagsFormModal";
