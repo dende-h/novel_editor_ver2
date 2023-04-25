@@ -2,6 +2,7 @@ import {
 	Box,
 	Button,
 	FormControl,
+	HStack,
 	IconButton,
 	Input,
 	Text,
@@ -18,35 +19,58 @@ import { useCalcCharCount } from "../../hooks/useCalcCharCount";
 import { useDraft } from "../../hooks/useDraft";
 import { useEnterKeyEvent } from "../../hooks/useEnterKeyEvent";
 import { SelectMaxLengthSlider } from "./SelectMaxLengthSlider";
-import {} from "react-undoable";
+import useUndoableState from "../../hooks/useUndoableState";
+import { IoIosUndo, IoIosRedo } from "react-icons/io";
 
 export const EditorArea = memo(() => {
-	const { onChangeTitleArea, onBlurFocusTitleInput, onChangeTextArea, onCopy, hasCopied, onLengthOver } = useDraft(); //Draftオブジェクトの操作hooks
+	const {
+		onChangeTitleArea,
+		onBlurFocusTitleInput,
+		onChangeTextArea,
+		onCopy,
+		hasCopied,
+		onLengthOver,
+		onAddNovel,
+		selectStateReset
+	} = useDraft(); //Draftオブジェクトの操作hooks
 	const { focus, onEnterKeyFocusEvent, setConposing } = useEnterKeyEvent();
 	const { charCount, calcCharCount, isCharCountOverflow } = useCalcCharCount(); //文字数計算のロジック部
 	const selectedDraft: draftObject = useRecoilValue(editorState);
 	const [bodyMaxLength, setBodyMaxLength] = useState<number>(0);
-	const { onAddNovel, selectStateReset } = useDraft();
 	const inputFocusBgColor = useColorModeValue("gray.100", "gray.700");
 	const isClient = useRecoilValue(isClientState);
-	const { undo, redo, canUndo, canRedo } = IUndoable({ historyLimit: 50 });
+	const init = { text: selectedDraft ? selectedDraft.body : "" };
+
+	const {
+		state: doc,
+		setState: setDoc,
+		resetState: resetDoc,
+		index: docStateIndex,
+		lastIndex: docStateLastIndex,
+		goBack: undoDoc,
+		goForward: redoDoc
+	} = useUndoableState(init);
+	const canUndo = docStateIndex > 1;
+	const canRedo = docStateIndex < docStateLastIndex;
+	console.log(doc.text);
+	console.log(docStateIndex);
 
 	useEffect(() => {
+		onChangeTextArea(doc.text);
+	}, [doc]);
+
+	useEffect(() => {
+		setDoc(selectedDraft ? { text: selectedDraft.body } : { text: "" });
 		calcCharCount(selectedDraft ? selectedDraft.body : "", selectedDraft ? selectedDraft.maxLength : 0);
 		setBodyMaxLength(selectedDraft ? selectedDraft.maxLength : 0);
+		if (!selectedDraft) {
+			resetDoc(init);
+		}
 	}, [selectedDraft]);
 
 	useEffect(() => {
 		onLengthOver(isCharCountOverflow);
 	}, [charCount]);
-
-	const handleUndo = () => {
-		undo();
-	};
-
-	const handleRedo = () => {
-		redo();
-	};
 
 	return (
 		<>
@@ -86,33 +110,49 @@ export const EditorArea = memo(() => {
 								<SelectMaxLengthSlider maxLength={bodyMaxLength} />
 							</VStack>
 							<Box zIndex={1} w={"100%"} h={"100%"} textAlign={"center"} position={"relative"}>
-								<FormControl id="text">
-									<Textarea
-										fontSize={{ base: "sm", lg: "md" }}
-										placeholder="Enter the text of your novel here"
-										width={"85%"}
-										height={{ base: "65vh", lg: "70vh" }}
-										resize={"none"}
-										borderRadius={0}
-										border={"none"}
-										value={selectedDraft.body}
-										isInvalid={isCharCountOverflow}
-										ref={focus}
-										_focus={{ backgroundColor: inputFocusBgColor, boxShadow: "none" }}
-										transitionProperty="all"
-										transitionDuration="1.0s"
-										transitionTimingFunction={"ease-out"}
-										autoFocus={selectedDraft.title !== "" ? true : false}
-										padding={5}
-										onChange={onChangeTextArea}
+								<Textarea
+									fontSize={{ base: "sm", lg: "md" }}
+									placeholder="Enter the text of your novel here"
+									width={"85%"}
+									height={{ base: "65vh", lg: "70vh" }}
+									resize={"none"}
+									borderRadius={0}
+									border={"none"}
+									value={doc.text}
+									isInvalid={isCharCountOverflow}
+									ref={focus}
+									_focus={{ backgroundColor: inputFocusBgColor, boxShadow: "none" }}
+									transitionProperty="all"
+									transitionDuration="1.0s"
+									transitionTimingFunction={"ease-out"}
+									autoFocus={selectedDraft.title !== "" ? true : false}
+									padding={10}
+									onChange={(e) => {
+										setDoc({ text: e.target.value });
+									}}
+								/>
+								<HStack position={"absolute"} top={"1%"} left={"8%"} zIndex={2}>
+									<IconButton
+										aria-label="undo"
+										icon={<IoIosUndo />}
+										onClick={() => undoDoc()}
+										isDisabled={!canUndo}
+										borderRadius={"full"}
+										colorScheme={canUndo ? "teal" : "gray"}
+										size={"sm"}
+										variant={"ghost"}
 									/>
-									<Button onClick={handleUndo} disabled={!canUndo}>
-										Undo
-									</Button>
-									<Button onClick={handleRedo} disabled={!canRedo}>
-										Redo
-									</Button>
-								</FormControl>
+									<IconButton
+										aria-label="redo"
+										icon={<IoIosRedo />}
+										onClick={() => redoDoc()}
+										isDisabled={!canRedo}
+										borderRadius={"full"}
+										colorScheme={canRedo ? "teal" : "gray"}
+										size={"sm"}
+										variant={"ghost"}
+									/>
+								</HStack>
 
 								<Text
 									fontFamily={"heading"}
