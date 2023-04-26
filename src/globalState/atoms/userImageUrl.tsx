@@ -10,7 +10,7 @@ localforage.config({
 });
 
 const { persistAtom } = recoilPersist({
-	key: "recoil-persist",
+	key: "recoil-userImageUrl",
 	storage: typeof window === "undefined" ? undefined : localforage
 });
 

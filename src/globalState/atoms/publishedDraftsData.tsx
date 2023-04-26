@@ -12,7 +12,7 @@ localforage.config({
 });
 
 const { persistAtom } = recoilPersist({
-	key: "recoil-persist",
+	key: "recoil-publishedDraftsData",
 	storage: typeof window === "undefined" ? undefined : localforage
 });
 
