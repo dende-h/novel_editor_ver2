@@ -33,9 +33,10 @@ export const Header = memo(() => {
 						<Heading
 							as={"h1"}
 							fontSize={{ base: "md", md: "xl", lg: "2xl" }}
+							fontWeight={"bold"}
 							_hover={{ opacity: 0.8, cursor: "pointer" }}
 						>
-							“ Re:terature ”
+							Re:terature
 						</Heading>
 					</Link>
 				</Box>
