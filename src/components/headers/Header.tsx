@@ -26,7 +26,10 @@ export const Header = memo(() => {
 				zIndex={2}
 			>
 				<Box position={"absolute"} top={"4px"} left={"10px"} display={{ base: "block", lg: "none" }}>
-					<HeaderMenu />
+					{/* 特定のパス以外はドロワーメニューを表示させない */}
+					{(router.pathname === "/" || router.pathname === "/profile") && (
+						<DrawerLeftArea colorScheme={isSelect ? "orange" : "gray"} />
+					)}
 				</Box>
 				<Box>
 					<Link href={"/"} passHref>
@@ -42,18 +45,15 @@ export const Header = memo(() => {
 				</Box>
 				<HStack
 					position={"absolute"}
-					spacing={2}
+					spacing={0}
 					top={"4px"}
-					right={"10px"}
+					right={"5px"}
 					zIndex={2}
 					display={{ base: "block", lg: "none" }}
 				>
-					<ColorSwitchButton aria-label={"darkTheme"} boxSize={8} borderRadius={"full"} />
+					<ColorSwitchButton aria-label={"darkTheme"} boxSize={6} borderRadius={"full"} />
 
-					{/* 特定のパス以外はドロワーメニューを表示させない */}
-					{(router.pathname === "/" || router.pathname === "/profile") && (
-						<DrawerLeftArea colorScheme={isSelect ? "orange" : "gray"} />
-					)}
+					<HeaderMenu />
 				</HStack>
 			</Center>
 		</>
