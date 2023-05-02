@@ -52,8 +52,6 @@ export const EditorArea = memo(() => {
 	} = useUndoableState(init);
 	const canUndo = docStateIndex > 1;
 	const canRedo = docStateIndex < docStateLastIndex;
-	console.log(doc.text);
-	console.log(docStateIndex);
 
 	useEffect(() => {
 		onChangeTextArea(doc.text);
