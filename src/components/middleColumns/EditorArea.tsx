@@ -137,7 +137,7 @@ export const EditorArea = memo(() => {
 									fontSize={{ base: "sm", lg: "md" }}
 									placeholder="Enter the text of your novel here"
 									width={"85%"}
-									height={{ base: "65vh", lg: "70vh" }}
+									height={{ base: "77vh", lg: "75vh" }}
 									resize={"none"}
 									borderRadius={0}
 									border={"none"}
@@ -149,7 +149,8 @@ export const EditorArea = memo(() => {
 									transitionDuration="1.0s"
 									transitionTimingFunction={"ease-out"}
 									autoFocus={selectedDraft.title !== "" ? true : false}
-									padding={10}
+									paddingY={10}
+									paddingX={{ base: 4, lg: 8 }}
 									onChange={(e) => {
 										setDoc({ text: e.target.value });
 									}}

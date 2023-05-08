@@ -29,6 +29,7 @@ export const HeaderMenu = memo(() => {
 						boxShadow="md"
 						p={2}
 						_focus={{ outline: "none" }}
+						
 					>
 						<Link href={"/"} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
