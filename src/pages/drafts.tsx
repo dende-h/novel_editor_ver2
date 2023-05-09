@@ -20,7 +20,7 @@ export default function Drafts() {
 				pageTitle="原稿一覧ページ"
 				pageDescription="書いた小説を縦書きビューワーで読むことができます。ルビ記法のルビが反映されます。"
 				pagePath="https://next-novel-editor.vercel.app/drafts"
-				pageImg="/meta.jpg"
+				pageImg={null}
 				pageImgWidth="1200"
 				pageImgHeight="630"
 			/>

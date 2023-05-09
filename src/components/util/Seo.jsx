@@ -5,11 +5,12 @@ const Seo = ({ pageTitle, pageDescription, pagePath, pageImg, pageImgWidth, page
 	const defaultTitle = "Re:terature";
 	const defaultDescription =
 		"掌編、ショートショート、短編などの短い小説を文字数を決めて書くことで、小説を書くトレーニングをすることを目的にしているアプリです。書いた小説はTXT形式のダウンロードと、Web上での公開が出来ます。会員登録不要で誰でも無料で利用できます。";
-
+	const defaultImageUrl =
+		"https://enjzxtbbcyrptkkutovq.supabase.co/storage/v1/object/public/images/siteImage/android-chrome-256x256%20(1).png";
 	const title = pageTitle ? `${pageTitle} | ${defaultTitle}` : defaultTitle;
 	const description = pageDescription ? pageDescription : defaultDescription;
 	const url = pagePath;
-	const imgUrl = pageImg;
+	const imgUrl = pageImg ? pageImg : defaultImageUrl;
 	const imgWidth = pageImgWidth ? pageImgWidth : 1280;
 	const imgHeight = pageImgHeight ? pageImgHeight : 640;
 

@@ -9,7 +9,7 @@ export default function Profile() {
 				pageTitle="ユーザー管理ページ"
 				pageDescription="書いた小説の数や文字数を確認したり、小説の公開設定、ペンネーム、自己紹介などの変更ができます"
 				pagePath="https://next-novel-editor.vercel.app/profile"
-				pageImg="/meta.jpg"
+				pageImg={null}
 				pageImgWidth="1200"
 				pageImgHeight="630"
 			/>

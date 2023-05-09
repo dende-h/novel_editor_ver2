@@ -10,7 +10,7 @@ const Index: NextPage = () => {
 				pageTitle={null}
 				pageDescription={null}
 				pagePath="https://next-novel-editor.vercel.app/"
-				pageImg="/meta.jpg"
+				pageImg={null}
 				pageImgWidth="1200"
 				pageImgHeight="630"
 			/>
