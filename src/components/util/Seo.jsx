@@ -28,7 +28,7 @@ const Seo = ({ pageTitle, pageDescription, pagePath, pageImg, pageImgWidth, page
 			<meta property="og:image" content={imgUrl} />
 			<meta property="og:image:width" content={String(imgWidth)} />
 			<meta property="og:image:height" content={String(imgHeight)} />
-			<meta name="twitter:title" content={description} />
+			<meta name="twitter:title" content={title} />
 			<link rel="preconnect" href="https://fonts.gstatic.com" />
 			<link rel="canonical" href={url} />
 			<link rel="icon" href="/favicon.ico" />
