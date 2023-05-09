@@ -18,6 +18,8 @@ const Seo = ({ pageTitle, pageDescription, pagePath, pageImg, pageImgWidth, page
 			<title>{title}</title>
 			<meta name="viewport" content="width=device-width,initial-scale=1.0" />
 			<meta name="description" content={description} />
+			<meta name="twitter:card" content="summary_large_image" />
+			<meta name="twitter:title" content={description} />
 			<meta property="og:url" content={url} />
 			<meta property="og:title" content={title} />
 			<meta property="og:site_name" content={title} />
@@ -26,18 +28,10 @@ const Seo = ({ pageTitle, pageDescription, pagePath, pageImg, pageImgWidth, page
 			<meta property="og:image" content={imgUrl} />
 			<meta property="og:image:width" content={String(imgWidth)} />
 			<meta property="og:image:height" content={String(imgHeight)} />
+			<link rel="preconnect" href="https://fonts.gstatic.com" />
 			<link rel="canonical" href={url} />
 			<link rel="icon" href="/favicon.ico" />
 			<meta name="google-site-verification" content="26u2b3-4uum3ZXDKrS6jWfPzCaWa9I8dPyp5TD2ekrE" />
-			<meta name="twitter:card" content="summary_large_image" />
-			<meta name="twitter:site" content="@dendeiriamaka1" />
-			<meta name="twitter:domain" content="next-novel-site.vercel.app" />
-			<meta name="twitter:title" content="Re:terature" />
-			<meta
-				name="twitter:description"
-				content="掌編、ショートショート、短編などの短い小説を文字数を決めて書くことで、小説を書くトレーニングをすることを目的にしているアプリです。書いた小説はTXT形式のダウンロードと、Web上での公開が出来ます。会員登録不要で誰でも無料で利用できます。"
-			/>
-			<meta name="twitter:image" content={imgUrl} />
 		</Head>
 	);
 };

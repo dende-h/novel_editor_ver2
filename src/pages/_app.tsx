@@ -10,6 +10,7 @@ import { IsClient } from "../components/util/IsClient";
 import { Global } from "@emotion/react";
 import GoogleAnalytics from "../components/util/GoogleAnalytics";
 import usePageView from "../hooks/usePageView";
+import { Analytics } from "@vercel/analytics/react";
 
 const SiteKey = process.env.NEXT_PUBLIC_GOOGLE_RECAOTCHA_KEY;
 
@@ -40,6 +41,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 					<GoogleReCaptchaProvider reCaptchaKey={SiteKey} language="ja">
 						<IsClient />
 						<GoogleAnalytics />
+						<Analytics />
 						<Component {...pageProps} />
 					</GoogleReCaptchaProvider>
 				</HeaderFooterLayout>
