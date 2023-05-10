@@ -31,12 +31,6 @@ function addLinkTags(text: string) {
 	});
 }
 
-const css = {
-	writingMode: "vertical-rl",
-	textOrientation: "upright"
-};
-
-
 export const NovelViewer: FC<Props> = memo(({ text }) => {
 	const aText = addLinkTags(text);
 	const rubyText = addRubyTags(aText);
@@ -44,7 +38,6 @@ export const NovelViewer: FC<Props> = memo(({ text }) => {
 	const brText = addBrTags(rubyText);
 	return (
 		<Box
-			sx={css}
 			className="ruby-text"
 			dangerouslySetInnerHTML={{ __html: brText }}
 			fontSize={{ base: "14px", md: "16px", lg: "18px" }}
