@@ -1,5 +1,5 @@
 /* eslint-disable no-irregular-whitespace */
-import { Box, Center, Text, VStack } from "@chakra-ui/react";
+import { Center, Text, VStack } from "@chakra-ui/react";
 import format from "date-fns/format";
 import { memo } from "react";
 

@@ -72,7 +72,7 @@ export default function Contact() {
 			<Box p="6" w="100%" h={"90vh"}>
 				<VStack spacing="6">
 					<Heading as="h1" size="xl">
-						Contact Form
+						コンタクトフォーム
 					</Heading>
 					<form onSubmit={onSubmit}>
 						<VStack align="stretch" spacing="4">
@@ -148,7 +148,7 @@ export default function Contact() {
 								w={{ base: "100%", lg: "auto" }}
 								alignSelf={{ base: "center", lg: "flex-end" }}
 							>
-								Submit
+								送信
 							</Button>
 						</VStack>
 					</form>

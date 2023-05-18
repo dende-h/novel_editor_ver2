@@ -52,7 +52,7 @@ export const DrawerLeftArea = memo((props: Props) => {
 				<DrawerOverlay />
 				<DrawerContent sx={css} bgColor={backgroundColor}>
 					<DrawerCloseButton />
-					<DrawerHeader>List of Drafts</DrawerHeader>
+					<DrawerHeader>原稿リスト</DrawerHeader>
 					<DrawerBody>
 						<LeftColumnArea />
 					</DrawerBody>

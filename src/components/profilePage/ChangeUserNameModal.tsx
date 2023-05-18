@@ -81,10 +81,10 @@ export const ChangeUserNameModal = memo(() => {
 					</ModalBody>
 					<ModalFooter>
 						<Button colorScheme="blue" mr={3} onClick={onSave} isDisabled={charCount === 0}>
-							Save
+							保存
 						</Button>
 						<Button onClick={onCloseModal} variant={"ghost"} _hover={{ bg: buttonHoverBgColor }}>
-							Cancel
+							キャンセル
 						</Button>
 					</ModalFooter>
 				</ModalContent>

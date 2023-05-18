@@ -13,7 +13,8 @@ import {
 	Box,
 	Heading,
 	Progress,
-	Center
+	Center,
+	Text
 } from "@chakra-ui/react";
 import { memo, useState } from "react";
 import { RiImageAddFill } from "react-icons/ri";
@@ -162,9 +163,9 @@ export const UploadImageModal = memo(() => {
 												) : (
 													<>
 														<input {...getInputProps()} />
-														<Heading size="md">Drag and Drop an Image</Heading>
+														<Heading size="md">画像をドラッグ＆ドロップ</Heading>
 														<Box mt={4}>
-															<Button size="sm">Choose File</Button>
+															<Button size="sm">ファイルを選択</Button>
 														</Box>
 													</>
 												)}
@@ -173,15 +174,16 @@ export const UploadImageModal = memo(() => {
 									</Dropzone>
 								</Container>
 							)}
+							<Text color={"red"}>※ファイル名に記号やカナを使っている場合失敗することがあります。</Text>
 						</ModalBody>
 						<ModalFooter>
 							{displayDraft?.isImageUpload && (
 								<Button onClick={handleRemove} variant={"ghost"} _hover={{ bg: buttonHoverBgColor }}>
-									Remove
+									削除
 								</Button>
 							)}
 							<Button onClick={onClose} variant={"ghost"} _hover={{ bg: buttonHoverBgColor }}>
-								Cancel
+								キャンセル
 							</Button>
 						</ModalFooter>
 					</ModalContent>

@@ -87,7 +87,7 @@ export const LeftColumnArea = memo(() => {
 								onClick={onAddNovel}
 								isDisabled={isSelect}
 							>
-								Add Novel
+								新しい小説を書く
 							</Button>
 							<Text fontWeight={"bold"} fontStyle="italic">
 								{draft.length}:drafts

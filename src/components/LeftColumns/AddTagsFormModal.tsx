@@ -116,7 +116,7 @@ export const AddTagsFormModal = memo(() => {
 			<Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onCloseModal} size={"3xl"}>
 				<ModalOverlay />
 				<ModalContent backgroundColor={backgroundColor}>
-					<ModalHeader>Tag追加</ModalHeader>
+					<ModalHeader>タグ追加</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody pb={6}>
 						<Center padding={2} marginBottom={2}>
@@ -189,10 +189,10 @@ export const AddTagsFormModal = memo(() => {
 					</ModalBody>
 					<ModalFooter>
 						<Button colorScheme="blue" mr={3} onClick={onClickSave} isDisabled={!isChanged}>
-							Save
+							保存
 						</Button>
 						<Button onClick={onCloseModal} variant={"ghost"} _hover={{ bg: buttonHoverBgColor }}>
-							Cancel
+							キャンセル
 						</Button>
 					</ModalFooter>
 				</ModalContent>

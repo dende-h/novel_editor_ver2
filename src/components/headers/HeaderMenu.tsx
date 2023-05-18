@@ -29,21 +29,20 @@ export const HeaderMenu = memo(() => {
 						boxShadow="md"
 						p={2}
 						_focus={{ outline: "none" }}
-						
 					>
 						<Link href={"/"} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								Top
+								原稿編集
 							</MenuItem>
 						</Link>
 						<Link href={"/profile"} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								Profile
+								実績・投稿
 							</MenuItem>
 						</Link>
 						<Link href={"/drafts"} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								Draft Preview
+								原稿の閲覧
 							</MenuItem>
 						</Link>
 						<Link href={"https://next-novel-site.vercel.app/"} passHref target="_blank" rel="noopener noreferrer">
@@ -58,7 +57,7 @@ export const HeaderMenu = memo(() => {
 							rel="noopener noreferrer"
 						>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								Blog
+								創作支援ブログ
 							</MenuItem>
 						</Link>
 
@@ -76,7 +75,7 @@ export const HeaderMenu = memo(() => {
 							rel="noopener noreferrer"
 						>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								How to use
+								使い方
 							</MenuItem>
 						</Link>
 					</MenuList>
