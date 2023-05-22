@@ -118,12 +118,12 @@ export const useDraft = () => {
 	};
 
 	//本文の入力を受け取ってオブジェクトのボディプロパティを更新
-	const onChangeTextArea = (text: string) => {
+	const onChangeTextArea = useCallback((text: string) => {
 		const newBody = text;
 		setValue(newBody); //textコピー用
 		setDraft(draft.map((item) => (item.isSelected ? { ...item, body: newBody } : item)));
 		setIsEdit(true);
-	};
+	});
 
 	//draftObjectの削除処理
 	const deleteAction = useCallback(() => {
