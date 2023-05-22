@@ -10,6 +10,7 @@ import { useEnterKeyEvent } from "../../hooks/useEnterKeyEvent";
 import { SelectMaxLengthSlider } from "./SelectMaxLengthSlider";
 import useUndoableState from "../../hooks/useUndoableState";
 import { IoIosUndo, IoIosRedo } from "react-icons/io";
+import { LexicalEditor } from "./LexicalEditor";
 
 export const EditorArea = memo(() => {
 	const {
@@ -42,9 +43,9 @@ export const EditorArea = memo(() => {
 	const canUndo = docStateIndex > 1;
 	const canRedo = docStateIndex < docStateLastIndex;
 
-	useEffect(() => {
-		onChangeTextArea(doc.text);
-	}, [doc]);
+	// useEffect(() => {
+	// 	onChangeTextArea(doc.text);
+	// }, [doc]);
 
 	useEffect(() => {
 		setDoc(selectedDraft ? { text: selectedDraft.body } : { text: "" });
@@ -121,7 +122,8 @@ export const EditorArea = memo(() => {
 								</Text>
 								<SelectMaxLengthSlider maxLength={bodyMaxLength} />
 							</VStack>
-							<Box zIndex={1} w={"100%"} h={"100%"} textAlign={"center"} position={"relative"} ref={editorRef}>
+							<Box zIndex={1} w={"100%"} h={"100%"} position={"relative"} ref={editorRef}>
+								<LexicalEditor />
 								<Textarea
 									fontSize={{ base: "sm", lg: "md" }}
 									placeholder="Enter the text of your novel here"
