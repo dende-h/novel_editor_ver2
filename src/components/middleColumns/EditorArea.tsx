@@ -137,7 +137,7 @@ export const EditorArea = memo(() => {
 									transitionProperty="all"
 									transitionDuration="1.0s"
 									transitionTimingFunction={"ease-out"}
-									autoFocus={selectedDraft.title !== "" ? true : false}
+									autoFocus={false}
 									paddingY={10}
 									paddingX={{ base: 4, lg: 8 }}
 									onChange={(e) => {
