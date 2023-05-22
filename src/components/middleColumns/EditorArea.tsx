@@ -99,9 +99,9 @@ export const EditorArea = memo(() => {
 		<>
 			{isClient ? (
 				selectedDraft ? (
-					<Box p={{ base: 2, md: 3, lg: 4, xl: 6 }} w={"auto"} position={"relative"} zIndex={1} h={"90vh"}>
-						<VStack spacing={4}>
-							<VStack>
+					<Box p={{ base: 2, md: 3, lg: 4, xl: 6 }} w={"100%"} position={"relative"} zIndex={1} h={"90vh"}>
+						<VStack spacing={4} w={"100%"}>
+							<VStack w={"100%"}>
 								<Text fontSize={{ base: "sm", md: "md" }}>{`タイトル : ${selectedDraft.title.length} / 30文字`}</Text>
 								<Input
 									fontSize={{ base: "md", md: "lg" }}
@@ -109,7 +109,7 @@ export const EditorArea = memo(() => {
 									onChange={onChangeTitleArea}
 									border={"none"}
 									borderRadius={0}
-									width={"auto"}
+									width={"80%"}
 									onCompositionStart={() => setConposing(true)}
 									onCompositionEnd={() => {
 										setConposing(false);
