@@ -123,7 +123,7 @@ export const useDraft = () => {
 		setValue(newBody); //textコピー用
 		setDraft(draft.map((item) => (item.isSelected ? { ...item, body: newBody } : item)));
 		setIsEdit(true);
-	});
+	}, []);
 
 	//draftObjectの削除処理
 	const deleteAction = useCallback(() => {
