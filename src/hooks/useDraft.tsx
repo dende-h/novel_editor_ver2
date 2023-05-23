@@ -40,7 +40,7 @@ export const useDraft = () => {
 		};
 		const newDraft: draftObject = {
 			id: id,
-			title: "",
+			title: "無題",
 			body: "",
 			userName: defaultUserName,
 			isSelected: true,
@@ -122,6 +122,12 @@ export const useDraft = () => {
 		const newBody = text;
 		setValue(newBody); //textコピー用
 		setDraft(draft.map((item) => (item.isSelected ? { ...item, body: newBody } : item)));
+		const editTime = new Date();
+		setDraft(
+			draft.map((item) => {
+				return item.isSelected ? { ...item, lastEditedTime: editTime } : { ...item };
+			})
+		);
 		setIsEdit(true);
 	};
 

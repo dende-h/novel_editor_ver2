@@ -1,16 +1,5 @@
-import {
-	Box,
-	Button,
-	FormControl,
-	HStack,
-	IconButton,
-	Input,
-	Text,
-	Textarea,
-	useColorModeValue,
-	VStack
-} from "@chakra-ui/react";
-import { memo, useEffect, useRef, useState } from "react";
+import { Box, IconButton, Input, Text, useClipboard, useColorModeValue, VStack } from "@chakra-ui/react";
+import { memo, useEffect, useState } from "react";
 import { ImCross, ImPlus } from "react-icons/im";
 import { useRecoilValue } from "recoil";
 import { isClientState } from "../../globalState/atoms/isClientState";
@@ -19,83 +8,25 @@ import { useCalcCharCount } from "../../hooks/useCalcCharCount";
 import { useDraft } from "../../hooks/useDraft";
 import { useEnterKeyEvent } from "../../hooks/useEnterKeyEvent";
 import { SelectMaxLengthSlider } from "./SelectMaxLengthSlider";
-import useUndoableState from "../../hooks/useUndoableState";
-import { IoIosUndo, IoIosRedo } from "react-icons/io";
-import { LexicalEditor } from "./LexicalEditor";
 import { LexicalEditorArea } from "./LexicalEditorArea";
 
 export const EditorArea = memo(() => {
-	const {
-		onChangeTitleArea,
-		onBlurFocusTitleInput,
-		onChangeTextArea,
-		onCopy,
-		hasCopied,
-		onLengthOver,
-		onAddNovel,
-		selectStateReset
-	} = useDraft(); //Draftオブジェクトの操作hooks
-	const { focus, onEnterKeyFocusEvent, setConposing } = useEnterKeyEvent();
+	const { onChangeTitleArea, onBlurFocusTitleInput, onLengthOver, onAddNovel, selectStateReset } = useDraft(); //Draftオブジェクトの操作hooks
 	const { charCount, calcCharCount, isCharCountOverflow } = useCalcCharCount(); //文字数計算のロジック部
 	const selectedDraft: draftObject = useRecoilValue(editorState);
 	const [bodyMaxLength, setBodyMaxLength] = useState<number>(0);
 	const inputFocusBgColor = useColorModeValue("gray.100", "gray.700");
 	const isClient = useRecoilValue(isClientState);
-	const init = { text: selectedDraft ? selectedDraft.body : "" };
-
-	const {
-		state: doc,
-		setState: setDoc,
-		resetState: resetDoc,
-		index: docStateIndex,
-		lastIndex: docStateLastIndex,
-		goBack: undoDoc,
-		goForward: redoDoc
-	} = useUndoableState(init);
-	const canUndo = docStateIndex > 1;
-	const canRedo = docStateIndex < docStateLastIndex;
-
-	// useEffect(() => {
-	// 	onChangeTextArea(doc.text);
-	// }, [doc]);
+	const { onCopy, setValue, hasCopied } = useClipboard("");
 
 	useEffect(() => {
-		setDoc(selectedDraft ? { text: selectedDraft.body } : { text: "" });
 		calcCharCount(selectedDraft ? selectedDraft.body : "", selectedDraft ? selectedDraft.maxLength : 0);
 		setBodyMaxLength(selectedDraft ? selectedDraft.maxLength : 0);
-		if (!selectedDraft) {
-			resetDoc(init);
-		}
 	}, [selectedDraft]);
 
 	useEffect(() => {
 		onLengthOver(isCharCountOverflow);
 	}, [charCount]);
-
-	const editorRef = useRef<HTMLDivElement>(null);
-
-	useEffect(() => {
-		const handleKeyDown = (event: KeyboardEvent) => {
-			if (event.shiftKey && event.key === "Z") {
-				event.preventDefault();
-				undoDoc();
-			} else if (event.shiftKey && event.key === "Y") {
-				event.preventDefault();
-				redoDoc();
-			}
-		};
-
-		const editor = editorRef.current;
-		if (editor) {
-			editor.addEventListener("keydown", handleKeyDown);
-		}
-
-		return () => {
-			if (editor) {
-				editor.removeEventListener("keydown", handleKeyDown);
-			}
-		};
-	}, [undoDoc, redoDoc]);
 
 	return (
 		<>
@@ -112,11 +43,6 @@ export const EditorArea = memo(() => {
 									border={"none"}
 									borderRadius={0}
 									width={"80%"}
-									onCompositionStart={() => setConposing(true)}
-									onCompositionEnd={() => {
-										setConposing(false);
-									}}
-									onKeyUp={onEnterKeyFocusEvent} //KeyDownだとテキストエリアに改行が入ってしまうのでUp
 									placeholder="novel title"
 									textAlign={"center"}
 									maxLength={30}
@@ -124,8 +50,8 @@ export const EditorArea = memo(() => {
 									transitionProperty="all"
 									transitionDuration="1.0s"
 									transitionTimingFunction={"ease-out"}
-									onBlur={onBlurFocusTitleInput}
 									autoFocus={selectedDraft.title === "" ? true : false}
+									onBlur={onBlurFocusTitleInput}
 								/>
 							</VStack>
 							<VStack w={"85%"} spacing={0}>
@@ -134,8 +60,8 @@ export const EditorArea = memo(() => {
 								</Text>
 								<SelectMaxLengthSlider maxLength={bodyMaxLength} />
 							</VStack>
-							<Box zIndex={1} w={"100%"} h={"100%"} position={"relative"} ref={editorRef}>
-								<LexicalEditorArea />
+							<Box zIndex={1} w={"100%"} h={"100%"} position={"relative"}>
+								<LexicalEditorArea setValue={setValue} />
 								<Text
 									fontFamily={"heading"}
 									fontSize={{ base: "11px", md: "12px", lg: "13px" }}
@@ -146,8 +72,8 @@ export const EditorArea = memo(() => {
 									onClick={onCopy}
 									color={hasCopied && "green.500"}
 									position={"absolute"}
-									top={"1%"}
-									right={"8%"}
+									top={0}
+									right={2}
 									zIndex={2}
 								>
 									{hasCopied ? "Copied!" : "Copy"}
