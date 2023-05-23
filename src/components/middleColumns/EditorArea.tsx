@@ -22,6 +22,7 @@ import { SelectMaxLengthSlider } from "./SelectMaxLengthSlider";
 import useUndoableState from "../../hooks/useUndoableState";
 import { IoIosUndo, IoIosRedo } from "react-icons/io";
 import { LexicalEditor } from "./LexicalEditor";
+import { LexicalEditorArea } from "./LexicalEditorArea";
 
 export const EditorArea = memo(() => {
 	const {
@@ -134,52 +135,7 @@ export const EditorArea = memo(() => {
 								<SelectMaxLengthSlider maxLength={bodyMaxLength} />
 							</VStack>
 							<Box zIndex={1} w={"100%"} h={"100%"} position={"relative"} ref={editorRef}>
-								<LexicalEditor />
-								<Textarea
-									fontSize={{ base: "sm", lg: "md" }}
-									placeholder="Enter the text of your novel here"
-									width={"85%"}
-									height={{ base: "77vh", lg: "75vh" }}
-									resize={"none"}
-									borderRadius={0}
-									border={"none"}
-									value={doc.text}
-									isInvalid={isCharCountOverflow}
-									ref={focus}
-									_focus={{ backgroundColor: inputFocusBgColor, boxShadow: "none" }}
-									transitionProperty="all"
-									transitionDuration="1.0s"
-									transitionTimingFunction={"ease-out"}
-									autoFocus={false}
-									paddingY={10}
-									paddingX={{ base: 4, lg: 8 }}
-									onChange={(e) => {
-										setDoc({ text: e.target.value });
-									}}
-								/>
-								<HStack position={"absolute"} top={"1%"} left={"8%"} zIndex={2}>
-									<IconButton
-										aria-label="undo"
-										icon={<IoIosUndo />}
-										onClick={() => undoDoc()}
-										isDisabled={!canUndo}
-										borderRadius={"full"}
-										colorScheme={canUndo ? "teal" : "gray"}
-										size={"sm"}
-										variant={"ghost"}
-									/>
-									<IconButton
-										aria-label="redo"
-										icon={<IoIosRedo />}
-										onClick={() => redoDoc()}
-										isDisabled={!canRedo}
-										borderRadius={"full"}
-										colorScheme={canRedo ? "teal" : "gray"}
-										size={"sm"}
-										variant={"ghost"}
-									/>
-								</HStack>
-
+								<LexicalEditorArea />
 								<Text
 									fontFamily={"heading"}
 									fontSize={{ base: "11px", md: "12px", lg: "13px" }}
