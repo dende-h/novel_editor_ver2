@@ -91,7 +91,7 @@ export const useDraft = () => {
 					selectIndex === index ? { ...item, isSelected: true } : { ...item, isSelected: false }
 				)
 			);
-			setIsEdit(false);
+			
 			setIsSelect(true);
 		} else {
 			selectStateReset();
@@ -120,14 +120,9 @@ export const useDraft = () => {
 	//本文の入力を受け取ってオブジェクトのボディプロパティを更新
 	const onChangeTextArea = (text: string) => {
 		const newBody = text;
-		setValue(newBody); //textコピー用
-		setDraft(draft.map((item) => (item.isSelected ? { ...item, body: newBody } : item)));
 		const editTime = new Date();
-		setDraft(
-			draft.map((item) => {
-				return item.isSelected ? { ...item, lastEditedTime: editTime } : { ...item };
-			})
-		);
+		setValue(newBody); //textコピー用
+		setDraft(draft.map((item) => (item.isSelected ? { ...item, body: newBody , lastEditedTime: editTime} : item)));
 		setIsEdit(true);
 	};
 
