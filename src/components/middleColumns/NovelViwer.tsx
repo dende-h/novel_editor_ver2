@@ -1,10 +1,11 @@
 /* eslint-disable no-useless-escape */
 import { Box } from "@chakra-ui/react";
-import { FC, memo } from "react";
+import { FC } from "react";
 
 type Props = {
 	text: string;
 };
+
 
 const rubyRegex = /[｜|]([^《｜|]+)《([^》]+)》/g;
 
@@ -12,11 +13,6 @@ function addRubyTags(text: string) {
 	return text.replace(rubyRegex, "<ruby>$1<rt>$2</rt></ruby>");
 }
 
-function addBrTags(text: string) {
-	return text.replace(/\r?\n/g, "<br>");
-}
-
-//リンクの生成とHTMLエスケープ
 function addLinkTags(text: string) {
 	const linkRegex = /\[([^\]]+)\]\((http[^\)]+)\)/g;
 	const escapedText = text
@@ -27,24 +23,35 @@ function addLinkTags(text: string) {
 		.replace(/'/g, "&#x27;")
 		.replace(/\//g, "&#x2F;");
 	return escapedText.replace(linkRegex, function (match, p1, p2) {
-		return `<a href="${p2}" style="text-decoration: underline; color: blue;">${p1}</a>`;
+		const rubyText = addRubyTags(p1);
+		return `<a href="${p2}" style="text-decoration: underline; color: blue;">${rubyText}</a>`;
 	});
 }
 
-export const NovelViewer: FC<Props> = memo(({ text }) => {
+function addBrTags(text: string) {
+	return text.replace(/\r?\n/g, "<br>");
+}
+
+function preserveSpaces(text: string) {
+	return text.replace(/ /g, "&nbsp;");
+}
+
+export const NovelViewer: FC<Props> = ({ text }) => {
 	const aText = addLinkTags(text);
 	const rubyText = addRubyTags(aText);
-
 	const brText = addBrTags(rubyText);
+	const spaceText = preserveSpaces(brText);
+	
+
 	return (
 		<Box
 			className="ruby-text"
-			dangerouslySetInnerHTML={{ __html: brText }}
-			fontSize={{ base: "14px", md: "16px", lg: "18px" }}
+			dangerouslySetInnerHTML={{ __html: spaceText }}
+			fontSize={{ base: "12px", md: "16px", lg: "18px" }}
 			fontFamily={"Noto Serif JP"}
-			lineHeight="1.5em"
+			lineHeight={"1.5em"}
 			margin="10px"
+			
 		/>
 	);
-});
-NovelViewer.displayName = "NovelViewer";
+};

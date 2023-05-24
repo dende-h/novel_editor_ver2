@@ -1,8 +1,20 @@
-import { Box, VStack, Text, Flex, useColorModeValue, Button, HStack, Spacer, StackDivider } from "@chakra-ui/react";
+import {
+	Box,
+	VStack,
+	Text,
+	Flex,
+	useColorModeValue,
+	Button,
+	HStack,
+	Spacer,
+	StackDivider,
+	Divider,
+	Icon
+} from "@chakra-ui/react";
 import format from "date-fns/format";
-import { da } from "date-fns/locale";
+import { da, is } from "date-fns/locale";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { supabase } from "../../lib/supabaseClient";
 import { ChangePassWordModal } from "../components/backup/ChangePassWordModal";
 import { ChangeUserNameModal } from "../components/profilePage/ChangeUserNameModal";
@@ -19,16 +31,28 @@ import { userImageUrl } from "../globalState/atoms/userImageUrl";
 import { userIntroduction } from "../globalState/atoms/userIntroduction";
 import { userName } from "../globalState/atoms/userName";
 import { passWord } from "../globalState/atoms/passWord";
+import { AlertDialogBackUpDelete } from "../components/backup/AlertDialogBackUpDelete";
+import { AlertDialogBackUpReconstruction } from "../components/backup/AlertDialogBackUpReconstruction";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 export default function BackUP() {
+	const setDrafts = useSetRecoilState(drafts);
+	const setDraftsJson = useSetRecoilState(draftsJson);
+	const setIsSelected = useSetRecoilState(isSelected);
+	const setLastPublishedTime = useSetRecoilState(lastPublishedTime);
+	const setPublishedCount = useSetRecoilState(publishedCount);
+	const setPublishedDraftsData = useSetRecoilState(publishedDraftsData);
+	const setUserImageUrl = useSetRecoilState(userImageUrl);
+	const setUserIntroduction = useSetRecoilState(userIntroduction);
 	const name = useRecoilValue(userName);
 	const pass = useRecoilValue(passWord);
-	const isPublished = useRecoilValue(isPublishedState);
+	const [isPublished, setIsPublished] = useRecoilState(isPublishedState);
 	const backUpDataObject = useRecoilValue(backUpData);
 	const textColor = useColorModeValue("gray.700", "gray.200");
 	const boxColor = useColorModeValue("gray.100", "gray.900");
 	const [isLoading, setIsLoading] = useState(true);
 	const [backUpList, setBackUpList] = useState<{ id: string; created_at: string }[]>();
+	const [showPass, setShowPass] = useState<boolean>(false);
 
 	useEffect(() => {
 		fetchData();
@@ -60,7 +84,15 @@ export default function BackUP() {
 				password: data[0].password,
 				user_name: data[0].user_name
 			};
-			console.log(fetchData);
+			setDrafts(JSON.parse(fetchData.drafts_data));
+			setDraftsJson(JSON.parse(fetchData.drafts_json_data));
+			setIsPublished(fetchData.is_published);
+			setIsSelected(fetchData.is_selected);
+			setLastPublishedTime(fetchData.last_published);
+			setPublishedCount(fetchData.published_count);
+			setPublishedDraftsData(JSON.parse(fetchData.published_draft));
+			setUserImageUrl(JSON.parse(fetchData.user_image));
+			setUserIntroduction(fetchData.user_introduction);
 		}
 		setIsLoading(false);
 	};
@@ -76,7 +108,6 @@ export default function BackUP() {
 		const newList = data.map((item) => {
 			return { id: item.id, created_at: format(new Date(item.created_at), "yyyy/MM/dd-HH:mm") };
 		});
-		console.log(newList);
 		setBackUpList(newList);
 		setIsLoading(false);
 	};
@@ -97,10 +128,10 @@ export default function BackUP() {
 				});
 				setBackUpList(newList);
 			} catch (error) {
-				console.log(error);
+				alert(error);
 			}
 		} catch (error) {
-			console.log(error);
+			alert(error);
 		}
 		setIsLoading(false);
 	};
@@ -115,23 +146,51 @@ export default function BackUP() {
 				pageImgWidth="1200"
 				pageImgHeight="630"
 			/>
-			<Flex direction="column" p="6" w="100%" h="90vh">
-				<VStack spacing={4}>
+			<Flex direction="column" p={2} w={{ base: "350px", md: "600px" }} marginX={"auto"} h="90vh">
+				<VStack spacing={8}>
 					<Box>
+						<Text fontSize="lg" fontWeight="bold" color={textColor}>
+							ペンネーム
+						</Text>
 						<Box bg={boxColor} p={4} borderRadius="md" shadow="md" minW={"300px"}>
-							<Text fontSize="lg" fontWeight="bold" color={textColor}>
+							<Text fontSize="lg" fontWeight="bold" color={textColor} textAlign="center">
 								{name === "Ghost Writer" ? "名前を設定してください" : name}
 							</Text>
 						</Box>
-						{isPublished ? undefined : <ChangeUserNameModal />}
+						<Box textAlign={"end"}>{isPublished ? undefined : <ChangeUserNameModal />}</Box>
 					</Box>
 					<Box>
-						<Box bg={boxColor} p={4} borderRadius="md" shadow="md" minW={"300px"}>
+						<HStack>
 							<Text fontSize="lg" fontWeight="bold" color={textColor}>
-								{pass ? pass : "passWordを設定してください"}
+								バックアップ用パスワード
+							</Text>
+							{showPass ? (
+								<ViewOffIcon onClick={() => setShowPass(false)} />
+							) : (
+								<ViewIcon
+									onClick={() => {
+										setShowPass(true);
+									}}
+								/>
+							)}
+						</HStack>
+
+						<Box bg={boxColor} p={4} borderRadius="md" shadow="md" minW={"300px"}>
+							<Text fontSize="lg" fontWeight="bold" color={textColor} textAlign="center">
+								{pass
+									? showPass
+										? pass
+										: [...pass].map((_, index) => (
+												<Box as={"span"} key={index} marginRight={"-1"}>
+													●
+												</Box>
+										  ))
+									: "passWordを設定してください"}
 							</Text>
 						</Box>
-						<ChangePassWordModal />
+						<Box textAlign={"end"}>
+							<ChangePassWordModal />
+						</Box>
 					</Box>
 					<Button
 						minW={"300px"}
@@ -149,20 +208,27 @@ export default function BackUP() {
 					</Box>
 				) : (
 					<>
-						<Text as={"h3"} textAlign="center" mt={6}>
+						<Text as={"h2"} fontWeight={"bold"} fontSize={"xl"} textAlign="center" mt={6}>
 							バックアップリスト
 						</Text>
+						<Divider w={{ base: "300px", md: "550px" }} mx={"auto"} my={2} />
 						<Box flex="1" overflowY="auto">
 							<VStack
 								borderColor="gray.200"
 								borderRadius="md"
-								p={2}
 								spacing={2}
 								divider={<StackDivider borderColor="gray.200" />}
 							>
 								{backUpList.map((item) => {
 									return (
-										<HStack key={item.id} w="full" bg={boxColor} p={4} borderRadius="md" shadow="md">
+										<HStack
+											key={item.id}
+											w={{ base: "300px", md: "550px" }}
+											bg={boxColor}
+											borderRadius="md"
+											shadow="md"
+											p={2}
+										>
 											<VStack align="start" spacing={1}>
 												<Text fontWeight="bold">{item.created_at}</Text>
 												<Text fontSize="sm" color="gray.500">
@@ -171,12 +237,12 @@ export default function BackUP() {
 											</VStack>
 											<Spacer />
 											<HStack spacing={2}>
-												<Button onClick={() => onClickReconstruction(item.id)} size="sm" colorScheme="teal">
-													復元
-												</Button>
-												<Button onClick={() => onClickDelete(item.id)} size="sm" colorScheme="red">
-													削除
-												</Button>
+												<AlertDialogBackUpReconstruction
+													id={item.id}
+													onClick={onClickReconstruction}
+													isLoading={isLoading}
+												/>
+												<AlertDialogBackUpDelete id={item.id} onClick={onClickDelete} isLoading={isLoading} />
 											</HStack>
 										</HStack>
 									);

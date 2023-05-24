@@ -102,21 +102,6 @@ export const DraftViweModal: FC<Pick<draftObject, "title" | "body">> = memo(({ t
 					<ModalCloseButton position={"absolute"} top={1} left={1} />
 					<ModalBody h={"100%"}>
 						<Box
-							sx={css}
-							bgColor={textBackgroundColor}
-							borderRadius={"md"}
-							margin={"0"}
-							marginLeft={"auto"}
-							w={"100%"}
-							h={"80%"}
-							p={6}
-							overflowX={"scroll"}
-							position={"relative"}
-							display={{ base: "none", lg: "block" }}
-						>
-							<NovelViewer text={body} />
-						</Box>
-						<Box
 							bgColor={textBackgroundColor}
 							borderRadius={"md"}
 							margin={"0"}
@@ -126,7 +111,8 @@ export const DraftViweModal: FC<Pick<draftObject, "title" | "body">> = memo(({ t
 							p={6}
 							overflowX={"scroll"}
 							position={"relative"}
-							display={{ base: "block", lg: "none" }}
+							display={{ base: "none", lg: "block" }}
+							sx={css}
 						>
 							<NovelViewer text={body} />
 						</Box>
