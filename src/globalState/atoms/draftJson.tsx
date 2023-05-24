@@ -2,16 +2,16 @@ import { atom } from "recoil";
 import { recoilPersist } from "../../components/util/customRecoilPersist";
 import localforage from "localforage";
 
-export type draftJson = {
+export type DraftJson = {
 	id: string;
 	json: string;
 };
 
 localforage.config({
 	driver: localforage.INDEXEDDB,
-	name: "draftsJson",
+	name: "indexeddb",
 	version: 2,
-	storeName: "draftsJson"
+	storeName: "reterature"
 });
 
 const { persistAtom } = recoilPersist({
@@ -19,7 +19,7 @@ const { persistAtom } = recoilPersist({
 	storage: typeof window === "undefined" ? undefined : localforage
 });
 
-const initJson: draftJson[] = [];
+const initJson: DraftJson[] = [];
 
 export const draftsJson = atom({
 	key: "draftsJson",

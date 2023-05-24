@@ -53,7 +53,7 @@ export const ChangeUserNameModal = memo(() => {
 				fontSize={{ base: "xs", md: "sm", lg: "lg" }}
 				margin={1}
 			>
-				Change Name
+				ペンネームの変更
 			</Button>
 			<Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onCloseModal} size={"3xl"}>
 				<ModalOverlay />

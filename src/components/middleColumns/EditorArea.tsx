@@ -6,7 +6,6 @@ import { isClientState } from "../../globalState/atoms/isClientState";
 import { draftObject, editorState } from "../../globalState/selector/editorState";
 import { useCalcCharCount } from "../../hooks/useCalcCharCount";
 import { useDraft } from "../../hooks/useDraft";
-import { useEnterKeyEvent } from "../../hooks/useEnterKeyEvent";
 import { SelectMaxLengthSlider } from "./SelectMaxLengthSlider";
 import { LexicalEditorArea } from "./LexicalEditorArea";
 

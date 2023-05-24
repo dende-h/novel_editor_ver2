@@ -18,7 +18,6 @@ import { DraftControllButton } from "./DraftControllButton";
 import { isSelected } from "../../globalState/atoms/isSelected";
 import { numberOfCharacters } from "../../constant/constant";
 import { useDraft } from "../../hooks/useDraft";
-import { isEdited } from "../../globalState/atoms/isEdited";
 import { isClientState } from "../../globalState/atoms/isClientState";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { drafts } from "../../globalState/atoms/drafts";
@@ -33,7 +32,6 @@ export const LeftColumnArea = memo(() => {
 	const bgColorIsSelectedDraftCard = useColorModeValue("gray.300", "gray.500");
 	const bgColorIsNotSelectedDraftCard = useColorModeValue("gray.200", "gray.600");
 	const isClient = useRecoilValue(isClientState);
-	const isEdit = useRecoilValue(isEdited);
 
 	const onDragEnd = (result) => {
 		if (!result.destination) {

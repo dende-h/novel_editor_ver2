@@ -66,6 +66,11 @@ export const HeaderMenu = memo(() => {
 								お問い合わせフォーム
 							</MenuItem>
 						</Link>
+						<Link href={"/backup"} passHref>
+							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
+								バックアップと復元
+							</MenuItem>
+						</Link>
 						<Link
 							href={
 								"https://perpetual-hemisphere-7a3.notion.site/How-to-use-Write-Novel-Now-a746fd05c74a42cda7bd15fb2886b580"
