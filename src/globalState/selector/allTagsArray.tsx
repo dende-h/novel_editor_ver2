@@ -1,9 +1,6 @@
 import { selector } from "recoil";
-import Index from "../../pages";
-import { draftObjectArray, drafts } from "../atoms/drafts";
-import { tagSearchState } from "../atoms/tagSearchState";
+import { drafts } from "../atoms/drafts";
 import { draftObject } from "./editorState";
-import { lastEditedTimeSort } from "./lastEditedTimeSort";
 
 export const allTagsArray = selector({
 	key: "allTagsArray",

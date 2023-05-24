@@ -22,8 +22,6 @@ import { Box, chakra } from "@chakra-ui/react";
 import { useDraft } from "../../hooks/useDraft";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { editorState } from "../../globalState/selector/editorState";
-import { useCallback } from "react";
-import { isEdited } from "../../globalState/atoms/isEdited";
 import { Toolbar } from "./Toolbar";
 import { draftsJson } from "../../globalState/atoms/draftJson";
 import { editorJson } from "../../globalState/selector/editorJson";
