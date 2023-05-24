@@ -9,6 +9,7 @@ import { BiHelpCircle } from "react-icons/bi";
 import { ColorSwitchButton } from "../headers/ColorSwitchButton";
 import Link from "next/link";
 import { TimerPopover } from "../Timer/TimerPopover";
+import { MdBackup } from "react-icons/md";
 
 export const LeftMenuBar = memo(() => {
 	const menuIcons = [
@@ -18,16 +19,18 @@ export const LeftMenuBar = memo(() => {
 		<HiLibrary />,
 		<ImBlog />,
 		<AiFillMail />,
+		<MdBackup />,
 		<BiHelpCircle />
 	];
 	const tooltipLabels = [
-		"小説書くところ",
-		"実績をみるところ",
-		"書いた小説を読むところ",
-		"みんなの書いた小説を読むところ",
-		"管理人のブログ",
-		"お問い合わせ",
-		"How to Use"
+		"原稿一覧・執筆",
+		"プロフィール・実績・投稿",
+		"原稿の縦読み閲覧",
+		"Lit:Bite",
+		"創作支援ブログ",
+		"お問い合わせフォーム",
+		"バックアップと復元",
+		"Re:teratureの使い方"
 	];
 	const path = [
 		"/",
@@ -36,6 +39,7 @@ export const LeftMenuBar = memo(() => {
 		"https://next-novel-site.vercel.app/",
 		"https://notion-blog-nextjs-nine.vercel.app/",
 		"/contact",
+		"/backup",
 		"https://perpetual-hemisphere-7a3.notion.site/How-to-use-Write-Novel-Now-a746fd05c74a42cda7bd15fb2886b580"
 	];
 

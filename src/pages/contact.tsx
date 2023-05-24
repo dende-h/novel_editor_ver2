@@ -33,7 +33,6 @@ export default function Contact() {
 	const onSubmit = handleSubmit(async (data) => {
 		if (!executeRecaptcha) return;
 		const token = await executeRecaptcha("submit");
-		console.log(token);
 		data.googleReCaptchaToken = token;
 
 		const formData = new FormData();

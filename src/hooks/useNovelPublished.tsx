@@ -113,7 +113,7 @@ export const useNovelPublished = () => {
 			}
 		} catch (error) {
 			// エラー処理
-			console.log(error);
+			alert(error);
 			setIsLoading(false);
 		}
 	};
@@ -167,7 +167,7 @@ export const useNovelPublished = () => {
 						setIsLoading(false);
 					} catch (error) {
 						toast.praimaryErrorToast("エラーが発生しました。公開を停止します");
-						console.log(error);
+						alert(error);
 						await stopPublishedNovel();
 					}
 				} catch {

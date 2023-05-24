@@ -12,7 +12,6 @@ export const IntroductionNovelBody = memo((props: Props) => {
 		lastEditedTime instanceof Date
 			? format(lastEditedTime, "yyyy/MM/dd-HH:mm")
 			: format(new Date(lastEditedTime), "yyyy/MM/dd-HH:mm");
-	console.log(bodyText);
 	const introductionBody = [...bodyText].filter((char) => {
 		return !char.match(/(\s+|　)/g); //空白文字、全角半角スペース、改行は除外
 	});

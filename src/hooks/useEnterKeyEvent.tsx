@@ -14,6 +14,7 @@ export const useEnterKeyEvent = () => {
 		if (conposing === false) {
 			if (e.key === "Enter") {
 				fireEvent();
+				e.stopPropagation();
 			}
 		}
 	};

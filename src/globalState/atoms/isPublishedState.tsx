@@ -1,14 +1,13 @@
 import localforage from "localforage";
 import { atom } from "recoil";
-import { recoilPersist } from "../../components/util/customRecoilPersist"; 
+import { recoilPersist } from "../../components/util/customRecoilPersist";
 
 localforage.config({
 	driver: localforage.INDEXEDDB,
-	name: "isPublished",
+	name: "indexeddb",
 	version: 2,
-	storeName: "isPublishedState"
+	storeName: "reterature"
 });
-
 
 const { persistAtom } = recoilPersist({
 	key: "recoil-isPublished",

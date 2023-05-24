@@ -2,21 +2,22 @@ import localforage from "localforage";
 import { atom } from "recoil";
 import { recoilPersist } from "../../components/util/customRecoilPersist";
 
-
 localforage.config({
 	driver: localforage.INDEXEDDB,
-	name: "isEdited",
+	name: "indexeddb",
 	version: 2,
-	storeName: "isEditedFlag"
+	storeName: "reterature"
 });
 
 const { persistAtom } = recoilPersist({
-	key: "recoil-isEdited",
+	key: "recoil-passWord",
 	storage: typeof window === "undefined" ? undefined : localforage
 });
 
-export const isEdited = atom({
-	key: "isEdited",
-	default: false,
+const initValue: string = null;
+
+export const passWord = atom({
+	key: "passWord",
+	default: initValue,
 	effects_UNSTABLE: [persistAtom]
 });

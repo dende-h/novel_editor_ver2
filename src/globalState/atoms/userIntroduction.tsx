@@ -4,9 +4,9 @@ import { recoilPersist } from "../../components/util/customRecoilPersist";
 
 localforage.config({
 	driver: localforage.INDEXEDDB,
-	name: "userIntroduction",
+	name: "indexeddb",
 	version: 2,
-	storeName: "userIntroduction"
+	storeName: "reterature"
 });
 
 const { persistAtom } = recoilPersist({

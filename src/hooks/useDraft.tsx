@@ -1,11 +1,9 @@
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { drafts } from "../globalState/atoms/drafts";
 import { draftObjectArray } from "../globalState/atoms/drafts";
 import { useCallback } from "react";
 import { isSelected } from "../globalState/atoms/isSelected";
 import { draftObject } from "../globalState/selector/editorState";
-import { isEdited } from "../globalState/atoms/isEdited";
-import { lastEditedTimeSort } from "../globalState/selector/lastEditedTimeSort";
 import { userName } from "../globalState/atoms/userName";
 import { useClipboard } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
@@ -13,10 +11,8 @@ import { draftData, publishedDraftsData } from "../globalState/atoms/publishedDr
 
 //タイトルエリアの編集時のカスタムフック
 export const useDraft = () => {
-	const setDraft = useSetRecoilState<draftObjectArray>(drafts); //下書きのオブジェクトを配列で取得
-	const draft = useRecoilValue(lastEditedTimeSort);
+	const [draft, setDraft] = useRecoilState<draftObjectArray>(drafts); //下書きのオブジェクトを配列で取得
 	const [isSelect, setIsSelect] = useRecoilState(isSelected);
-	const [isEdit, setIsEdit] = useRecoilState(isEdited);
 	const [defaultUserName, setUserName] = useRecoilState(userName);
 	const { onCopy, setValue, hasCopied } = useClipboard("");
 	const [fetchDraftsData, setFetchDraftsData] = useRecoilState(publishedDraftsData);
@@ -62,7 +58,7 @@ export const useDraft = () => {
 	};
 
 	const selectStateReset = () => {
-		if (isEdit) {
+		if (isSelect) {
 			const editTime = new Date();
 			setDraft(
 				draft.map((item) => {
@@ -71,6 +67,7 @@ export const useDraft = () => {
 						: { ...item, isSelected: false };
 				})
 			);
+
 			setIsSelect(false);
 		} else {
 			setDraft(
@@ -79,7 +76,6 @@ export const useDraft = () => {
 				})
 			);
 			setIsSelect(false);
-			setIsEdit(false);
 		}
 	};
 
@@ -91,7 +87,7 @@ export const useDraft = () => {
 					selectIndex === index ? { ...item, isSelected: true } : { ...item, isSelected: false }
 				)
 			);
-			
+
 			setIsSelect(true);
 		} else {
 			selectStateReset();
@@ -114,7 +110,6 @@ export const useDraft = () => {
 	const onChangeTitleArea: React.ChangeEventHandler<HTMLInputElement> = (e) => {
 		const newTitle = e.target.value;
 		setDraft(draft.map((item) => (item.isSelected ? { ...item, title: newTitle } : item)));
-		setIsEdit(true);
 	};
 
 	//本文の入力を受け取ってオブジェクトのボディプロパティを更新
@@ -122,8 +117,7 @@ export const useDraft = () => {
 		const newBody = text;
 		const editTime = new Date();
 		setValue(newBody); //textコピー用
-		setDraft(draft.map((item) => (item.isSelected ? { ...item, body: newBody , lastEditedTime: editTime} : item)));
-		setIsEdit(true);
+		setDraft(draft.map((item) => (item.isSelected ? { ...item, body: newBody, lastEditedTime: editTime } : item)));
 	};
 
 	//draftObjectの削除処理
@@ -136,7 +130,6 @@ export const useDraft = () => {
 		setDraft(newDraft);
 		setFetchDraftsData(newFetchDraftsData);
 		setIsSelect(false);
-		setIsEdit(false);
 	}, []);
 
 	const onSetUserName = useCallback((newUserName: string) => {
