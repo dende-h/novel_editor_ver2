@@ -1,5 +1,5 @@
 module.exports = {
-	siteUrl: 'https://next-novel-editor.vercel.app/',
+	siteUrl: 'https://novel-editor-ver2.vercel.app/',
 	generateRobotsTxt: true,
 	sitemapSize: 7000
 };
