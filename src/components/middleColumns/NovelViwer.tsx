@@ -40,13 +40,13 @@ export const NovelViewer: FC<Props> = ({ text }) => {
 	const aText = addLinkTags(text);
 	const rubyText = addRubyTags(aText);
 	const brText = addBrTags(rubyText);
-	const spaceText = preserveSpaces(brText);
+	
 	
 
 	return (
 		<Box
 			className="ruby-text"
-			dangerouslySetInnerHTML={{ __html: spaceText }}
+			dangerouslySetInnerHTML={{ __html: brText }}
 			fontSize={{ base: "12px", md: "16px", lg: "18px" }}
 			fontFamily={"Noto Serif JP"}
 			lineHeight={"1.5em"}

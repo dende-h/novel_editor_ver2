@@ -106,17 +106,18 @@ export const ProfileArea = memo(() => {
 						<Card w={{ base: "300px", md: "400px", lg: "500px" }} h={"auto"} backgroundColor={backgroundColor}>
 							<CardBody>
 								<Heading as={"h5"} fontSize={"md"}>
-									{`自己紹介(${textValue.length}/80文字)`}
+									{`自己紹介(${textValue.length}/200文字)`}
 								</Heading>
 								<Tooltip label={isPublished ? "公開中は編集できません" : "クリックで編集可能です"} placement="top">
 									<Textarea
 										value={textValue}
 										onChange={onChangeTextArea}
 										placeholder={"小説公開時に一緒に公開されます"}
-										maxLength={80}
+										maxLength={200}
 										fontSize={"sm"}
 										border="none"
 										isDisabled={isPublished}
+										overflow="scroll"
 									/>
 								</Tooltip>
 							</CardBody>
