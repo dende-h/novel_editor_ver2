@@ -85,7 +85,7 @@ export const EditorArea = memo(() => {
 								icon={<ImCross />}
 								aria-label="resetSelect"
 								onClick={selectStateReset}
-								colorScheme="teal"
+								colorScheme="red"
 								borderRadius={"full"}
 								boxSize={12}
 								shadow="lg"
