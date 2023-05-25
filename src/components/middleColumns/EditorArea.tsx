@@ -1,7 +1,7 @@
 import { Box, IconButton, Input, Text, useClipboard, useColorModeValue, VStack } from "@chakra-ui/react";
 import { memo, useEffect, useState } from "react";
 import { ImCross, ImPlus } from "react-icons/im";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { isClientState } from "../../globalState/atoms/isClientState";
 import { draftObject, editorState } from "../../globalState/selector/editorState";
 import { useCalcCharCount } from "../../hooks/useCalcCharCount";

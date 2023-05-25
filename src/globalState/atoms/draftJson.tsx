@@ -19,7 +19,7 @@ const { persistAtom } = recoilPersist({
 	storage: typeof window === "undefined" ? undefined : localforage
 });
 
-const initJson: DraftJson[] = [];
+const initJson: DraftJson[] = null;
 
 export const draftsJson = atom({
 	key: "draftsJson",

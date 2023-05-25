@@ -6,7 +6,8 @@ export const editorJson = selector({
 	key: "editorJson",
 	get: ({ get }) => {
 		const selectedDraftId: string = get(editorState).id;
-		const selectedDraftObject: DraftJson = get(draftsJson).filter((item: DraftJson) => item.id === selectedDraftId)[0];
+		const selectedDraftObject: DraftJson =
+			get(draftsJson) === null ? null : get(draftsJson).filter((item: DraftJson) => item.id === selectedDraftId)[0];
 
 		return selectedDraftObject;
 	}
