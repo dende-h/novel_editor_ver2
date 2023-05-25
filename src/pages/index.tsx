@@ -9,7 +9,7 @@ const Index: NextPage = () => {
 			<Seo
 				pageTitle={null}
 				pageDescription={null}
-				pagePath="https://next-novel-editor.vercel.app/"
+				pagePath="https://novel-editor-ver2.vercel.app/"
 				pageImg={null}
 				pageImgWidth="1200"
 				pageImgHeight="630"

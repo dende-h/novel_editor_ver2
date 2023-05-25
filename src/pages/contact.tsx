@@ -63,7 +63,7 @@ export default function Contact() {
 			<Seo
 				pageTitle="問い合わせフォーム"
 				pageDescription="管理人への問い合わせメールを送信できます"
-				pagePath="https://next-novel-editor.vercel.app/contact"
+				pagePath="https://novel-editor-ver2.vercel.app/contact"
 				pageImg={null}
 				pageImgWidth="1200"
 				pageImgHeight="630"

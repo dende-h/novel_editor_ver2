@@ -141,7 +141,7 @@ export default function BackUP() {
 			<Seo
 				pageTitle="バックアップと復元"
 				pageDescription="小説のバックアップと復元ができます"
-				pagePath="https://next-novel-editor.vercel.app/profile"
+				pagePath="https://novel-editor-ver2.vercel.app/profile"
 				pageImg={null}
 				pageImgWidth="1200"
 				pageImgHeight="630"
