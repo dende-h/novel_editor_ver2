@@ -181,11 +181,14 @@ export default function BackUP() {
 									? showPass
 										? pass
 										: [...pass].map((_, index) => (
-												<Box as={"span"} key={index} marginRight={"-1"}>
+												<Box as={"span"} key={index} marginRight={"-0.8"}>
 													●
 												</Box>
 										  ))
 									: "passWordを設定してください"}
+							</Text>
+							<Text fontSize={"11px"} color="red.500">
+								※パスワードを忘れた場合復元が出来なくなります。必ず控えを取っておいてください
 							</Text>
 						</Box>
 						<Box textAlign={"end"}>
