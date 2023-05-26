@@ -7,7 +7,7 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 export const Toolbar: FC = () => {
 	const [editor] = useLexicalComposerContext();
 	return (
-		<HStack position={"absolute"} top={0} left={0} zIndex={2}>
+		<HStack position={"absolute"} top={0} left={0} zIndex={3}>
 			<IconButton
 				aria-label="undo"
 				icon={<IoIosUndo />}
