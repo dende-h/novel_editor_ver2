@@ -187,10 +187,10 @@ export default function BackUP() {
 										  ))
 									: "passWordを設定してください"}
 							</Text>
-							<Text fontSize={"11px"} color="red.500">
-								※パスワードを忘れた場合復元が出来なくなります。必ず控えを取っておいてください
-							</Text>
 						</Box>
+						<Text fontSize={"11px"} color="red.500">
+							※パスワードを忘れた場合復元が出来なくなります。必ず控えを取っておいてください
+						</Text>
 						<Box textAlign={"end"}>
 							<ChangePassWordModal />
 						</Box>
