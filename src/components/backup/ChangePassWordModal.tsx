@@ -25,7 +25,7 @@ import { useInput } from "../../hooks/useInput";
 export const ChangePassWordModal = memo(() => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
-	const inputFocusBgColor = useColorModeValue("gray.100", "gray.700");
+	const inputfontColor = useColorModeValue("gray.700", "gray.700");
 	const buttonHoverBgColor = useColorModeValue("gray.300", "gray.500");
 	const setPass = useSetRecoilState(passWord);
 	const { onChangeInputForm, value, setValue } = useInput();
@@ -104,6 +104,7 @@ export const ChangePassWordModal = memo(() => {
 										w={"300px"}
 										overflow={"hidden"}
 										borderColor={isValid ? "green.500" : "red.500"}
+										color={inputfontColor}
 									/>
 									<FormErrorMessage>{errorMessage}</FormErrorMessage>
 								</FormControl>
