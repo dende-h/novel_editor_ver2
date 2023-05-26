@@ -8,7 +8,7 @@ import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
-import { Box, chakra } from "@chakra-ui/react";
+import { Box, chakra, useColorModeValue } from "@chakra-ui/react";
 import { useDraft } from "../../hooks/useDraft";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { editorState } from "../../globalState/selector/editorState";
@@ -74,13 +74,15 @@ export const LexicalEditorArea = memo((props: { setValue: (value: SetStateAction
 		});
 	};
 
+	const boxColor = useColorModeValue("gray.100", "gray.900");
+
 	return (
 		<>
 			{initialJson !== null ? (
 				<LexicalComposer initialConfig={initialConfig}>
 					<Toolbar />
 					<Box
-						backgroundColor={"gray.100"}
+						backgroundColor={boxColor}
 						position={"relative"}
 						padding={{ base: 6, lg: 8 }}
 						height={{ base: "77vh", lg: "75vh" }}
