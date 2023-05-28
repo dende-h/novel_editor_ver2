@@ -1,4 +1,4 @@
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { drafts } from "../globalState/atoms/drafts";
 import { draftObjectArray } from "../globalState/atoms/drafts";
 import { useCallback } from "react";
@@ -8,6 +8,7 @@ import { userName } from "../globalState/atoms/userName";
 import { useClipboard } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
 import { draftData, publishedDraftsData } from "../globalState/atoms/publishedDraftsData";
+import { draftsJson } from "../globalState/atoms/draftJson";
 
 //タイトルエリアの編集時のカスタムフック
 export const useDraft = () => {
@@ -16,6 +17,7 @@ export const useDraft = () => {
 	const [defaultUserName, setUserName] = useRecoilState(userName);
 	const { onCopy, setValue, hasCopied } = useClipboard("");
 	const [fetchDraftsData, setFetchDraftsData] = useRecoilState(publishedDraftsData);
+	const setDraftJson = useSetRecoilState(draftsJson);
 
 	//オブジェクト内のisSelectedプロパティにより処理を行う
 	//isSelectedプロパティは配列内でtrueは常に一つであり重複しない。重複する場合想定する動作をしないため修正必要
@@ -24,6 +26,22 @@ export const useDraft = () => {
 	const onAddNovel = () => {
 		const id = uuidv4();
 		const createTime = new Date();
+		setDraftJson((prevItem) => {
+			return prevItem === null
+				? [
+						{
+							id: id,
+							json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}'
+						}
+				  ]
+				: [
+						...prevItem,
+						{
+							id: id,
+							json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}'
+						}
+				  ];
+		});
 		setDraft(
 			draft.map((item) => {
 				return { ...item, isSelected: false };
