@@ -95,7 +95,6 @@ export const LeftColumnArea = memo(() => {
 											_hover={{ opacity: 0.8, shadow: "2xl" }}
 											w={{ base: "270px", xl: "290px" }}
 											onClick={onAddNovel}
-											isDisabled={isSelect}
 										>
 											新しい小説を書く
 										</Button>

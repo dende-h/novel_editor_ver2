@@ -42,12 +42,6 @@ export const useDraft = () => {
 						}
 				  ];
 		});
-		setDraft(
-			draft.map((item) => {
-				return { ...item, isSelected: false };
-			})
-		);
-		setIsSelect(false);
 		const setId = {
 			id: id,
 			good_mark: 0
