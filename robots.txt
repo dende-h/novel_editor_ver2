@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://novel-editor-ver2.vercel.app/
+
+# Sitemaps
+Sitemap: https://novel-editor-ver2.vercel.app/sitemap.xml
