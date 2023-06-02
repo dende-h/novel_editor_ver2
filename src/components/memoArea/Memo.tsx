@@ -23,33 +23,39 @@ import {
 	HStack
 } from "@chakra-ui/react";
 import { IoMdRemoveCircle, IoIosColorFill } from "react-icons/io";
-import { NovelViewer } from "../middleColumns/NovelViwer";
 import { MemoViewer } from "./MemoViwer";
-
-type Item = { t: string; x: number; y: number; c: number };
-type Items = { [key: string]: Item };
+import { Item, Items, memoState } from "../../globalState/atoms/memoState";
+import { useRecoilState } from "recoil";
 
 const COLORS = ["#ffe1b4", "#FFF9D5", "#ECFAF5", "#CBF5E4", "#A5DEC8", "#FFF"];
 
-export const Memo: React.FC = () => {
+type Props = {
+	id: string;
+};
+
+export const Memo: React.FC<Props> = (props: Props) => {
+	const { id } = props;
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const btnRef: LegacyRef<HTMLButtonElement> = useRef();
-	const [items, setItems] = useState<Items | null>(null);
+	const [items, setItems] = useRecoilState<Items>(memoState);
 	const [dragging, setDragging] = useState({ key: "", x: 0, y: 0 });
 
 	const [input, setInput] = useState("");
 	const [editMode, setEditMode] = useState({ key: "", w: 0, h: 0 });
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
-	useEffect(() => {
-		// データの初期化やロード処理をここに追加する
 
-		// 例: 初期データのセット
-		const initialItems: Items = {
-			item1: { t: "text here", x: 100, y: 100, c: 0 },
-			item2: { t: "another text", x: 200, y: 200, c: 0 }
-		};
-		setItems(initialItems);
-	}, []);
+	const initialItems: Items = {
+		item1: { id: id, t: "クリックで編集", x: 100, y: 100, c: 0 },
+		item2: { id: id, t: "ドラッグ＆ドロップで移動", x: 200, y: 200, c: 0 }
+	};
+
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			setItems((prevItem) => {
+				return prevItem === null ? initialItems : prevItem;
+			});
+		}
+	});
 
 	const add = () => {
 		// メモの追加処理をここに追加する
@@ -57,7 +63,8 @@ export const Memo: React.FC = () => {
 		// 例: ランダムな位置に新しいメモを追加
 		const newItemKey = `item${Object.keys(items).length + 1}`;
 		const newItem: Item = {
-			t: "new text",
+			id: id,
+			t: "新しいメモ",
 			x: Math.floor(Math.random() * 500),
 			y: Math.floor(Math.random() * 500),
 			c: 0
@@ -75,6 +82,12 @@ export const Memo: React.FC = () => {
 		const updatedItems = { ...items };
 		delete updatedItems[key];
 		setItems(updatedItems);
+	};
+
+	const handleDragStart = (e) => {
+		const ghostImg = new Image(100, 100);
+		ghostImg.src = "/22878546.jpg";
+		e.dataTransfer.setDragImage(ghostImg, 0, 0);
 	};
 
 	return (
@@ -103,28 +116,35 @@ export const Memo: React.FC = () => {
 							h={"100%"}
 						>
 							<Flex>
-								{Object.keys(items).map((key) => (
-									<Box
-										key={key}
-										position="absolute"
-										left={items[key].x + "px"}
-										top={items[key].y + "px"}
-										background={COLORS[items[key].c]}
-										draggable
-										onDragStart={(e) =>
-											setDragging({
-												key,
-												x: e.clientX - items[key].x,
-												y: e.clientY - items[key].y
-											})
-										}
-										minW={"160px"}
-										minH={"35px"}
-										maxW={"250px"}
-										maxH={"250px"}
-									>
-										<Flex>
-											{/* <Flex>
+								{items !== null &&
+									Object.keys(items)
+										.filter((key) => {
+											return items[key].id === id;
+										})
+										.map((key) => (
+											<Box
+												key={key}
+												position="absolute"
+												left={items[key].x + "px"}
+												top={items[key].y + "px"}
+												background={COLORS[items[key].c]}
+												draggable
+												onDragStart={(e) => {
+													setDragging({
+														key,
+														x: e.clientX - items[key].x,
+														y: e.clientY - items[key].y
+													});
+													handleDragStart(e);
+												}}
+												minW={"160px"}
+												minH={"35px"}
+												maxW={"250px"}
+												maxH={"250px"}
+												_hover={{ boxShadow: "lg" }}
+											>
+												<Flex>
+													{/* <Flex>
 												{COLORS.map((c, i) => (
 													<Circle
 														key={c}
@@ -137,63 +157,63 @@ export const Memo: React.FC = () => {
 													/>
 												))}
 											</Flex> */}
-											{editMode.key === key ? (
-												<Textarea
-													onChange={(e) => setInput(e.target.value)}
-													defaultValue={items[key].t}
-													autoFocus
-													onFocus={(e) => e.target.select()}
-													onBlur={() => {
-														setInput("");
-														setEditMode({ key: "", w: 0, h: 0 });
-														input && update(key, { ...items[key], t: input });
-													}}
-													overflow="scroll"
-													fontSize={"12px"}
-												/>
-											) : (
-												<Box
-													onClick={(e) =>
-														setEditMode({
-															key,
-															w: e.currentTarget.clientWidth,
-															h: e.currentTarget.clientHeight
-														})
-													}
-													fontSize={"12px"}
-													p={2}
-												>
-													<MemoViewer text={items[key].t} />
-												</Box>
-											)}
-											<Spacer />
-											<VStack spacing={"0"}>
-												<IconButton
-													fontSize={"md"}
-													icon={<IoMdRemoveCircle />}
-													aria-label={"remove"}
-													onClick={() => remove(key)}
-													borderRadius={"full"}
-													size={"xs"}
-													variant="ghost"
-													colorScheme={"red"}
-												/>
-												<IconButton
-													fontSize={"md"}
-													icon={<IoIosColorFill />}
-													onClick={() => {
-														update(key, { ...items[key], c: items[key].c === 5 ? 0 : items[key].c + 1 });
-													}}
-													aria-label={"color"}
-													borderRadius={"full"}
-													size={"xs"}
-													variant="ghost"
-													colorScheme={"twitter"}
-												/>
-											</VStack>
-										</Flex>
-									</Box>
-								))}
+													{editMode.key === key ? (
+														<Textarea
+															onChange={(e) => setInput(e.target.value)}
+															defaultValue={items[key].t}
+															autoFocus
+															onFocus={(e) => e.target.select()}
+															onBlur={() => {
+																setInput("");
+																setEditMode({ key: "", w: 0, h: 0 });
+																input && update(key, { ...items[key], t: input });
+															}}
+															overflow="scroll"
+															fontSize={"12px"}
+														/>
+													) : (
+														<Box
+															onClick={(e) =>
+																setEditMode({
+																	key,
+																	w: e.currentTarget.clientWidth,
+																	h: e.currentTarget.clientHeight
+																})
+															}
+															fontSize={"12px"}
+															p={2}
+														>
+															<MemoViewer text={items[key].t} />
+														</Box>
+													)}
+													<Spacer />
+													<VStack spacing={"0"}>
+														<IconButton
+															fontSize={"md"}
+															icon={<IoMdRemoveCircle />}
+															aria-label={"remove"}
+															onClick={() => remove(key)}
+															borderRadius={"full"}
+															size={"xs"}
+															variant="ghost"
+															colorScheme={"red"}
+														/>
+														<IconButton
+															fontSize={"md"}
+															icon={<IoIosColorFill />}
+															onClick={() => {
+																update(key, { ...items[key], c: items[key].c === 5 ? 0 : items[key].c + 1 });
+															}}
+															aria-label={"color"}
+															borderRadius={"full"}
+															size={"xs"}
+															variant="ghost"
+															colorScheme={"twitter"}
+														/>
+													</VStack>
+												</Flex>
+											</Box>
+										))}
 							</Flex>
 						</Box>
 					</DrawerBody>

@@ -34,6 +34,7 @@ import { passWord } from "../globalState/atoms/passWord";
 import { AlertDialogBackUpDelete } from "../components/backup/AlertDialogBackUpDelete";
 import { AlertDialogBackUpReconstruction } from "../components/backup/AlertDialogBackUpReconstruction";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { memoState } from "../globalState/atoms/memoState";
 
 export default function BackUP() {
 	const setDrafts = useSetRecoilState(drafts);
@@ -44,6 +45,7 @@ export default function BackUP() {
 	const setPublishedDraftsData = useSetRecoilState(publishedDraftsData);
 	const setUserImageUrl = useSetRecoilState(userImageUrl);
 	const setUserIntroduction = useSetRecoilState(userIntroduction);
+	const setMemoData = useSetRecoilState(memoState);
 	const name = useRecoilValue(userName);
 	const pass = useRecoilValue(passWord);
 	const [isPublished, setIsPublished] = useRecoilState(isPublishedState);
@@ -82,7 +84,8 @@ export default function BackUP() {
 				user_image: data[0].user_image,
 				user_introduction: data[0].user_introduction,
 				password: data[0].password,
-				user_name: data[0].user_name
+				user_name: data[0].user_name,
+				memo_data: data[0].memo_data
 			};
 			setDrafts(JSON.parse(fetchData.drafts_data));
 			setDraftsJson(JSON.parse(fetchData.drafts_json_data));
@@ -93,6 +96,7 @@ export default function BackUP() {
 			setPublishedDraftsData(JSON.parse(fetchData.published_draft));
 			setUserImageUrl(JSON.parse(fetchData.user_image));
 			setUserIntroduction(fetchData.user_introduction);
+			setMemoData(JSON.parse(fetchData.memo_data));
 		}
 		setIsLoading(false);
 	};

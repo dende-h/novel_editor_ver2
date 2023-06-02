@@ -71,7 +71,7 @@ export const EditorArea = memo(() => {
 										現在の文字数 : {charCount} / {bodyMaxLength} 文字
 									</Text>
 
-									<Memo />
+									<Memo id={selectedDraft.id} />
 								</HStack>
 								<SelectMaxLengthSlider maxLength={bodyMaxLength} />
 							</VStack>

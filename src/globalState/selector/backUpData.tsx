@@ -10,6 +10,7 @@ import { userImageUrl } from "../atoms/userImageUrl";
 import { userIntroduction } from "../atoms/userIntroduction";
 import { userName } from "../atoms/userName";
 import { passWord } from "../atoms/passWord";
+import { memoState } from "../atoms/memoState";
 
 export type BackUpDataObject = {
 	id?: string;
@@ -24,6 +25,7 @@ export type BackUpDataObject = {
 	user_introduction: string;
 	password: string;
 	user_name: string;
+	memo_data?: string;
 };
 
 export const backUpData = selector({
@@ -40,6 +42,7 @@ export const backUpData = selector({
 		const userIntroductionData: string = get(userIntroduction);
 		const userNameData: string = get(userName);
 		const passWordData: string = get(passWord);
+		const memoDate: string = JSON.stringify(get(memoState));
 
 		const backUpDataObject: BackUpDataObject = {
 			drafts_data: draftsData,
@@ -55,7 +58,8 @@ export const backUpData = selector({
 
 			user_introduction: userIntroductionData,
 			password: passWordData,
-			user_name: userNameData
+			user_name: userNameData,
+			memo_data: memoDate
 		};
 
 		return backUpDataObject;
