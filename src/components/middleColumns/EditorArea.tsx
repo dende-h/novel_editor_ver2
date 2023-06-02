@@ -1,4 +1,15 @@
-import { Box, Flex, IconButton, Input, Spacer, Text, useClipboard, useColorModeValue, VStack } from "@chakra-ui/react";
+import {
+	Box,
+	Flex,
+	HStack,
+	IconButton,
+	Input,
+	Spacer,
+	Text,
+	useClipboard,
+	useColorModeValue,
+	VStack
+} from "@chakra-ui/react";
 import { memo, useEffect, useState } from "react";
 import { ImCross, ImPlus } from "react-icons/im";
 import { useRecoilValue } from "recoil";
@@ -55,13 +66,13 @@ export const EditorArea = memo(() => {
 								/>
 							</VStack>
 							<VStack w={"85%"} spacing={0}>
-								<Flex>
+								<HStack>
 									<Text textColor={isCharCountOverflow && "red"} fontSize={{ base: "sm", md: "md" }}>
 										現在の文字数 : {charCount} / {bodyMaxLength} 文字
 									</Text>
-									<Spacer />
+
 									<Memo />
-								</Flex>
+								</HStack>
 								<SelectMaxLengthSlider maxLength={bodyMaxLength} />
 							</VStack>
 							<Box zIndex={1} w={"100%"} h={"100%"} position={"relative"}>

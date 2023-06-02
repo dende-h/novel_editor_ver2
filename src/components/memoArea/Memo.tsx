@@ -15,9 +15,16 @@ import {
 	DrawerHeader,
 	DrawerOverlay,
 	IconButton,
-	useDisclosure
+	useDisclosure,
+	useColorModeValue,
+	Text,
+	Spacer,
+	VStack,
+	HStack
 } from "@chakra-ui/react";
-import { ImMenu } from "react-icons/im";
+import { IoMdRemoveCircle, IoIosColorFill } from "react-icons/io";
+import { NovelViewer } from "../middleColumns/NovelViwer";
+import { MemoViewer } from "./MemoViwer";
 
 type Item = { t: string; x: number; y: number; c: number };
 type Items = { [key: string]: Item };
@@ -32,14 +39,14 @@ export const Memo: React.FC = () => {
 
 	const [input, setInput] = useState("");
 	const [editMode, setEditMode] = useState({ key: "", w: 0, h: 0 });
-
+	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	useEffect(() => {
 		// データの初期化やロード処理をここに追加する
 
 		// 例: 初期データのセット
 		const initialItems: Items = {
 			item1: { t: "text here", x: 100, y: 100, c: 0 },
-			item2: { t: "another text", x: 200, y: 200, c: 1 }
+			item2: { t: "another text", x: 200, y: 200, c: 0 }
 		};
 		setItems(initialItems);
 	}, []);
@@ -53,7 +60,7 @@ export const Memo: React.FC = () => {
 			t: "new text",
 			x: Math.floor(Math.random() * 500),
 			y: Math.floor(Math.random() * 500),
-			c: 2
+			c: 0
 		};
 		setItems({ ...items, [newItemKey]: newItem });
 	};
@@ -70,31 +77,18 @@ export const Memo: React.FC = () => {
 		setItems(updatedItems);
 	};
 
-	if (!items) {
-		return (
-			<Center>
-				<Button onClick={() => add()}>＋ add card</Button>
-			</Center>
-		);
-	}
-
 	return (
 		<>
-			<IconButton
-				icon={<ImMenu />}
-				aria-label="openDrawer"
-				ref={btnRef}
-				onClick={onOpen}
-				borderRadius={2}
-				boxSize={8}
-			/>
+			<Button ref={btnRef} onClick={onOpen} borderRadius={2} size={"xs"} colorScheme="facebook" ml={4}>
+				メモ
+			</Button>
 
-			<Drawer isOpen={isOpen} placement="left" onClose={onClose} finalFocusRef={btnRef} size={"sm"}>
+			<Drawer isOpen={isOpen} placement="left" onClose={onClose} finalFocusRef={btnRef} size={"full"}>
 				<DrawerOverlay />
-				<DrawerContent>
+				<DrawerContent backgroundColor={backgroundColor}>
 					<DrawerCloseButton />
 					<DrawerHeader>原稿メモ</DrawerHeader>
-					<DrawerBody>
+					<DrawerBody w={"100%"} h={"100%"}>
 						<Box
 							onDragOver={(e) => e.preventDefault()}
 							onDrop={(e) => {
@@ -107,7 +101,6 @@ export const Memo: React.FC = () => {
 							}}
 							w={"100%"}
 							h={"100%"}
-							backgroundColor="gray"
 						>
 							<Flex>
 								{Object.keys(items).map((key) => (
@@ -118,7 +111,6 @@ export const Memo: React.FC = () => {
 										top={items[key].y + "px"}
 										background={COLORS[items[key].c]}
 										draggable
-										className="Card"
 										onDragStart={(e) =>
 											setDragging({
 												key,
@@ -126,24 +118,16 @@ export const Memo: React.FC = () => {
 												y: e.clientY - items[key].y
 											})
 										}
-										w={"200px"}
-										h={"200px"}
+										minW={"160px"}
+										minH={"35px"}
+										maxW={"250px"}
+										maxH={"250px"}
 									>
-										<Button
-											className="DeleteBtn"
-											onClick={() => remove(key)}
-											position="absolute"
-											top="-10px"
-											right="-10px"
-										>
-											×
-										</Button>
-										<Flex direction="column" alignItems="center">
-											<Flex>
+										<Flex>
+											{/* <Flex>
 												{COLORS.map((c, i) => (
 													<Circle
 														key={c}
-														className="ColorCircle"
 														onClick={() => {
 															update(key, { ...items[key], c: i });
 														}}
@@ -152,10 +136,9 @@ export const Memo: React.FC = () => {
 														cursor="pointer"
 													/>
 												))}
-											</Flex>
+											</Flex> */}
 											{editMode.key === key ? (
 												<Textarea
-													className="EditableText"
 													onChange={(e) => setInput(e.target.value)}
 													defaultValue={items[key].t}
 													autoFocus
@@ -165,10 +148,11 @@ export const Memo: React.FC = () => {
 														setEditMode({ key: "", w: 0, h: 0 });
 														input && update(key, { ...items[key], t: input });
 													}}
+													overflow="scroll"
+													fontSize={"12px"}
 												/>
 											) : (
-												<pre
-													className="Text"
+												<Box
 													onClick={(e) =>
 														setEditMode({
 															key,
@@ -176,10 +160,37 @@ export const Memo: React.FC = () => {
 															h: e.currentTarget.clientHeight
 														})
 													}
+													fontSize={"12px"}
+													p={2}
 												>
-													{items[key].t}
-												</pre>
+													<MemoViewer text={items[key].t} />
+												</Box>
 											)}
+											<Spacer />
+											<VStack spacing={"0"}>
+												<IconButton
+													fontSize={"md"}
+													icon={<IoMdRemoveCircle />}
+													aria-label={"remove"}
+													onClick={() => remove(key)}
+													borderRadius={"full"}
+													size={"xs"}
+													variant="ghost"
+													colorScheme={"red"}
+												/>
+												<IconButton
+													fontSize={"md"}
+													icon={<IoIosColorFill />}
+													onClick={() => {
+														update(key, { ...items[key], c: items[key].c === 5 ? 0 : items[key].c + 1 });
+													}}
+													aria-label={"color"}
+													borderRadius={"full"}
+													size={"xs"}
+													variant="ghost"
+													colorScheme={"twitter"}
+												/>
+											</VStack>
 										</Flex>
 									</Box>
 								))}
@@ -187,7 +198,9 @@ export const Memo: React.FC = () => {
 						</Box>
 					</DrawerBody>
 					<DrawerFooter>
-						<Button onClick={() => add()}>＋ add card</Button>
+						<Button onClick={() => add()} colorScheme={"teal"}>
+							付箋を追加
+						</Button>
 					</DrawerFooter>
 				</DrawerContent>
 			</Drawer>
