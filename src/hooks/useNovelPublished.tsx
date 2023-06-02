@@ -10,7 +10,6 @@ import { publishedCount } from "../globalState/atoms/publishedCount";
 import { useState } from "react";
 import { userIntroduction } from "../globalState/atoms/userIntroduction";
 import { draftData, publishedDraftsData } from "../globalState/atoms/publishedDraftsData";
-import { SupabaseClient } from "@supabase/supabase-js";
 import { userImageUrl } from "../globalState/atoms/userImageUrl";
 
 export const useNovelPublished = () => {
@@ -67,7 +66,8 @@ export const useNovelPublished = () => {
 				tag4: item.tag[3],
 				user_name: item.userName,
 				image_url: item.imageUrl,
-				good_mark: goodMark ? goodMark : 0
+				good_mark: goodMark ? goodMark : 0,
+				last_edit_time: item.lastEditedTime
 			};
 		});
 		const { error } = await supabase.from("drafts").insert(insertItems);
