@@ -158,14 +158,24 @@ export const useDraft = () => {
 	};
 
 	const onAddImage = (url: string, name: string) => {
+		const editTime = new Date();
 		setDraft(
-			draft.map((item) => (item.isSelected ? { ...item, isImageUpload: true, imageUrl: url, imageName: name } : item))
+			draft.map((item) =>
+				item.isSelected
+					? { ...item, isImageUpload: true, imageUrl: url, imageName: name, lastEditedTime: editTime }
+					: item
+			)
 		);
 	};
 
 	const onRemoveImage = () => {
+		const editTime = new Date();
 		setDraft(
-			draft.map((item) => (item.isSelected ? { ...item, isImageUpload: false, imageUrl: "", imageName: "" } : item))
+			draft.map((item) =>
+				item.isSelected
+					? { ...item, isImageUpload: false, imageUrl: "", imageName: "", lastEditedTime: editTime }
+					: item
+			)
 		);
 	};
 
