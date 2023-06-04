@@ -9,6 +9,7 @@ import { useClipboard } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
 import { draftData, publishedDraftsData } from "../globalState/atoms/publishedDraftsData";
 import { draftsJson } from "../globalState/atoms/draftJson";
+import { Items, memoState } from "../globalState/atoms/memoState";
 
 //タイトルエリアの編集時のカスタムフック
 export const useDraft = () => {
@@ -18,7 +19,7 @@ export const useDraft = () => {
 	const { onCopy, setValue, hasCopied } = useClipboard("");
 	const [fetchDraftsData, setFetchDraftsData] = useRecoilState(publishedDraftsData);
 	const setDraftJson = useSetRecoilState(draftsJson);
-
+	const [memos, setMemos] = useRecoilState<Items[]>(memoState);
 	//オブジェクト内のisSelectedプロパティにより処理を行う
 	//isSelectedプロパティは配列内でtrueは常に一つであり重複しない。重複する場合想定する動作をしないため修正必要
 
@@ -67,6 +68,16 @@ export const useDraft = () => {
 		setDraft([newDraft, ...oldDraft]);
 		setFetchDraftsData([setId, ...fetchDraftsData]);
 		setIsSelect(true);
+		setMemos([
+			...memos,
+			{
+				id: id,
+				memoList: {
+					item1: { t: "クリックで編集", x: 100, y: 100, c: 0 },
+					item2: { t: "ドラッグ＆ドロップで移動", x: 200, y: 200, c: 0 }
+				}
+			}
+		]);
 	};
 
 	const selectStateReset = () => {
@@ -127,9 +138,14 @@ export const useDraft = () => {
 			const findId = newDraft.findIndex((draft) => draft.id === item.id);
 			return findId !== -1;
 		});
+		const newMemos: Items[] = memos.filter((item) => {
+			const findRemove = newDraft.findIndex((draft) => draft.id === item.id);
+			return findRemove !== -1;
+		});
 		setDraft(newDraft);
 		setFetchDraftsData(newFetchDraftsData);
 		setIsSelect(false);
+		setMemos(newMemos);
 	}, []);
 
 	const onSetUserName = useCallback((newUserName: string) => {

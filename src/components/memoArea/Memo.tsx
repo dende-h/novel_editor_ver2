@@ -37,51 +37,89 @@ export const Memo: React.FC<Props> = (props: Props) => {
 	const { id } = props;
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const btnRef: LegacyRef<HTMLButtonElement> = useRef();
-	const [items, setItems] = useRecoilState<Items>(memoState);
+	const [memos, setMemos] = useRecoilState<Items[]>(memoState);
 	const [dragging, setDragging] = useState({ key: "", x: 0, y: 0 });
-
+	const [isMemo, setIsMemo] = useState(false);
 	const [input, setInput] = useState("");
 	const [editMode, setEditMode] = useState({ key: "", w: 0, h: 0 });
-	const backgroundColor = useColorModeValue("gray.200", "gray.600");
-
-	const initialItems: Items = {
-		item1: { id: id, t: "クリックで編集", x: 100, y: 100, c: 0 },
-		item2: { id: id, t: "ドラッグ＆ドロップで移動", x: 200, y: 200, c: 0 }
-	};
+	const backgroundColor = useColorModeValue("gray.300", "gray.600");
+	const backgroundDropAreaColor = useColorModeValue("gray.100", "gray.700");
+	const updateItemsIndex = memos.findIndex((item) => {
+		return item.id === id;
+	});
 
 	useEffect(() => {
-		if (typeof window !== "undefined") {
-			setItems((prevItem) => {
-				return prevItem === null ? initialItems : prevItem;
-			});
+		if (updateItemsIndex !== -1) {
+			setIsMemo(true);
 		}
-	});
+	}, [memos]);
 
 	const add = () => {
 		// メモの追加処理をここに追加する
 
 		// 例: ランダムな位置に新しいメモを追加
-		const newItemKey = `item${Object.keys(items).length + 1}`;
-		const newItem: Item = {
-			id: id,
-			t: "新しいメモ",
-			x: Math.floor(Math.random() * 500),
-			y: Math.floor(Math.random() * 500),
-			c: 0
-		};
-		setItems({ ...items, [newItemKey]: newItem });
+
+		setMemos(
+			memos.map((memo) => {
+				if (memo.id === id) {
+					const newItem: Item = {
+						t: "新しいメモ",
+						x: Math.floor(Math.random() * 300),
+						y: Math.floor(Math.random() * 300),
+						c: 0
+					};
+					const newItemKey = `item${Object.keys(memo.memoList).length + 1}`;
+					return {
+						...memo,
+						memoList: {
+							...memo.memoList,
+							[newItemKey]: newItem
+						}
+					};
+				} else {
+					// メモが見つからなかった場合、そのまま返す
+					return memo;
+				}
+			})
+		);
 	};
 
 	const update = (key: string, item: Item) => {
 		// メモの更新処理をここに追加する
-		setItems({ ...items, [key]: item });
+		setMemos(
+			memos.map((memo) => {
+				if (memo.id === id) {
+					return {
+						...memo,
+						memoList: {
+							...memo.memoList,
+							[key]: item
+						}
+					};
+				} else {
+					// メモが見つからなかった場合、そのまま返す
+					return memo;
+				}
+			})
+		);
 	};
 
-	const remove = (key: string) => {
-		// メモの削除処理をここに追加する
-		const updatedItems = { ...items };
-		delete updatedItems[key];
-		setItems(updatedItems);
+	const remove = (key) => {
+		setMemos((prevMemos) =>
+			prevMemos.map((memo) => {
+				if (memo.id === id) {
+					// idが一致したメモを見つける
+					const { [key]: removedItem, ...remainingItems } = memo.memoList; // removedItemに削除するitemを取得し、remainingItemsに残りのitemsを格納
+					return {
+						...memo,
+						memoList: remainingItems // 削除後のItemsを返す
+					};
+				} else {
+					// メモが見つからなかった場合、そのまま返す
+					return memo;
+				}
+			})
+		);
 	};
 
 	const handleDragStart = (e) => {
@@ -99,128 +137,127 @@ export const Memo: React.FC<Props> = (props: Props) => {
 			<Drawer isOpen={isOpen} placement="left" onClose={onClose} finalFocusRef={btnRef} size={"full"}>
 				<DrawerOverlay />
 				<DrawerContent backgroundColor={backgroundColor}>
-					<DrawerCloseButton />
-					<DrawerHeader>原稿メモ</DrawerHeader>
 					<DrawerBody w={"100%"} h={"100%"}>
 						<Box
 							onDragOver={(e) => e.preventDefault()}
 							onDrop={(e) => {
-								if (!dragging || !items) return;
+								if (!dragging || !memos[updateItemsIndex].memoList) return;
 								update(dragging.key, {
-									...items[dragging.key],
+									...memos[updateItemsIndex].memoList[dragging.key],
 									x: e.clientX - dragging.x,
 									y: e.clientY - dragging.y
 								});
 							}}
-							w={"100%"}
+							minW={{ base: "520px", md: "768px", lg: "1000px", xl: "1280px", xxl: "1600px" }}
 							h={"100%"}
+							bgColor={backgroundDropAreaColor}
+							position={"relative"}
 						>
-							<Flex>
-								{items !== null &&
-									Object.keys(items)
-										.filter((key) => {
-											return items[key].id === id;
-										})
-										.map((key) => (
-											<Box
-												key={key}
-												position="absolute"
-												left={items[key].x + "px"}
-												top={items[key].y + "px"}
-												background={COLORS[items[key].c]}
-												draggable
-												onDragStart={(e) => {
-													setDragging({
-														key,
-														x: e.clientX - items[key].x,
-														y: e.clientY - items[key].y
-													});
-													handleDragStart(e);
-												}}
-												minW={"160px"}
-												minH={"35px"}
-												maxW={"250px"}
-												maxH={"250px"}
-												_hover={{ boxShadow: "lg" }}
-											>
-												<Flex>
-													{/* <Flex>
-												{COLORS.map((c, i) => (
-													<Circle
-														key={c}
-														onClick={() => {
-															update(key, { ...items[key], c: i });
+							{isMemo &&
+								Object.keys(memos[updateItemsIndex].memoList).map((key) => (
+									<Box
+										key={key}
+										position="absolute"
+										left={memos[updateItemsIndex].memoList[key].x + "px"}
+										top={memos[updateItemsIndex].memoList[key].y + "px"}
+										background={COLORS[memos[updateItemsIndex].memoList[key].c]}
+										draggable
+										onDragStart={(e) => {
+											setDragging({
+												key,
+												x: e.clientX - memos[updateItemsIndex].memoList[key].x,
+												y: e.clientY - memos[updateItemsIndex].memoList[key].y
+											});
+											handleDragStart(e);
+										}}
+										minW={"160px"}
+										minH={"35px"}
+										maxW={"250px"}
+										maxH={"250px"}
+										_hover={{ boxShadow: "lg" }}
+									>
+										<Flex>
+											<Flex>
+												{editMode.key === key ? (
+													<Textarea
+														onChange={(e) => setInput(e.target.value)}
+														defaultValue={memos[updateItemsIndex].memoList[key].t}
+														autoFocus
+														onFocus={(e) => e.target.select()}
+														onBlur={() => {
+															setInput("");
+															setEditMode({ key: "", w: 0, h: 0 });
+															input && update(key, { ...memos[updateItemsIndex].memoList[key], t: input });
 														}}
-														bg={c}
-														margin="2px"
-														cursor="pointer"
+														overflow="scroll"
+														fontSize={"12px"}
 													/>
-												))}
-											</Flex> */}
-													{editMode.key === key ? (
-														<Textarea
-															onChange={(e) => setInput(e.target.value)}
-															defaultValue={items[key].t}
-															autoFocus
-															onFocus={(e) => e.target.select()}
-															onBlur={() => {
-																setInput("");
-																setEditMode({ key: "", w: 0, h: 0 });
-																input && update(key, { ...items[key], t: input });
-															}}
-															overflow="scroll"
-															fontSize={"12px"}
-														/>
-													) : (
-														<Box
-															onClick={(e) =>
-																setEditMode({
-																	key,
-																	w: e.currentTarget.clientWidth,
-																	h: e.currentTarget.clientHeight
-																})
-															}
-															fontSize={"12px"}
-															p={2}
-														>
-															<MemoViewer text={items[key].t} />
-														</Box>
-													)}
-													<Spacer />
-													<VStack spacing={"0"}>
-														<IconButton
-															fontSize={"md"}
-															icon={<IoMdRemoveCircle />}
-															aria-label={"remove"}
-															onClick={() => remove(key)}
-															borderRadius={"full"}
-															size={"xs"}
-															variant="ghost"
-															colorScheme={"red"}
-														/>
-														<IconButton
-															fontSize={"md"}
-															icon={<IoIosColorFill />}
-															onClick={() => {
-																update(key, { ...items[key], c: items[key].c === 5 ? 0 : items[key].c + 1 });
-															}}
-															aria-label={"color"}
-															borderRadius={"full"}
-															size={"xs"}
-															variant="ghost"
-															colorScheme={"twitter"}
-														/>
-													</VStack>
-												</Flex>
-											</Box>
-										))}
-							</Flex>
+												) : (
+													<Box
+														onClick={(e) =>
+															setEditMode({
+																key,
+																w: e.currentTarget.clientWidth,
+																h: e.currentTarget.clientHeight
+															})
+														}
+														fontSize={"12px"}
+														p={2}
+														minW={"160px"}
+														minH={"35px"}
+														maxW={"250px"}
+														maxH={"250px"}
+														overflow={"scroll"}
+													>
+														<MemoViewer text={memos[updateItemsIndex].memoList[key].t} />
+													</Box>
+												)}
+												<Spacer />
+												<VStack spacing={"0"}>
+													<IconButton
+														fontSize={"md"}
+														icon={<IoMdRemoveCircle />}
+														aria-label={"remove"}
+														onClick={() => remove(key)}
+														borderRadius={"full"}
+														size={"xs"}
+														variant="ghost"
+														colorScheme={"red"}
+													/>
+													<IconButton
+														fontSize={"md"}
+														icon={<IoIosColorFill />}
+														onClick={() => {
+															update(key, {
+																...memos[updateItemsIndex].memoList[key],
+																c:
+																	memos[updateItemsIndex].memoList[key].c === 5
+																		? 0
+																		: memos[updateItemsIndex].memoList[key].c + 1
+															});
+														}}
+														aria-label={"color"}
+														borderRadius={"full"}
+														size={"xs"}
+														variant="ghost"
+														colorScheme={"twitter"}
+													/>
+												</VStack>
+											</Flex>
+										</Flex>
+									</Box>
+								))}
 						</Box>
 					</DrawerBody>
 					<DrawerFooter>
-						<Button onClick={() => add()} colorScheme={"teal"}>
-							付箋を追加
-						</Button>
+						<HStack>
+							<Button onClick={() => add()} colorScheme={"teal"}>
+								付箋を追加
+							</Button>
+							<Button onClick={onClose} colorScheme={"gray"}>
+								とじる
+							</Button>
+						</HStack>
 					</DrawerFooter>
 				</DrawerContent>
 			</Drawer>
