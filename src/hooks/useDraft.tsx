@@ -70,25 +70,12 @@ export const useDraft = () => {
 	};
 
 	const selectStateReset = () => {
-		if (isSelect) {
-			const editTime = new Date();
-			setDraft(
-				draft.map((item) => {
-					return item.isSelected
-						? { ...item, isSelected: false, lastEditedTime: editTime }
-						: { ...item, isSelected: false };
-				})
-			);
-
-			setIsSelect(false);
-		} else {
-			setDraft(
-				draft.map((item) => {
-					return { ...item, isSelected: false };
-				})
-			);
-			setIsSelect(false);
-		}
+		setDraft(
+			draft.map((item) => {
+				return { ...item, isSelected: false };
+			})
+		);
+		setIsSelect(false);
 	};
 
 	//下書き一覧をクリックもしくはフォーカスしてエンターキーでセレクトのオンオフ
@@ -121,7 +108,8 @@ export const useDraft = () => {
 	//タイトルの入力を受け取ってオブジェクトのタイトルプロパティを更新
 	const onChangeTitleArea: React.ChangeEventHandler<HTMLInputElement> = (e) => {
 		const newTitle = e.target.value;
-		setDraft(draft.map((item) => (item.isSelected ? { ...item, title: newTitle } : item)));
+		const editTime = new Date();
+		setDraft(draft.map((item) => (item.isSelected ? { ...item, title: newTitle, lastEditedTime: editTime } : item)));
 	};
 
 	//本文の入力を受け取ってオブジェクトのボディプロパティを更新
@@ -170,14 +158,24 @@ export const useDraft = () => {
 	};
 
 	const onAddImage = (url: string, name: string) => {
+		const editTime = new Date();
 		setDraft(
-			draft.map((item) => (item.isSelected ? { ...item, isImageUpload: true, imageUrl: url, imageName: name } : item))
+			draft.map((item) =>
+				item.isSelected
+					? { ...item, isImageUpload: true, imageUrl: url, imageName: name, lastEditedTime: editTime }
+					: item
+			)
 		);
 	};
 
 	const onRemoveImage = () => {
+		const editTime = new Date();
 		setDraft(
-			draft.map((item) => (item.isSelected ? { ...item, isImageUpload: false, imageUrl: "", imageName: "" } : item))
+			draft.map((item) =>
+				item.isSelected
+					? { ...item, isImageUpload: false, imageUrl: "", imageName: "", lastEditedTime: editTime }
+					: item
+			)
 		);
 	};
 

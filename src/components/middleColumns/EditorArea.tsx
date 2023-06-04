@@ -1,13 +1,25 @@
-import { Box, IconButton, Input, Text, useClipboard, useColorModeValue, VStack } from "@chakra-ui/react";
+import {
+	Box,
+	Flex,
+	HStack,
+	IconButton,
+	Input,
+	Spacer,
+	Text,
+	useClipboard,
+	useColorModeValue,
+	VStack
+} from "@chakra-ui/react";
 import { memo, useEffect, useState } from "react";
 import { ImCross, ImPlus } from "react-icons/im";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { isClientState } from "../../globalState/atoms/isClientState";
 import { draftObject, editorState } from "../../globalState/selector/editorState";
 import { useCalcCharCount } from "../../hooks/useCalcCharCount";
 import { useDraft } from "../../hooks/useDraft";
 import { SelectMaxLengthSlider } from "./SelectMaxLengthSlider";
 import { LexicalEditorArea } from "./LexicalEditorArea";
+import { Memo } from "../memoArea/Memo";
 
 export const EditorArea = memo(() => {
 	const { onChangeTitleArea, onBlurFocusTitleInput, onLengthOver, onAddNovel, selectStateReset } = useDraft(); //Draftオブジェクトの操作hooks
@@ -54,9 +66,13 @@ export const EditorArea = memo(() => {
 								/>
 							</VStack>
 							<VStack w={"85%"} spacing={0}>
-								<Text textColor={isCharCountOverflow && "red"} fontSize={{ base: "sm", md: "md" }}>
-									現在の文字数 : {charCount} / {bodyMaxLength} 文字
-								</Text>
+								<HStack>
+									<Text textColor={isCharCountOverflow && "red"} fontSize={{ base: "sm", md: "md" }}>
+										現在の文字数 : {charCount} / {bodyMaxLength} 文字
+									</Text>
+
+									<Memo id={selectedDraft.id} />
+								</HStack>
 								<SelectMaxLengthSlider maxLength={bodyMaxLength} />
 							</VStack>
 							<Box zIndex={1} w={"100%"} h={"100%"} position={"relative"}>
