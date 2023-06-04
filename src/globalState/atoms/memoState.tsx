@@ -1,6 +1,6 @@
 import { atom } from "recoil";
-export type Item = { id: string | null; t: string; x: number; y: number; c: number };
-export type Items = { [key: string]: Item };
+export type Item = {  t: string; x: number; y: number; c: number };
+export type Items = { id: string; memoList: { [key: string]: Item } };
 import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist({
@@ -10,6 +10,6 @@ const { persistAtom } = recoilPersist({
 
 export const memoState = atom({
 	key: "memoState",
-	default: null,
+	default: [],
 	effects_UNSTABLE: [persistAtom]
 });
