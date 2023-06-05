@@ -97,7 +97,25 @@ export const useDraft = () => {
 					selectIndex === index ? { ...item, isSelected: true } : { ...item, isSelected: false }
 				)
 			);
-
+			const draftId = draft.filter((_, index) => {
+				return selectIndex === index;
+			})[0].id;
+			if (
+				memos.findIndex((item) => {
+					return item.id === draftId;
+				}) === -1
+			) {
+				setMemos([
+					...memos,
+					{
+						id: draftId,
+						memoList: {
+							item1: { t: "クリックで編集", x: 100, y: 100, c: 0 },
+							item2: { t: "ドラッグ＆ドロップで移動", x: 200, y: 200, c: 0 }
+						}
+					}
+				]);
+			}
 			setIsSelect(true);
 		} else {
 			selectStateReset();

@@ -44,7 +44,7 @@ export const Memo: React.FC<Props> = (props: Props) => {
 	const [editMode, setEditMode] = useState({ key: "", w: 0, h: 0 });
 	const backgroundColor = useColorModeValue("gray.300", "gray.600");
 	const backgroundDropAreaColor = useColorModeValue("gray.100", "gray.700");
-	const updateItemsIndex = memos.findIndex((item) => {
+	const updateItemsIndex = memos?.findIndex((item) => {
 		return item.id === id;
 	});
 
