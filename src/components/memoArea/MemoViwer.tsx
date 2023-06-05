@@ -44,6 +44,7 @@ export const MemoViewer: FC<Props> = ({ text }) => {
 			fontFamily={"Noto Serif JP"}
 			lineHeight={"1em"}
 			wordBreak={"break-all"}
+			color={"gray.800"}
 		/>
 	);
 };
