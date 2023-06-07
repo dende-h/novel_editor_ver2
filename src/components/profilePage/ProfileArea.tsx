@@ -184,9 +184,14 @@ export const ProfileArea = memo(() => {
 									<Text color={"red.500"}>公開停止で全ての公開を停止します</Text>
 								</>
 							) : (
-								<Text color={publishedDrafts.length === 0 ? "red.500" : "green.500"}>
-									{publishedDrafts.length === 0 ? "公開設定済みの小説がありません" : "公開設定済みの小説を公開できます"}
-								</Text>
+								<>
+									<Text color={"red.500"}>既に同じペンネームでの投稿がある場合は投稿できません</Text>
+									<Text color={publishedDrafts.length === 0 ? "red.500" : "green.500"}>
+										{publishedDrafts.length === 0
+											? "公開設定済みの小説がありません"
+											: "公開設定済みの小説を公開できます"}
+									</Text>
+								</>
 							)}
 						</Box>
 					)}
