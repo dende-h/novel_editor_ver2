@@ -47,7 +47,7 @@ export const ProfileArea = memo(() => {
 				<meta name="description" content="ユーザープロフィール" />
 			</Head>
 			{isClient ? (
-				<Box textAlign={"center"} paddingY={4} h={"90vh"} w={"100%"}>
+				<Box textAlign={"center"} paddingY={4} h={"90vh"} w={"100%"} overflow={"scroll"}>
 					<Divider borderWidth="2px" w={"auto"} />
 					<Divider marginTop={1} marginLeft={0.5} w={"auto"} />
 
@@ -81,18 +81,19 @@ export const ProfileArea = memo(() => {
 								<Card
 									key={index}
 									w={{ base: "300px", md: "400px", lg: "500px" }}
-									h={"auto"}
+									h={{ base: "40px", lg: "auto" }}
 									backgroundColor={backgroundColor}
+									display="flex"
 								>
-									<CardBody>
-										<Flex>
-											<Heading as={"h5"} fontSize={{ base: "md", lg: "lg" }}>
+									<CardBody height="100%" p={{ base: "11px", lg: "auto" }}>
+										<Flex alignItems="center">
+											<Heading as={"h5"} fontSize={{ base: "sm", lg: "lg" }}>
 												{item.heading}
 											</Heading>
 											<Spacer />
 											<HStack>
-												<Text fontSize={{ base: "sm", md: "md", lg: "lg" }}>{item.description}</Text>
-												<Text fontSize={{ base: "sm", md: "md", lg: "lg" }}>
+												<Text fontSize={{ base: "xs", md: "sm", lg: "lg" }}>{item.description}</Text>
+												<Text fontSize={{ base: "xs", md: "sm", lg: "lg" }}>
 													{index === 0
 														? undefined
 														: index === 1 || index === 2 || index === 3
@@ -109,7 +110,7 @@ export const ProfileArea = memo(() => {
 						})}
 						<Card w={{ base: "300px", md: "400px", lg: "500px" }} h={"auto"} backgroundColor={backgroundColor}>
 							<CardBody>
-								<Heading as={"h5"} fontSize={"md"}>
+								<Heading as={"h5"} fontSize={"sm"}>
 									{`自己紹介(${textValue.length}/200文字)`}
 								</Heading>
 
@@ -180,13 +181,22 @@ export const ProfileArea = memo(() => {
 							<Text>{isPublished ? `最終更新日時：${timeStamp}` : timeStamp}</Text>
 							{isPublished ? (
 								<>
-									<Text color={"green.500"}>追加更新で新しい変更をWEBサイトに同期します</Text>
-									<Text color={"red.500"}>公開停止で全ての公開を停止します</Text>
+									<Text color={"green.500"} fontSize={{ base: "xs", md: "sm", lg: "lg" }}>
+										追加更新で新しい変更をWEBサイトに同期します
+									</Text>
+									<Text color={"red.500"} fontSize={{ base: "xs", md: "sm", lg: "lg" }}>
+										公開停止で全ての公開を停止します
+									</Text>
 								</>
 							) : (
 								<>
-									<Text color={"red.500"}>既に同じペンネームでの投稿がある場合は投稿できません</Text>
-									<Text color={publishedDrafts.length === 0 ? "red.500" : "green.500"}>
+									<Text color={"red.500"} fontSize={{ base: "xs", md: "sm", lg: "lg" }}>
+										既に同じペンネームでの投稿がある場合は投稿できません
+									</Text>
+									<Text
+										color={publishedDrafts.length === 0 ? "red.500" : "green.500"}
+										fontSize={{ base: "xs", md: "sm", lg: "lg" }}
+									>
 										{publishedDrafts.length === 0
 											? "公開設定済みの小説がありません"
 											: "公開設定済みの小説を公開できます"}
