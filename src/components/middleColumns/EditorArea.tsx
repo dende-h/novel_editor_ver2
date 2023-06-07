@@ -46,7 +46,7 @@ export const EditorArea = memo(() => {
 					<Box p={{ base: 2, md: 3, lg: 4, xl: 6 }} w={"100%"} position={"relative"} zIndex={1} h={"90vh"}>
 						<VStack spacing={4} w={"100%"}>
 							<VStack w={"100%"}>
-								<Text fontSize={{ base: "sm", md: "md" }}>{`タイトル : ${selectedDraft.title.length} / 30文字`}</Text>
+								<Text fontSize={{ base: "sm", md: "md" }}>{`タイトル : ${selectedDraft.title.length} / 60文字`}</Text>
 								<Input
 									fontSize={{ base: "md", md: "lg" }}
 									value={selectedDraft.title}
@@ -56,7 +56,7 @@ export const EditorArea = memo(() => {
 									width={"80%"}
 									placeholder="novel title"
 									textAlign={"center"}
-									maxLength={30}
+									maxLength={60}
 									_focus={{ backgroundColor: inputFocusBgColor, boxShadow: "outline" }}
 									transitionProperty="all"
 									transitionDuration="1.0s"

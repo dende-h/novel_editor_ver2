@@ -30,6 +30,7 @@ export const PrimaryIconButton = memo((props: Props) => {
 				transitionProperty="all"
 				transitionDuration="0.5s"
 				transitionTimingFunction={"ease-out"}
+				fontSize={"20px"}
 				_hover={isDisableHoverAnimation ? { color: defaultColor } : { color: changeColor, fontSize: "24px" }}
 				_focus={{ boxShadow: focusOutline }}
 				icon={icon}

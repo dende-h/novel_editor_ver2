@@ -113,6 +113,7 @@ export const AddTagsFormModal = memo(() => {
 					e.stopPropagation(); //親要素へのバブリングを停止
 				}}
 			/>
+
 			<Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onCloseModal} size={"3xl"}>
 				<ModalOverlay />
 				<ModalContent backgroundColor={backgroundColor}>

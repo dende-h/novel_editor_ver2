@@ -13,7 +13,7 @@ export const PublishedChange = memo(() => {
 		<PrimaryIconButton
 			aria-label="downloadText"
 			icon={selectedDraft ? selectedDraft.isPublished ? <MdPublic /> : <MdPublicOff /> : <MdPublicOff />}
-			colorScheme={selectedDraft ? (selectedDraft.isPublished ? "green" : "gray") : "gray"}
+			colorScheme={selectedDraft ? (selectedDraft.isPublished ? "green" : "red") : "gray"}
 			focusOutline={"none"}
 			isDisabled={selectedDraft && selectedDraft.lengthOver}
 			onClick={(e) => {

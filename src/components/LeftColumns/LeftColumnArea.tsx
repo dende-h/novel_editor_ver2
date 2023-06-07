@@ -204,9 +204,13 @@ export const LeftColumnArea = memo(() => {
 																		? "《 SS 》"
 																		: "《 短編 》"}
 																</Text>
-																{item.isPublished && (
+																{item.isPublished ? (
 																	<Text color={"twitter.600"} fontWeight={"bold"} fontSize={"xs"}>
-																		公開
+																		公開可能
+																	</Text>
+																) : (
+																	<Text color={"red.600"} fontWeight={"bold"} fontSize={"xs"}>
+																		公開不可
 																	</Text>
 																)}
 															</VStack>

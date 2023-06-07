@@ -1,4 +1,4 @@
-import { HStack, SlideFade } from "@chakra-ui/react";
+import { HStack, SlideFade, Tooltip } from "@chakra-ui/react";
 import { memo } from "react";
 import { AddTagsFormModal } from "./AddTagsFormModal";
 import { AlertDialogDelete } from "./AlertDialogDelete";
@@ -15,9 +15,13 @@ export const DraftControllButton = memo((props: Props) => {
 		<SlideFade in={isAccordionOpen} unmountOnExit={true}>
 			<HStack spacing={3} p={2}>
 				<AddTagsFormModal />
+
 				<DownloadTXT />
+
 				<AlertDialogDelete />
+
 				<PublishedChange />
+
 				<UploadImageModal />
 			</HStack>
 		</SlideFade>

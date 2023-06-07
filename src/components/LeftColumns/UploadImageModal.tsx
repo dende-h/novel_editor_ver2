@@ -116,6 +116,7 @@ export const UploadImageModal = memo(() => {
 						e.stopPropagation(); //親要素へのバブリングを停止
 					}}
 				/>
+
 				<Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose} size={"3xl"}>
 					<ModalOverlay />
 					<ModalContent backgroundColor={backgroundColor}>

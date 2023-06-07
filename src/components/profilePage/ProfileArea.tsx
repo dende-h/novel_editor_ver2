@@ -63,7 +63,11 @@ export const ProfileArea = memo(() => {
 
 					<Divider marginBottom={1} marginLeft={0.5} w={"auto"} />
 					<Divider borderWidth="2px" w={"auto"} />
-					{isPublished ? undefined : (
+					{isPublished ? (
+						<Text color={"red"} fontSize={{ base: "sm", md: "md", lg: "lg" }}>
+							小説公開中ペンネームは変更できません
+						</Text>
+					) : (
 						<Box ml={"60%"}>
 							<HStack>
 								<ChangeUserNameModal />
@@ -108,18 +112,23 @@ export const ProfileArea = memo(() => {
 								<Heading as={"h5"} fontSize={"md"}>
 									{`自己紹介(${textValue.length}/200文字)`}
 								</Heading>
-								<Tooltip label={isPublished ? "公開中は編集できません" : "クリックで編集可能です"} placement="top">
-									<Textarea
-										value={textValue}
-										onChange={onChangeTextArea}
-										placeholder={"小説公開時に一緒に公開されます"}
-										maxLength={200}
-										fontSize={"sm"}
-										border="none"
-										isDisabled={isPublished}
-										overflow="scroll"
-									/>
-								</Tooltip>
+
+								<Textarea
+									value={textValue}
+									onChange={onChangeTextArea}
+									placeholder={isPublished || "クリックで編集可能です"}
+									maxLength={200}
+									fontSize={"sm"}
+									border="none"
+									isDisabled={isPublished}
+									overflow="scroll"
+									position={"relative"}
+								/>
+								{isPublished && (
+									<Text color={"red.500"} position={"absolute"} top={"50%"} left={"30%"}>
+										公開中は編集できません
+									</Text>
+								)}
 							</CardBody>
 						</Card>
 					</VStack>
@@ -157,26 +166,28 @@ export const ProfileArea = memo(() => {
 									</Button>
 								</Tooltip>
 							) : (
-								<Tooltip
-									label={
-										publishedDrafts.length === 0 ? "公開設定済みの小説がありません" : "公開設定済みの小説を公開できます"
-									}
-									placement="top"
+								<Button
+									colorScheme={"teal"}
+									size={{ base: "xs", md: "sm", lg: "md" }}
+									fontSize={{ base: "xs", md: "sm", lg: "lg" }}
+									onClick={onPublishedNovel}
+									isDisabled={publishedDrafts.length === 0 || userPenName === "Ghost Writer"}
+									margin={2}
 								>
-									<Button
-										colorScheme={"teal"}
-										size={{ base: "xs", md: "sm", lg: "md" }}
-										fontSize={{ base: "xs", md: "sm", lg: "lg" }}
-										onClick={onPublishedNovel}
-										isDisabled={publishedDrafts.length === 0 || userPenName === "Ghost Writer"}
-										margin={2}
-									>
-										{"小説を投稿"}
-									</Button>
-								</Tooltip>
+									{"小説を投稿"}
+								</Button>
 							)}
-
-							<Text>{isPublished ? `最終公開日時：${timeStamp}` : timeStamp}</Text>
+							<Text>{isPublished ? `最終更新日時：${timeStamp}` : timeStamp}</Text>
+							{isPublished ? (
+								<>
+									<Text color={"green.500"}>追加更新で新しい変更をWEBサイトに同期します</Text>
+									<Text color={"red.500"}>公開停止で全ての公開を停止します</Text>
+								</>
+							) : (
+								<Text color={publishedDrafts.length === 0 ? "red.500" : "green.500"}>
+									{publishedDrafts.length === 0 ? "公開設定済みの小説がありません" : "公開設定済みの小説を公開できます"}
+								</Text>
+							)}
 						</Box>
 					)}
 				</Box>
