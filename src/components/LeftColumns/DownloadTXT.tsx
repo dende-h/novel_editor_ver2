@@ -38,8 +38,8 @@ export const DownloadTXT = memo(() => {
 	// 	onClose();
 	// };
 	const onClickDownloadButton = () => {
-		const fileName = downloadDraft.title;
-		const text = downloadDraft.body;
+		const fileName = encodeURIComponent(downloadDraft.title);
+		const text = encodeURIComponent(downloadDraft.body);
 
 		fetch(`/api/download?title=${fileName}&text=${text}`)
 			.then((res) => res.blob())
@@ -47,7 +47,7 @@ export const DownloadTXT = memo(() => {
 				const url = window.URL.createObjectURL(blob);
 				const link = document.createElement("a");
 				link.href = url;
-				link.setAttribute("download", `${fileName}.txt`);
+				link.setAttribute("download", `${downloadDraft.title}.txt`);
 				document.body.appendChild(link);
 				link.click();
 				onClose();
