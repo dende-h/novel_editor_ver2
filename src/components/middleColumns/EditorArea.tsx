@@ -20,6 +20,7 @@ import { useDraft } from "../../hooks/useDraft";
 import { SelectMaxLengthSlider } from "./SelectMaxLengthSlider";
 import { LexicalEditorArea } from "./LexicalEditorArea";
 import { Memo } from "../memoArea/Memo";
+import { PreviweModal } from "./PreviweModal";
 
 export const EditorArea = memo(() => {
 	const { onChangeTitleArea, onBlurFocusTitleInput, onLengthOver, onAddNovel, selectStateReset } = useDraft(); //Draftオブジェクトの操作hooks
@@ -46,14 +47,15 @@ export const EditorArea = memo(() => {
 					<Box p={{ base: 2, md: 3, lg: 4, xl: 6 }} w={"100%"} position={"relative"} zIndex={1} h={"90vh"}>
 						<VStack spacing={4} w={"100%"}>
 							<VStack w={"100%"}>
-								<Text fontSize={{ base: "sm", md: "md" }}>{`タイトル : ${selectedDraft.title.length} / 60文字`}</Text>
+								<Text fontSize={{ base: "xs", md: "sm" }}>{`タイトル : ${selectedDraft.title.length} / 60文字`}</Text>
 								<Input
-									fontSize={{ base: "md", md: "lg" }}
+									fontSize={{ base: "md", md: "lg", lg: "xl" }}
 									value={selectedDraft.title}
 									onChange={onChangeTitleArea}
 									border={"none"}
 									borderRadius={0}
 									width={"80%"}
+									height={"auto"}
 									placeholder="novel title"
 									textAlign={"center"}
 									maxLength={60}
@@ -65,13 +67,20 @@ export const EditorArea = memo(() => {
 									onBlur={onBlurFocusTitleInput}
 								/>
 							</VStack>
-							<VStack w={"85%"} spacing={0}>
+							<VStack w={"85%"} spacing={2}>
+								<Text textColor={isCharCountOverflow && "red"} fontSize={{ base: "xs", md: "sm" }}>
+									現在の文字数 : {charCount} / {bodyMaxLength} 文字
+								</Text>
 								<HStack>
-									<Text textColor={isCharCountOverflow && "red"} fontSize={{ base: "sm", md: "md" }}>
-										現在の文字数 : {charCount} / {bodyMaxLength} 文字
-									</Text>
-
 									<Memo id={selectedDraft.id} />
+									{<PreviweModal title={selectedDraft.title} body={selectedDraft.body} isWritingHoraizontally={true} />}
+									{
+										<PreviweModal
+											title={selectedDraft.title}
+											body={selectedDraft.body}
+											isWritingHoraizontally={false}
+										/>
+									}
 								</HStack>
 								<SelectMaxLengthSlider maxLength={bodyMaxLength} />
 							</VStack>
