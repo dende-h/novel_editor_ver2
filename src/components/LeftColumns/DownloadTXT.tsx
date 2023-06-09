@@ -33,25 +33,9 @@ export const DownloadTXT = memo(() => {
 			return link;
 		}
 	};
-	// const onClickDownloadButton = () => {
-	// 	downloadLink().click();
-	// 	onClose();
-	// };
 	const onClickDownloadButton = () => {
-		const fileName = encodeURIComponent(downloadDraft.title);
-		const text = encodeURIComponent(downloadDraft.body);
-
-		fetch(`/api/downloadtext?title=${fileName}&text=${text}`)
-			.then((res) => res.blob())
-			.then((blob) => {
-				const url = window.URL.createObjectURL(blob);
-				const link = document.createElement("a");
-				link.href = url;
-				link.setAttribute("download", `${downloadDraft.title}.txt`);
-				document.body.appendChild(link);
-				link.click();
-				onClose();
-			});
+		downloadLink().click();
+		onClose();
 	};
 
 	return (
