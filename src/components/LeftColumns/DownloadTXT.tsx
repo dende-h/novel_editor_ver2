@@ -38,16 +38,16 @@ export const DownloadTXT = memo(() => {
 	// 	onClose();
 	// };
 	const onClickDownloadButton = () => {
-		const fileName = encodeURIComponent(downloadDraft.title);
-		const text = encodeURIComponent(downloadDraft.body);
+		const fileName = downloadDraft.title;
+		const text = downloadDraft.body;
 
-		fetch(`/api/download?title=${fileName}&text=${text}`)
+		fetch(`/api/downloadtext?title=${fileName}&text=${text}`)
 			.then((res) => res.blob())
 			.then((blob) => {
 				const url = window.URL.createObjectURL(blob);
 				const link = document.createElement("a");
 				link.href = url;
-				link.setAttribute("download", `${downloadDraft.title}.txt`);
+				link.setAttribute("download", `${fileName}.txt`);
 				document.body.appendChild(link);
 				link.click();
 				onClose();
