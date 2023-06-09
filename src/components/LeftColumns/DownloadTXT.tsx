@@ -33,46 +33,60 @@ export const DownloadTXT = memo(() => {
 			return link;
 		}
 	};
+	// const onClickDownloadButton = () => {
+	// 	downloadLink().click();
+	// 	onClose();
+	// };
 	const onClickDownloadButton = () => {
-		downloadLink().click();
-		onClose();
+		const fileName = downloadDraft.title;
+		const text = downloadDraft.body;
+
+		fetch(`/api/download?title=${fileName}&text=${text}`)
+			.then((res) => res.blob())
+			.then((blob) => {
+				const url = window.URL.createObjectURL(blob);
+				const link = document.createElement("a");
+				link.href = url;
+				link.setAttribute("download", `${fileName}.txt`);
+				document.body.appendChild(link);
+				link.click();
+				onClose();
+			});
 	};
 
 	return (
 		<>
-			<Box display={{ base: "none", lg: "block" }}>
-				<PrimaryIconButton
-					aria-label="downloadText"
-					icon={<ImDownload2 />}
-					colorScheme={"telegram"}
-					focusOutline={"none"}
-					onClick={(e) => {
-						onOpen();
-						e.stopPropagation(); //親要素へのバブリングを停止
-					}}
-				/>
+			<PrimaryIconButton
+				aria-label="downloadText"
+				icon={<ImDownload2 />}
+				colorScheme={"telegram"}
+				focusOutline={"none"}
+				onClick={(e) => {
+					onOpen();
+					e.stopPropagation(); //親要素へのバブリングを停止
+				}}
+			/>
 
-				<AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
-					<AlertDialogOverlay>
-						<AlertDialogContent>
-							<AlertDialogHeader fontSize="lg" fontWeight="bold">
-								小説のダウンロード
-							</AlertDialogHeader>
+			<AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
+				<AlertDialogOverlay>
+					<AlertDialogContent>
+						<AlertDialogHeader fontSize="lg" fontWeight="bold">
+							小説のダウンロード
+						</AlertDialogHeader>
 
-							<AlertDialogBody>テキスト形式で小説を保存できます</AlertDialogBody>
+						<AlertDialogBody>テキスト形式で小説を保存できます</AlertDialogBody>
 
-							<AlertDialogFooter>
-								<Button ref={cancelRef} onClick={onClose} _focus={{ boxShadow: "none" }}>
-									キャンセル
-								</Button>
-								<Button colorScheme="teal" onClick={onClickDownloadButton} ml={3} _focus={{ boxShadow: "none" }}>
-									ダウンロード
-								</Button>
-							</AlertDialogFooter>
-						</AlertDialogContent>
-					</AlertDialogOverlay>
-				</AlertDialog>
-			</Box>
+						<AlertDialogFooter>
+							<Button ref={cancelRef} onClick={onClose} _focus={{ boxShadow: "none" }}>
+								キャンセル
+							</Button>
+							<Button colorScheme="teal" onClick={onClickDownloadButton} ml={3} _focus={{ boxShadow: "none" }}>
+								ダウンロード
+							</Button>
+						</AlertDialogFooter>
+					</AlertDialogContent>
+				</AlertDialogOverlay>
+			</AlertDialog>
 		</>
 	);
 });
