@@ -130,14 +130,11 @@ export const Memo: React.FC<Props> = (props: Props) => {
 
 	return (
 		<>
-			<Button ref={btnRef} onClick={onOpen} borderRadius={2} size={"xs"} colorScheme="facebook" ml={4}>
-				メモ
-			</Button>
-
 			<Modal isOpen={isOpen} onClose={onClose} finalFocusRef={btnRef} size={"full"}>
 				<ModalOverlay />
-				<ModalContent backgroundColor={backgroundColor}>
-					<ModalBody w={"100%"} h={"100%"}>
+				<ModalContent backgroundColor={backgroundColor} position={"relative"}>
+					<ModalCloseButton position={"absolute"} top={1} left={1} />
+					<ModalBody h={"100%"}>
 						<Box
 							onDragOver={(e) => e.preventDefault()}
 							onDrop={(e) => {
@@ -148,9 +145,14 @@ export const Memo: React.FC<Props> = (props: Props) => {
 									y: e.clientY - dragging.y
 								});
 							}}
-							minW={{ base: "520px", md: "768px", lg: "1000px", xl: "1280px", xxl: "1600px" }}
-							h={"100%"}
 							bgColor={backgroundDropAreaColor}
+							borderRadius={"md"}
+							margin={"0"}
+							marginLeft={"auto"}
+							w={"100%"}
+							h={"80vh"}
+							p={6}
+							overflowX={"scroll"}
 							position={"relative"}
 						>
 							{isMemo &&
