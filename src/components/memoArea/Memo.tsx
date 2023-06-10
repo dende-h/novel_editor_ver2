@@ -6,14 +6,14 @@ import {
 	Flex,
 	Center,
 	Circle,
-	DrawerFooter,
+	ModalFooter,
 	css,
-	Drawer,
-	DrawerBody,
-	DrawerCloseButton,
-	DrawerContent,
-	DrawerHeader,
-	DrawerOverlay,
+	Modal,
+	ModalBody,
+	ModalCloseButton,
+	ModalContent,
+	ModalHeader,
+	ModalOverlay,
 	IconButton,
 	useDisclosure,
 	useColorModeValue,
@@ -134,10 +134,10 @@ export const Memo: React.FC<Props> = (props: Props) => {
 				メモ
 			</Button>
 
-			<Drawer isOpen={isOpen} placement="left" onClose={onClose} finalFocusRef={btnRef} size={"full"}>
-				<DrawerOverlay />
-				<DrawerContent backgroundColor={backgroundColor}>
-					<DrawerBody w={"100%"} h={"100%"}>
+			<Modal isOpen={isOpen} onClose={onClose} finalFocusRef={btnRef} size={"full"}>
+				<ModalOverlay />
+				<ModalContent backgroundColor={backgroundColor}>
+					<ModalBody w={"100%"} h={"100%"}>
 						<Box
 							onDragOver={(e) => e.preventDefault()}
 							onDrop={(e) => {
@@ -248,8 +248,8 @@ export const Memo: React.FC<Props> = (props: Props) => {
 									</Box>
 								))}
 						</Box>
-					</DrawerBody>
-					<DrawerFooter>
+					</ModalBody>
+					<ModalFooter>
 						<HStack>
 							<Button onClick={() => add()} colorScheme={"teal"}>
 								付箋を追加
@@ -258,9 +258,9 @@ export const Memo: React.FC<Props> = (props: Props) => {
 								とじる
 							</Button>
 						</HStack>
-					</DrawerFooter>
-				</DrawerContent>
-			</Drawer>
+					</ModalFooter>
+				</ModalContent>
+			</Modal>
 		</>
 	);
 };
