@@ -31,10 +31,11 @@ const COLORS = ["#ffe1b4", "#FFF9D5", "#ECFAF5", "#CBF5E4", "#A5DEC8", "#FFF"];
 
 type Props = {
 	id: string;
+	title: string;
 };
 
 export const Memo: React.FC<Props> = (props: Props) => {
-	const { id } = props;
+	const { id, title } = props;
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const btnRef: LegacyRef<HTMLButtonElement> = useRef();
 	const [memos, setMemos] = useRecoilState<Items[]>(memoState);
@@ -130,9 +131,23 @@ export const Memo: React.FC<Props> = (props: Props) => {
 
 	return (
 		<>
+			<Button ref={btnRef} onClick={onOpen} borderRadius={2} size={"xs"} colorScheme="facebook" ml={4}>
+				メモ
+			</Button>
 			<Modal isOpen={isOpen} onClose={onClose} finalFocusRef={btnRef} size={"full"}>
 				<ModalOverlay />
 				<ModalContent backgroundColor={backgroundColor} position={"relative"}>
+					<ModalHeader
+						maxW={"300px"}
+						textOverflow={"ellipsis"}
+						overflow={"hidden"}
+						whiteSpace={"nowrap"}
+						fontFamily={"Noto Serif JP"}
+						marginX={"auto"}
+						fontSize={{ base: "14px", md: "16px", lg: "18px" }}
+					>
+						{title}
+					</ModalHeader>
 					<ModalCloseButton position={"absolute"} top={1} left={1} />
 					<ModalBody h={"100%"}>
 						<Box

@@ -72,7 +72,7 @@ export const EditorArea = memo(() => {
 									現在の文字数 : {charCount} / {bodyMaxLength} 文字
 								</Text>
 								<HStack>
-									<Memo id={selectedDraft.id} />
+									<Memo id={selectedDraft.id} title={selectedDraft.title} />
 									{<PreviweModal title={selectedDraft.title} body={selectedDraft.body} isWritingHoraizontally={true} />}
 									{
 										<PreviweModal
