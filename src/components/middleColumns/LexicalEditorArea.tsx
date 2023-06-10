@@ -85,7 +85,7 @@ export const LexicalEditorArea = memo((props: { setValue: (value: SetStateAction
 						backgroundColor={boxColor}
 						position={"relative"}
 						padding={{ base: 6, lg: 8 }}
-						height={{ base: "77vh", lg: "75vh" }}
+						height={{ base: "73vh", lg: "73vh" }}
 						overflowY={"scroll"}
 					>
 						<PlainTextPlugin

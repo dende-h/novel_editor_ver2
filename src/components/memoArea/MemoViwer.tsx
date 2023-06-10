@@ -7,9 +7,20 @@ type Props = {
 };
 
 const rubyRegex = /[｜|]([^《｜|]+)《([^》]+)》/g;
+const boutenRegex = /《《([^》]+)》》/g;
 
 function addRubyTags(text: string) {
 	return text.replace(rubyRegex, "<ruby>$1<rt>$2</rt></ruby>");
+}
+
+function addBoutenTags(text: string) {
+	return text.replace(boutenRegex, (match, p1) => {
+		const boutenText = p1
+			.split("")
+			.map((char) => `｜${char}《・》`)
+			.join("");
+		return boutenText;
+	});
 }
 
 function addLinkTags(text: string) {
@@ -33,7 +44,8 @@ function addBrTags(text: string) {
 
 export const MemoViewer: FC<Props> = ({ text }) => {
 	const aText = addLinkTags(text);
-	const rubyText = addRubyTags(aText);
+	const boutenText = addBoutenTags(aText);
+	const rubyText = addRubyTags(boutenText);
 	const brText = addBrTags(rubyText);
 
 	return (

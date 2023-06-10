@@ -6,14 +6,14 @@ import {
 	Flex,
 	Center,
 	Circle,
-	DrawerFooter,
+	ModalFooter,
 	css,
-	Drawer,
-	DrawerBody,
-	DrawerCloseButton,
-	DrawerContent,
-	DrawerHeader,
-	DrawerOverlay,
+	Modal,
+	ModalBody,
+	ModalCloseButton,
+	ModalContent,
+	ModalHeader,
+	ModalOverlay,
 	IconButton,
 	useDisclosure,
 	useColorModeValue,
@@ -31,10 +31,11 @@ const COLORS = ["#ffe1b4", "#FFF9D5", "#ECFAF5", "#CBF5E4", "#A5DEC8", "#FFF"];
 
 type Props = {
 	id: string;
+	title: string;
 };
 
 export const Memo: React.FC<Props> = (props: Props) => {
-	const { id } = props;
+	const { id, title } = props;
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const btnRef: LegacyRef<HTMLButtonElement> = useRef();
 	const [memos, setMemos] = useRecoilState<Items[]>(memoState);
@@ -133,11 +134,22 @@ export const Memo: React.FC<Props> = (props: Props) => {
 			<Button ref={btnRef} onClick={onOpen} borderRadius={2} size={"xs"} colorScheme="facebook" ml={4}>
 				メモ
 			</Button>
-
-			<Drawer isOpen={isOpen} placement="left" onClose={onClose} finalFocusRef={btnRef} size={"full"}>
-				<DrawerOverlay />
-				<DrawerContent backgroundColor={backgroundColor}>
-					<DrawerBody w={"100%"} h={"100%"}>
+			<Modal isOpen={isOpen} onClose={onClose} finalFocusRef={btnRef} size={"full"}>
+				<ModalOverlay />
+				<ModalContent backgroundColor={backgroundColor} position={"relative"}>
+					<ModalHeader
+						maxW={"300px"}
+						textOverflow={"ellipsis"}
+						overflow={"hidden"}
+						whiteSpace={"nowrap"}
+						fontFamily={"Noto Serif JP"}
+						marginX={"auto"}
+						fontSize={{ base: "14px", md: "16px", lg: "18px" }}
+					>
+						{title}
+					</ModalHeader>
+					<ModalCloseButton position={"absolute"} top={1} left={1} />
+					<ModalBody h={"100%"}>
 						<Box
 							onDragOver={(e) => e.preventDefault()}
 							onDrop={(e) => {
@@ -148,9 +160,14 @@ export const Memo: React.FC<Props> = (props: Props) => {
 									y: e.clientY - dragging.y
 								});
 							}}
-							minW={{ base: "520px", md: "768px", lg: "1000px", xl: "1280px", xxl: "1600px" }}
-							h={"100%"}
 							bgColor={backgroundDropAreaColor}
+							borderRadius={"md"}
+							margin={"0"}
+							marginLeft={"auto"}
+							w={"100%"}
+							h={"80vh"}
+							p={6}
+							overflowX={"scroll"}
 							position={"relative"}
 						>
 							{isMemo &&
@@ -248,8 +265,8 @@ export const Memo: React.FC<Props> = (props: Props) => {
 									</Box>
 								))}
 						</Box>
-					</DrawerBody>
-					<DrawerFooter>
+					</ModalBody>
+					<ModalFooter>
 						<HStack>
 							<Button onClick={() => add()} colorScheme={"teal"}>
 								付箋を追加
@@ -258,9 +275,9 @@ export const Memo: React.FC<Props> = (props: Props) => {
 								とじる
 							</Button>
 						</HStack>
-					</DrawerFooter>
-				</DrawerContent>
-			</Drawer>
+					</ModalFooter>
+				</ModalContent>
+			</Modal>
 		</>
 	);
 };
