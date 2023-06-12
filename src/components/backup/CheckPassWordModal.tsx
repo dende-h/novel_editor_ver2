@@ -17,12 +17,14 @@ import {
 	FormErrorMessage
 } from "@chakra-ui/react";
 import { memo, useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { passWord } from "../../globalState/atoms/passWord";
 import { useCalcCharCount } from "../../hooks/useCalcCharCount";
 import { useInput } from "../../hooks/useInput";
+import { hash, compare } from "bcryptjs";
+import { ChangePassWordModal } from "./ChangePassWordModal";
 
-export const ChangePassWordModal = memo(() => {
+export const CheckPassWordModal = memo(() => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	const inputfontColor = useColorModeValue("gray.700", "gray.700");
@@ -30,38 +32,23 @@ export const ChangePassWordModal = memo(() => {
 	const setPass = useSetRecoilState(passWord);
 	const { onChangeInputForm, value, setValue } = useInput();
 	const { calcCharCount, charCount } = useCalcCharCount();
+	const pass = useRecoilValue(passWord);
 	const maxLength = 15;
 
 	const [isValid, setIsValid] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
 
-	const onChangeInputFormWithValidation = (e) => {
+	const onChangeInputFormWithValidation = async (e) => {
 		onChangeInputForm(e);
-		const value = e.target.value;
-		const isLongEnough = value.length >= 8;
-		const isAlphanumeric = /^[a-zA-Z0-9]+$/.test(value);
-		const containsNumberAndLetter = /[0-9]/.test(value) && /[a-zA-Z]/.test(value);
+		const value: string = e.target.value;
+		const isValid = (await compare(value, pass)) || value.includes(pass);
 
-		const isValid = isLongEnough && isAlphanumeric && containsNumberAndLetter;
 		setIsValid(isValid);
 
-		if (!isLongEnough) {
-			setErrorMessage("パスワードは8文字以上必要です");
-		} else if (!isAlphanumeric) {
-			setErrorMessage("パスワードは半角英数字である必要があります");
-		} else if (!containsNumberAndLetter) {
-			setErrorMessage("パスワードは英字と数字を少なくとも1つずつ含む必要があります");
+		if (!isValid) {
+			setErrorMessage("現在のパスワードと一致しません");
 		} else {
 			setErrorMessage("");
-		}
-	};
-	const onSave = () => {
-		if (isValid) {
-			setPass(value === "" ? null : value);
-			setValue("");
-			onClose();
-		} else {
-			alert("パスワードは半角英数字で8文字以上必要です");
 		}
 	};
 
@@ -89,7 +76,7 @@ export const ChangePassWordModal = memo(() => {
 				<ModalOverlay />
 				<ModalContent backgroundColor={backgroundColor} borderRadius={"md"} border={"1px"} boxShadow={"lg"}>
 					<ModalHeader fontSize={"lg"} fontWeight={"bold"}>
-						パスワードを変更する
+						現在のパスワード確認
 					</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody pb={6} paddingTop={"0"}>
@@ -98,7 +85,7 @@ export const ChangePassWordModal = memo(() => {
 								<FormControl isInvalid={!isValid && charCount > 0}>
 									<Input
 										_focus={{ backgroundColor: isValid ? "green.100" : "red.100", boxShadow: "none" }}
-										placeholder={"半角英数8文字以上"}
+										placeholder={"現在のパスワードを入力してください"}
 										onChange={onChangeInputFormWithValidation}
 										maxLength={maxLength}
 										w={"300px"}
@@ -115,9 +102,7 @@ export const ChangePassWordModal = memo(() => {
 						</Center>
 					</ModalBody>
 					<ModalFooter>
-						<Button colorScheme="blue" mr={3} onClick={onSave} isDisabled={!isValid || charCount === 0}>
-							保存
-						</Button>
+						{isValid && <ChangePassWordModal />}
 						<Button onClick={onCloseModal} variant={"ghost"} _hover={{ bg: buttonHoverBgColor }}>
 							キャンセル
 						</Button>
@@ -127,4 +112,4 @@ export const ChangePassWordModal = memo(() => {
 		</>
 	);
 });
-ChangePassWordModal.displayName = "ChangePassWordModal";
+CheckPassWordModal.displayName = "CheckPassWordModal";

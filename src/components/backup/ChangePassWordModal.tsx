@@ -16,8 +16,10 @@ import {
 	FormControl,
 	FormErrorMessage
 } from "@chakra-ui/react";
+import { hash } from "bcryptjs";
 import { memo, useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { supabase } from "../../../lib/supabaseClient";
 import { passWord } from "../../globalState/atoms/passWord";
 import { useCalcCharCount } from "../../hooks/useCalcCharCount";
 import { useInput } from "../../hooks/useInput";
@@ -27,7 +29,7 @@ export const ChangePassWordModal = memo(() => {
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	const inputfontColor = useColorModeValue("gray.700", "gray.700");
 	const buttonHoverBgColor = useColorModeValue("gray.300", "gray.500");
-	const setPass = useSetRecoilState(passWord);
+	const [pass, setPass] = useRecoilState(passWord);
 	const { onChangeInputForm, value, setValue } = useInput();
 	const { calcCharCount, charCount } = useCalcCharCount();
 	const maxLength = 15;
@@ -55,11 +57,18 @@ export const ChangePassWordModal = memo(() => {
 			setErrorMessage("");
 		}
 	};
-	const onSave = () => {
+	const onSave = async () => {
 		if (isValid) {
-			setPass(value === "" ? null : value);
-			setValue("");
-			onClose();
+			const newPass = await hash(value, 10);
+			try {
+				const { error } = await supabase.from("backup").update({ password: newPass }).eq("password", pass);
+				setPass(value === "" ? null : newPass);
+				setValue("");
+				onClose();
+			} catch (error) {
+				alert("パスワードの更新に失敗しました");
+				onClose();
+			}
 		} else {
 			alert("パスワードは半角英数字で8文字以上必要です");
 		}
