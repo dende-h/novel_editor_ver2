@@ -176,8 +176,21 @@ export default function BackUP() {
 						</Box>
 						<Text fontSize={"11px"} color="red.500">
 							※パスワードを忘れた場合復元が出来なくなります。必ず控えを取っておいてください
+							<br/>
+							※バックアップデータが表示されない場合は再度データ取得してください
+							<br/>
+							※パスワードが一致しないデータは取得されません
 						</Text>
 					</Box>
+					<Button
+						minW={"300px"}
+						colorScheme="teal"
+						isDisabled={name !== "Ghost Writer" || pass || !isLoading ? false : true}
+						isLoading={isLoading}
+						onClick={fetchData}
+					>
+						データを取得する
+					</Button>
 					<Button
 						minW={"300px"}
 						colorScheme="teal"
