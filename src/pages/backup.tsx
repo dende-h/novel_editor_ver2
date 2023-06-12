@@ -32,7 +32,6 @@ import { userName } from "../globalState/atoms/userName";
 import { passWord } from "../globalState/atoms/passWord";
 import { AlertDialogBackUpDelete } from "../components/backup/AlertDialogBackUpDelete";
 import { AlertDialogBackUpReconstruction } from "../components/backup/AlertDialogBackUpReconstruction";
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { memoState } from "../globalState/atoms/memoState";
 import { hash, compare } from "bcryptjs";
 import { CheckPassWordModal } from "../components/backup/CheckPassModal";
@@ -55,7 +54,7 @@ export default function BackUP() {
 	const boxColor = useColorModeValue("gray.100", "gray.900");
 	const [isLoading, setIsLoading] = useState(true);
 	const [backUpList, setBackUpList] = useState<{ id: string; created_at: string }[]>();
-	const [showPass, setShowPass] = useState<boolean>(false);
+
 
 	useEffect(() => {
 		fetchData();
