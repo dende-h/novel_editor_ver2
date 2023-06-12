@@ -21,7 +21,6 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { passWord } from "../../globalState/atoms/passWord";
 import { useCalcCharCount } from "../../hooks/useCalcCharCount";
 import { useInput } from "../../hooks/useInput";
-import { hash, compare } from "bcryptjs";
 import { ChangePassWordModal } from "./ChangePassWordModal";
 
 export const CheckPassWordModal = memo(() => {
