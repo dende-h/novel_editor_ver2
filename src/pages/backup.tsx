@@ -8,11 +8,9 @@ import {
 	HStack,
 	Spacer,
 	StackDivider,
-	Divider,
-	Icon
+	Divider
 } from "@chakra-ui/react";
 import format from "date-fns/format";
-import { da, is } from "date-fns/locale";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { supabase } from "../../lib/supabaseClient";
@@ -35,6 +33,7 @@ import { AlertDialogBackUpDelete } from "../components/backup/AlertDialogBackUpD
 import { AlertDialogBackUpReconstruction } from "../components/backup/AlertDialogBackUpReconstruction";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { memoState } from "../globalState/atoms/memoState";
+import { hash, compare } from "bcryptjs";
 
 export default function BackUP() {
 	const setDrafts = useSetRecoilState(drafts);
@@ -103,15 +102,21 @@ export default function BackUP() {
 
 	const fetchData = async () => {
 		setIsLoading(true);
+
 		const { data, error } = await supabase
 			.from("backup")
-			.select("id,created_at")
-			.eq("password", pass)
+			.select("id,created_at,password")
 			.eq("user_name", name)
 			.order("created_at", { ascending: false });
-		const newList = data.map((item) => {
-			return { id: item.id, created_at: format(new Date(item.created_at), "yyyy/MM/dd-HH:mm") };
-		});
+		const newList = [];
+		for (const item of data) {
+			if (pass !== null) {
+				const match = await compare(pass, item.password);
+				if (match) {
+					newList.push({ id: item.id, created_at: format(new Date(item.created_at), "yyyy/MM/dd-HH:mm") });
+				}
+			}
+		}
 		setBackUpList(newList);
 		setIsLoading(false);
 	};
@@ -119,18 +124,10 @@ export default function BackUP() {
 	const onClickBackUpButton = async () => {
 		setIsLoading(true);
 		try {
-			const { data, error } = await supabase.from("backup").insert([backUpDataObject]);
+			const hashedPassword = pass !== null ? await hash(pass, 10) : pass;
+			const { data, error } = await supabase.from("backup").insert([{ ...backUpDataObject, password: hashedPassword }]);
 			try {
-				const { data, error } = await supabase
-					.from("backup")
-					.select("id,created_at")
-					.eq("password", pass)
-					.eq("user_name", name)
-					.order("created_at", { ascending: false });
-				const newList = data.map((item) => {
-					return { id: item.id, created_at: format(new Date(item.created_at), "yyyy/MM/dd-HH:mm") };
-				});
-				setBackUpList(newList);
+				fetchData();
 			} catch (error) {
 				alert(error);
 			}
