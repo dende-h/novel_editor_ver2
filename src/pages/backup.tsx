@@ -8,7 +8,8 @@ import {
 	HStack,
 	Spacer,
 	StackDivider,
-	Divider
+	Divider,
+	Spinner
 } from "@chakra-ui/react";
 import format from "date-fns/format";
 import { useEffect, useState } from "react";
@@ -34,6 +35,7 @@ import { AlertDialogBackUpReconstruction } from "../components/backup/AlertDialo
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { memoState } from "../globalState/atoms/memoState";
 import { hash, compare } from "bcryptjs";
+import { CheckPassWordModal } from "../components/backup/CheckPassModal";
 
 export default function BackUP() {
 	const setDrafts = useSetRecoilState(drafts);
@@ -161,37 +163,17 @@ export default function BackUP() {
 						<Box textAlign={"end"}>{isPublished ? undefined : <ChangeUserNameModal />}</Box>
 					</Box>
 					<Box>
-						<HStack>
-							<Text fontSize="lg" fontWeight="bold" color={textColor}>
-								バックアップ用パスワード
-							</Text>
-							{showPass ? (
-								<ViewOffIcon onClick={() => setShowPass(false)} />
-							) : (
-								<ViewIcon
-									onClick={() => {
-										setShowPass(true);
-									}}
-								/>
-							)}
-						</HStack>
-
+						<Text fontSize="lg" fontWeight="bold" color={textColor}>
+							バックアップ用パスワード
+						</Text>
 						<Box bg={boxColor} p={4} borderRadius="md" shadow="md" minW={"300px"}>
-							<Text fontSize="lg" fontWeight="bold" color={textColor} textAlign="center">
-								{pass
-									? showPass
-										? pass
-										: [...pass].map((_, index) => (
-												<Box as={"span"} key={index} marginRight={"-0.8"}>
-													●
-												</Box>
-										  ))
-									: "passWordを設定してください"}
+							<Text fontSize="lg" fontWeight="bold" color={pass ? "teal.500" : "red.500"} textAlign="center">
+								{pass ? "パスワード設定済み" : "パスワード未設定"}
 							</Text>
 						</Box>
 
 						<Box textAlign={"end"}>
-							<ChangePassWordModal />
+							{isLoading ? <Spinner /> : pass === null ? <ChangePassWordModal /> : <CheckPassWordModal />}
 						</Box>
 						<Text fontSize={"11px"} color="red.500">
 							※パスワードを忘れた場合復元が出来なくなります。必ず控えを取っておいてください
