@@ -60,12 +60,6 @@ export const ChangePassWordModal = memo(() => {
 	};
 	const onSave = async () => {
 		if (isValid) {
-			const newPass = await hash(value, 10);
-
-			const { error } = await supabase.from("backup").update({ password: newPass }).eq("user_name", penName);
-			if (error) {
-				console.log(error.message);
-			}
 			setPass(value === "" ? null : value);
 			setValue("");
 			onClose();

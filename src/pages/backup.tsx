@@ -32,7 +32,6 @@ import { userName } from "../globalState/atoms/userName";
 import { passWord } from "../globalState/atoms/passWord";
 import { AlertDialogBackUpDelete } from "../components/backup/AlertDialogBackUpDelete";
 import { AlertDialogBackUpReconstruction } from "../components/backup/AlertDialogBackUpReconstruction";
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { memoState } from "../globalState/atoms/memoState";
 import { hash, compare } from "bcryptjs";
 import { CheckPassWordModal } from "../components/backup/CheckPassModal";
@@ -55,7 +54,7 @@ export default function BackUP() {
 	const boxColor = useColorModeValue("gray.100", "gray.900");
 	const [isLoading, setIsLoading] = useState(true);
 	const [backUpList, setBackUpList] = useState<{ id: string; created_at: string }[]>();
-	const [showPass, setShowPass] = useState<boolean>(false);
+
 
 	useEffect(() => {
 		fetchData();
@@ -177,8 +176,21 @@ export default function BackUP() {
 						</Box>
 						<Text fontSize={"11px"} color="red.500">
 							※パスワードを忘れた場合復元が出来なくなります。必ず控えを取っておいてください
+							<br/>
+							※バックアップデータが表示されない場合は再度データ取得してください
+							<br/>
+							※パスワードが一致しないデータは取得されません
 						</Text>
 					</Box>
+					<Button
+						minW={"300px"}
+						colorScheme="teal"
+						isDisabled={name !== "Ghost Writer" || pass || !isLoading ? false : true}
+						isLoading={isLoading}
+						onClick={fetchData}
+					>
+						データを取得する
+					</Button>
 					<Button
 						minW={"300px"}
 						colorScheme="teal"
