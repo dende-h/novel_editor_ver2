@@ -208,6 +208,7 @@ export const Memo: React.FC<Props> = (props: Props) => {
 														}}
 														overflow="scroll"
 														fontSize={"12px"}
+														color="gray.800"
 													/>
 												) : (
 													<Box
