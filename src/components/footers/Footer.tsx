@@ -19,7 +19,7 @@ export const Footer = memo(() => {
 						</Box>
 					</Link>
 					<Link href="/policy" passHref>
-						<Box>
+						<Box mr={4}>
 							<Heading as="h4" fontSize="sm">
 								プライバシーポリシー
 							</Heading>
