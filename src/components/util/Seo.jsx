@@ -4,7 +4,7 @@ import Head from "next/head";
 const Seo = ({ pageTitle, pageDescription, pagePath, pageImg, pageImgWidth, pageImgHeight }) => {
 	const defaultTitle = "Re:terature";
 	const defaultDescription =
-		"掌編、ショートショート、短編などの短い小説を文字数を決めて書くことで、小説を書くトレーニングをすることを目的にしているアプリです。書いた小説はTXT形式のダウンロードと、Web上での公開が出来ます。会員登録不要で誰でも無料で利用できます。";
+		"小説を書くために作られたシンプルなエディタアプリです。会員登録不要で誰でも無料で利用できます。書いた小説はTXT形式のダウンロードやクラウドにバックアップができます。WEBへ公開したい場合専用サイトへの公開も可能です。";
 	const defaultImageUrl =
 		"https://enjzxtbbcyrptkkutovq.supabase.co/storage/v1/object/public/images/siteImage/android-chrome-256x256%20(1).png";
 	const title = pageTitle ? `${pageTitle} | ${defaultTitle}` : defaultTitle;
