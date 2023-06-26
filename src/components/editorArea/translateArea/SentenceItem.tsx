@@ -16,20 +16,27 @@ import { MdRemoveCircle } from "react-icons/md";
 import { AiOutlinePlayCircle } from "react-icons/ai";
 import { useRecoilState } from "recoil";
 import { sentenceMemoAtoms } from "../../../globalState/atoms/sentenceMemoAtoms";
+import { sentenceListAtoms } from "../../../globalState/atoms/sentenceListAtoms";
 
 type SentenceItemProps = {
-	sentenceId: string;
-	sentence: { original: string; translated: string };
+	sentenceId: number;
+	sentence: { id: string; original: string; translated: string; memo: string };
 	onRemove: () => void;
 	onPlay: () => void;
 };
 
+type Sentence = { id: string; original: string; translated: string; memo: string };
+
 export const SentenceItem: FC<SentenceItemProps> = ({ sentenceId, sentence, onRemove, onPlay }) => {
 	const [isEditMode, setIsEditMode] = useState(false);
-	const [memo, setMemo] = useRecoilState(sentenceMemoAtoms(sentenceId));
+	const [memo, setMemo] = useRecoilState<Sentence[]>(sentenceListAtoms);
 
 	const handleMemoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setMemo(e.target.value);
+		setMemo(
+			memo.map((item, index) => {
+				return index !== sentenceId ? item : { ...item, memo: e.target.value };
+			})
+		);
 	};
 
 	const handleMemoClick = () => {
@@ -52,7 +59,10 @@ export const SentenceItem: FC<SentenceItemProps> = ({ sentenceId, sentence, onRe
 							icon={<MdRemoveCircle />}
 							colorScheme="red"
 							variant="outline"
-							onClick={onRemove}
+							onClick={(e) => {
+								onRemove();
+								e.isPropagationStopped();
+							}}
 							mr={1}
 							border={"none"}
 							borderRadius={"full"}
@@ -64,7 +74,10 @@ export const SentenceItem: FC<SentenceItemProps> = ({ sentenceId, sentence, onRe
 							icon={<AiOutlinePlayCircle />}
 							colorScheme="teal"
 							variant="outline"
-							onClick={onPlay}
+							onClick={(e) => {
+								onPlay();
+								e.isPropagationStopped();
+							}}
 							mr={1}
 							border={"none"}
 							borderRadius={"full"}
@@ -80,10 +93,16 @@ export const SentenceItem: FC<SentenceItemProps> = ({ sentenceId, sentence, onRe
 					{sentence.original}
 				</Text>
 				{isEditMode ? (
-					<Input value={memo} onBlur={handleMemoBlur} onChange={handleMemoChange} autoFocus fontSize={"10px"} />
+					<Input
+						value={memo[sentenceId].memo}
+						onBlur={handleMemoBlur}
+						onChange={handleMemoChange}
+						autoFocus
+						fontSize={"10px"}
+					/>
 				) : (
 					<Text onClick={handleMemoClick} color="blue.500" _hover={{ cursor: "pointer" }} fontSize={"10px"}>
-						{memo || "Click to add a memo"}
+						{memo[sentenceId].memo.trim().length === 0 ? "Click to add a memo" : memo[sentenceId].memo}
 					</Text>
 				)}
 			</AccordionPanel>

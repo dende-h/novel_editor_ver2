@@ -35,6 +35,7 @@ import { AlertDialogBackUpReconstruction } from "../components/backup/AlertDialo
 import { memoState } from "../globalState/atoms/memoState";
 import { hash, compare } from "bcryptjs";
 import { CheckPassWordModal } from "../components/backup/CheckPassModal";
+import { sentenceListAtoms } from "../globalState/atoms/sentenceListAtoms";
 
 export default function BackUP() {
 	const setDrafts = useSetRecoilState(drafts);
@@ -46,6 +47,8 @@ export default function BackUP() {
 	const setUserImageUrl = useSetRecoilState(userImageUrl);
 	const setUserIntroduction = useSetRecoilState(userIntroduction);
 	const setMemoData = useSetRecoilState(memoState);
+	const setTranslateData = useSetRecoilState(sentenceListAtoms);
+
 	const name = useRecoilValue(userName);
 	const pass = useRecoilValue(passWord);
 	const [isPublished, setIsPublished] = useRecoilState(isPublishedState);
@@ -54,7 +57,6 @@ export default function BackUP() {
 	const boxColor = useColorModeValue("gray.100", "gray.900");
 	const [isLoading, setIsLoading] = useState(true);
 	const [backUpList, setBackUpList] = useState<{ id: string; created_at: string }[]>();
-
 
 	useEffect(() => {
 		fetchData();
@@ -85,7 +87,8 @@ export default function BackUP() {
 				user_introduction: data[0].user_introduction,
 				password: data[0].password,
 				user_name: data[0].user_name,
-				memo_data: data[0].memo_data
+				memo_data: data[0].memo_data,
+				translate_words: data[0].translate_words
 			};
 			setDrafts(JSON.parse(fetchData.drafts_data));
 			setDraftsJson(JSON.parse(fetchData.drafts_json_data));
@@ -97,6 +100,7 @@ export default function BackUP() {
 			setUserImageUrl(JSON.parse(fetchData.user_image));
 			setUserIntroduction(fetchData.user_introduction);
 			setMemoData(JSON.parse(fetchData.memo_data));
+			setTranslateData(JSON.parse(fetchData.translate_words));
 		}
 		setIsLoading(false);
 	};
@@ -176,9 +180,9 @@ export default function BackUP() {
 						</Box>
 						<Text fontSize={"11px"} color="red.500">
 							※パスワードを忘れた場合復元が出来なくなります。必ず控えを取っておいてください
-							<br/>
+							<br />
 							※バックアップデータが表示されない場合は再度データ取得してください
-							<br/>
+							<br />
 							※パスワードが一致しないデータは取得されません
 						</Text>
 					</Box>

@@ -2,7 +2,7 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { memo, FC } from "react";
 import { LeftColumnArea } from "../draftListArea/LeftColumnArea";
-import { EditorArea } from "../middleColumns/EditorArea";
+import { EditorArea } from "../editorArea/EditorArea";
 import { ProfileArea } from "../profilePage/ProfileArea";
 
 const TwoColumnTemplate: FC = memo(() => {

@@ -21,6 +21,7 @@ import { SelectMaxLengthSlider } from "./SelectMaxLengthSlider";
 import { LexicalEditorArea } from "./LexicalEditorArea";
 import { Memo } from "./memoArea/Memo";
 import { PreviweModal } from "./PreviweModal";
+import { TranslateDrawer } from "./translateArea/TranslateDrawer";
 
 export const EditorArea = memo(() => {
 	const { onChangeTitleArea, onBlurFocusTitleInput, onLengthOver, onAddNovel, selectStateReset } = useDraft(); //Draftオブジェクトの操作hooks
@@ -73,6 +74,7 @@ export const EditorArea = memo(() => {
 								</Text>
 								<HStack>
 									<Memo id={selectedDraft.id} title={selectedDraft.title} />
+									<TranslateDrawer id={selectedDraft.id} />
 									{<PreviweModal title={selectedDraft.title} body={selectedDraft.body} isWritingHoraizontally={true} />}
 									{
 										<PreviweModal

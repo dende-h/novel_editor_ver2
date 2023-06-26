@@ -23,10 +23,6 @@ export const DrawerLeftArea = memo((props: Props) => {
 	const btnRef: LegacyRef<HTMLButtonElement> = useRef();
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 
-	// useEffect(() => {
-	// 	onClose();
-	// }, [isSelect]);
-
 	const css = {
 		overflow: "auto",
 		scrollbarWidth: "none",

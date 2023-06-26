@@ -11,6 +11,7 @@ import { userIntroduction } from "../atoms/userIntroduction";
 import { userName } from "../atoms/userName";
 import { passWord } from "../atoms/passWord";
 import { memoState } from "../atoms/memoState";
+import { sentenceListAtoms } from "../atoms/sentenceListAtoms";
 
 export type BackUpDataObject = {
 	id?: string;
@@ -26,6 +27,7 @@ export type BackUpDataObject = {
 	password: string;
 	user_name: string;
 	memo_data?: string;
+	translate_words?: string;
 };
 
 export const backUpData = selector({
@@ -43,6 +45,7 @@ export const backUpData = selector({
 		const userNameData: string = get(userName);
 		const passWordData: string = get(passWord);
 		const memoDate: string = JSON.stringify(get(memoState));
+		const translateWords: string = JSON.stringify(get(sentenceListAtoms));
 
 		const backUpDataObject: BackUpDataObject = {
 			drafts_data: draftsData,
@@ -59,7 +62,8 @@ export const backUpData = selector({
 			user_introduction: userIntroductionData,
 			password: passWordData,
 			user_name: userNameData,
-			memo_data: memoDate
+			memo_data: memoDate,
+			translate_words: translateWords
 		};
 
 		return backUpDataObject;

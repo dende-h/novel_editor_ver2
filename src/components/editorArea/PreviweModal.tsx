@@ -8,14 +8,11 @@ import {
 	ModalFooter,
 	ModalHeader,
 	ModalOverlay,
-	useBreakpointValue,
 	useColorModeValue,
 	useDisclosure
 } from "@chakra-ui/react";
 import { FC, LegacyRef, memo, useRef } from "react";
-import { draftObject } from "../../globalState/selector/editorState";
-import { NovelViewer } from "./NovelViwer";
-
+import { NovelViewer } from "../draftViewArea/NovelViwer";
 type Props = {
 	title: string;
 	body: string;

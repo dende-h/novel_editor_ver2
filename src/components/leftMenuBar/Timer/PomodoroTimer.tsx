@@ -1,5 +1,5 @@
 import React, { useState, useEffect, memo } from "react";
-import { Box, Heading, IconButton, Text, Tooltip, useColorModeValue, useToast } from "@chakra-ui/react";
+import { Box, Heading, IconButton, Text, Tooltip, useColorModeValue } from "@chakra-ui/react";
 import { GiSoundOn, GiSoundOff } from "react-icons/gi";
 import { BiBellOff } from "react-icons/bi";
 import { RxReset } from "react-icons/rx";
