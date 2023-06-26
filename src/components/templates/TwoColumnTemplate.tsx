@@ -1,7 +1,7 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { memo, FC } from "react";
-import { LeftColumnArea } from "../draftArea/LeftColumnArea";
+import { LeftColumnArea } from "../draftListArea/LeftColumnArea";
 import { EditorArea } from "../middleColumns/EditorArea";
 import { ProfileArea } from "../profilePage/ProfileArea";
 
