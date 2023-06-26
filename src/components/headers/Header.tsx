@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { memo } from "react";
 import { useRecoilValue } from "recoil";
 import { isSelected } from "../../globalState/atoms/isSelected";
-import { DrawerLeftArea } from "../LeftColumns/DrawerLeftArea";
+import { DrawerLeftArea } from "../draftArea/DrawerLeftArea";
 import { ColorSwitchButton } from "./ColorSwitchButton";
 import { HeaderMenu } from "./HeaderMenu";
 

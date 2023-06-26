@@ -4,7 +4,7 @@ import { GiSoundOn, GiSoundOff } from "react-icons/gi";
 import { BiBellOff } from "react-icons/bi";
 import { RxReset } from "react-icons/rx";
 import { BsPauseCircleFill, BsFillPlayCircleFill } from "react-icons/bs";
-import { useToastTemplate } from "../../hooks/useToastTemplate";
+import { useToastTemplate } from "../../../hooks/useToastTemplate";
 
 export const PomodoroTimer = memo(() => {
 	// 画面にToastを表示するための関数

@@ -8,7 +8,7 @@ import { HiLibrary } from "react-icons/hi";
 import { BiHelpCircle } from "react-icons/bi";
 import { ColorSwitchButton } from "../headers/ColorSwitchButton";
 import Link from "next/link";
-import { TimerPopover } from "../Timer/TimerPopover";
+import { TimerPopover } from "./Timer/TimerPopover";
 import { MdBackup } from "react-icons/md";
 
 export const LeftMenuBar = memo(() => {

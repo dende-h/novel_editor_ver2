@@ -19,7 +19,7 @@ import { useCalcCharCount } from "../../hooks/useCalcCharCount";
 import { useDraft } from "../../hooks/useDraft";
 import { SelectMaxLengthSlider } from "./SelectMaxLengthSlider";
 import { LexicalEditorArea } from "./LexicalEditorArea";
-import { Memo } from "../memoArea/Memo";
+import { Memo } from "./memoArea/Memo";
 import { PreviweModal } from "./PreviweModal";
 
 export const EditorArea = memo(() => {
