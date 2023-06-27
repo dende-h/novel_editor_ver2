@@ -20,19 +20,24 @@ import { sentenceListAtoms } from "../../../globalState/atoms/sentenceListAtoms"
 import { isClientState } from "../../../globalState/atoms/isClientState";
 
 type SentenceItemProps = {
+	index: number;
 	onRemove: () => void;
 	onPlay: () => void;
 };
 
 type Sentence = { original: string; translated: string; memo: string };
 
-export const SentenceItem: FC<SentenceItemProps> = ({ onRemove, onPlay }) => {
+export const SentenceItem: FC<SentenceItemProps> = ({ index, onRemove, onPlay }) => {
 	const isClient = useRecoilValue(isClientState);
 	const [isEditMode, setIsEditMode] = useState(false);
-	const [list, setList] = useRecoilState<Sentence>(sentenceListAtoms);
+	const [list, setList] = useRecoilState<Sentence[]>(sentenceListAtoms);
 
 	const handleMemoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setList({ ...list, memo: e.target.value });
+		setList(
+			list.map((item, i) => {
+				return i === index ? { ...item, memo: e.target.value } : item;
+			})
+		);
 	};
 
 	const handleMemoClick = () => {
@@ -50,7 +55,7 @@ export const SentenceItem: FC<SentenceItemProps> = ({ onRemove, onPlay }) => {
 						<Box display="flex" alignItems="center">
 							<AccordionButton>
 								<Box flex="1" textAlign="left" fontSize={"12px"} wordBreak={"break-word"}>
-									<Text>{list.translated}</Text>
+									<Text>{list[index].translated}</Text>
 								</Box>
 								<AccordionIcon />
 							</AccordionButton>
@@ -84,11 +89,11 @@ export const SentenceItem: FC<SentenceItemProps> = ({ onRemove, onPlay }) => {
 					</h2>
 					<AccordionPanel pb={4}>
 						<Text mb={2} color="gray.600" fontSize={"12px"}>
-							{list.original}
+							{list[index].original}
 						</Text>
 						{isEditMode ? (
 							<Input
-								value={list.memo}
+								value={list[index].memo}
 								onBlur={handleMemoBlur}
 								onChange={handleMemoChange}
 								autoFocus
@@ -96,7 +101,7 @@ export const SentenceItem: FC<SentenceItemProps> = ({ onRemove, onPlay }) => {
 							/>
 						) : (
 							<Text onClick={handleMemoClick} color="blue.500" _hover={{ cursor: "pointer" }} fontSize={"10px"}>
-								{list.memo.trim().length === 0 ? "Click to add a memo" : list.memo}
+								{list[index].memo.trim().length === 0 ? "Click to add a memo" : list[index].memo}
 							</Text>
 						)}
 					</AccordionPanel>
