@@ -22,31 +22,22 @@ export const TranslateWordList = () => {
 		setSentence(e.target.value);
 	};
 
-	// const handleAddSentence = async () => {
-	// 	const param: Parameters = {
-	// 		free_api: true,
-	// 		text: sentence,
-	// 		target_lang: "EN",
-	// 		auth_key: process.env.NEXT_PUBLIC_DEEPL_AUTH_KEY
-	// 	};
-	// 	try {
-	// 		const translated = await translate(param)
-	// 			.then((result) => {
-	// 				return result.data.translations[0].text;
-	// 			})
-	// 			.catch((error) => {
-	// 				console.log(error);
-	// 				return "";
-	// 			});
-	// 		setSentences([...sentences, { original: sentence, translated, memo: "" }]);
-	// 		setSentence("");
-	// 	} catch (error) {
-	// 		console.error(error);
-	// 	}
-	// };
 	const handleAddSentence = async () => {
+		const param: Parameters = {
+			free_api: true,
+			text: sentence,
+			target_lang: "EN",
+			auth_key: process.env.NEXT_PUBLIC_DEEPL_AUTH_KEY
+		};
 		try {
-			const translated = await translateText(sentence);
+			const translated = await translate(param)
+				.then((result) => {
+					return result.data.translations[0].text;
+				})
+				.catch((error) => {
+					console.log(error);
+					return "";
+				});
 			setSentences([...sentences, { original: sentence, translated, memo: "" }]);
 			setSentence("");
 		} catch (error) {
@@ -91,21 +82,3 @@ export const TranslateWordList = () => {
 		</Box>
 	);
 };
-
-async function translateText(text) {
-	const res = await fetch("/api/translate", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json"
-		},
-		body: JSON.stringify({ text: text })
-	});
-
-	if (res.ok) {
-		const data = await res.json();
-		return data.translated;
-	} else {
-		const error = await res.json();
-		throw new Error(error.error);
-	}
-}
