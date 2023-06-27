@@ -1,11 +1,10 @@
-// pages/api/translate.ts
 import type { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	if (req.method === "POST") {
 		const { text } = req.body;
-
+		console.log("Received API request with text: ", text); // ここにconsole.logを追加しました
 		try {
 			const response = await axios.post(
 				"https://api-free.deepl.com/v2/translate",
@@ -19,8 +18,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			);
 
 			const translatedText = response.data.translations[0].text;
+			console.log("Received translation from DeepL: ", translatedText); // ここにconsole.logを追加しました
 			res.status(200).json({ translated: translatedText });
 		} catch (error) {
+			console.error("Error during DeepL request: ", error); // ここにconsole.logを追加しました
 			res.status(500).json({ statusCode: 500, message: error.message, stack: error.stack });
 		}
 	} else {

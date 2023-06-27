@@ -81,6 +81,7 @@ export const TranslateWordList = (props: Props) => {
 
 async function translate(text: string): Promise<string> {
 	try {
+		console.log("Translating text: ", text); // ここにconsole.logを追加しました
 		const res = await fetch("/api/translate", {
 			method: "POST",
 			headers: {
@@ -92,9 +93,10 @@ async function translate(text: string): Promise<string> {
 			throw new Error(res.statusText);
 		}
 		const data = await res.json();
+		console.log("Received response: ", data); // ここにconsole.logを追加しました
 		return data.translated;
 	} catch (error) {
-		console.error(error);
+		console.error("Error during translation: ", error); // ここにconsole.logを追加しました
 		return "";
 	}
 }
