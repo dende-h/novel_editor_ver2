@@ -20,25 +20,19 @@ import { sentenceListAtoms } from "../../../globalState/atoms/sentenceListAtoms"
 import { isClientState } from "../../../globalState/atoms/isClientState";
 
 type SentenceItemProps = {
-	sentenceId: number;
-	sentence: { original: string; translated: string; memo: string };
 	onRemove: () => void;
 	onPlay: () => void;
 };
 
 type Sentence = { original: string; translated: string; memo: string };
 
-export const SentenceItem: FC<SentenceItemProps> = ({ sentenceId, sentence, onRemove, onPlay }) => {
+export const SentenceItem: FC<SentenceItemProps> = ({ onRemove, onPlay }) => {
 	const isClient = useRecoilValue(isClientState);
 	const [isEditMode, setIsEditMode] = useState(false);
-	const [memo, setMemo] = useState<Sentence[]>([]);
+	const [list, setList] = useRecoilState<Sentence>(sentenceListAtoms);
 
 	const handleMemoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setMemo(
-			memo.map((item, index) => {
-				return index !== sentenceId ? item : { ...item, memo: e.target.value };
-			})
-		);
+		setList({ ...list, memo: e.target.value });
 	};
 
 	const handleMemoClick = () => {
@@ -56,7 +50,7 @@ export const SentenceItem: FC<SentenceItemProps> = ({ sentenceId, sentence, onRe
 						<Box display="flex" alignItems="center">
 							<AccordionButton>
 								<Box flex="1" textAlign="left" fontSize={"12px"} wordBreak={"break-word"}>
-									<Text>{sentence.translated}</Text>
+									<Text>{list.translated}</Text>
 								</Box>
 								<AccordionIcon />
 							</AccordionButton>
@@ -90,11 +84,11 @@ export const SentenceItem: FC<SentenceItemProps> = ({ sentenceId, sentence, onRe
 					</h2>
 					<AccordionPanel pb={4}>
 						<Text mb={2} color="gray.600" fontSize={"12px"}>
-							{sentence.original}
+							{list.original}
 						</Text>
 						{isEditMode ? (
 							<Input
-								value={memo[sentenceId].memo}
+								value={list.memo}
 								onBlur={handleMemoBlur}
 								onChange={handleMemoChange}
 								autoFocus
@@ -102,7 +96,7 @@ export const SentenceItem: FC<SentenceItemProps> = ({ sentenceId, sentence, onRe
 							/>
 						) : (
 							<Text onClick={handleMemoClick} color="blue.500" _hover={{ cursor: "pointer" }} fontSize={"10px"}>
-								{memo[sentenceId].memo.trim().length === 0 ? "Click to add a memo" : memo[sentenceId].memo}
+								{list.memo.trim().length === 0 ? "Click to add a memo" : list.memo}
 							</Text>
 						)}
 					</AccordionPanel>

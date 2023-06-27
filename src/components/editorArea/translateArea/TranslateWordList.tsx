@@ -15,7 +15,7 @@ type SentenceData = {
 export const TranslateWordList = () => {
 	const isClient = useRecoilValue(isClientState);
 	const [sentence, setSentence] = useState("");
-	const [sentences, setSentences] = useState<SentenceData[]>([]);
+	const [sentences, setSentences] = useRecoilState<SentenceData[]>(sentenceListAtoms);
 
 	const handleSentenceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSentence(e.target.value);
