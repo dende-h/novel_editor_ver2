@@ -27,9 +27,13 @@ export const TranslateWordList = (props: Props) => {
 	};
 
 	const handleAddSentence = async () => {
-		const translated = await translate(sentence); // translate is your API call function.
-		setSentences([...sentences, { id: props.id, original: sentence, translated, memo: "" }]);
-		setSentence("");
+		try {
+			const translated = await translate(sentence);
+			setSentences([...sentences, { id: props.id, original: sentence, translated, memo: "" }]);
+			setSentence("");
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	const handleRemoveSentence = (index: number) => {
@@ -76,13 +80,21 @@ export const TranslateWordList = (props: Props) => {
 };
 
 async function translate(text: string): Promise<string> {
-	const res = await fetch("/api/translate", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json"
-		},
-		body: JSON.stringify({ text })
-	});
-	const data = await res.json();
-	return data.translated;
+	try {
+		const res = await fetch("/api/translate", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({ text })
+		});
+		if (!res.ok) {
+			throw new Error(res.statusText);
+		}
+		const data = await res.json();
+		return data.translated;
+	} catch (error) {
+		console.error(error);
+		return "";
+	}
 }
