@@ -31,7 +31,7 @@ type Sentence = { id: string; original: string; translated: string; memo: string
 export const SentenceItem: FC<SentenceItemProps> = ({ sentenceId, sentence, onRemove, onPlay }) => {
 	const isClient = useRecoilValue(isClientState);
 	const [isEditMode, setIsEditMode] = useState(false);
-	const [memo, setMemo] = useRecoilState<Sentence[]>(sentenceListAtoms);
+	const [memo, setMemo] = useState<Sentence[]>([]);
 
 	const handleMemoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setMemo(

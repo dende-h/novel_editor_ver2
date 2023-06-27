@@ -20,7 +20,7 @@ type Props = {
 export const TranslateWordList = (props: Props) => {
 	const isClient = useRecoilValue(isClientState);
 	const [sentence, setSentence] = useState("");
-	const [sentences, setSentences] = useRecoilState<SentenceData[]>(sentenceListAtoms);
+	const [sentences, setSentences] = useState<SentenceData[]>([]);
 
 	const handleSentenceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSentence(e.target.value);
