@@ -21,7 +21,7 @@ export const TranslateWordList = (props: Props) => {
 		setSentence(e.target.value);
 	};
 
-	const handleAddSentence = async () => {
+	const handleAddSentence = async (sentence: string) => {
 		const param: Parameters = {
 			free_api: true,
 			text: sentence,
@@ -67,7 +67,11 @@ export const TranslateWordList = (props: Props) => {
 							size="md"
 							maxLength={70}
 						/>
-						<Button colorScheme="teal" onClick={handleAddSentence} isDisabled={sentence.trim().length === 0}>
+						<Button
+							colorScheme="teal"
+							onClick={() => handleAddSentence(sentence)}
+							isDisabled={sentence.trim().length === 0}
+						>
 							ワードを追加
 						</Button>
 						<SentenceList id={id} sentences={sentences} onRemove={handleRemoveSentence} onPlay={handlePlaySentence} />
