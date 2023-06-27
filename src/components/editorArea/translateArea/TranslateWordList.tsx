@@ -5,6 +5,7 @@ import { sentenceListAtoms } from "../../../globalState/atoms/sentenceListAtoms"
 import { useRecoilState, useRecoilValue } from "recoil";
 import { SentenceList } from "./SentenceList";
 import { isClientState } from "../../../globalState/atoms/isClientState";
+import translate, { Parameters } from "deepl";
 
 type SentenceData = {
 	original: string;
@@ -22,8 +23,21 @@ export const TranslateWordList = () => {
 	};
 
 	const handleAddSentence = async () => {
+		const param: Parameters = {
+			free_api: true,
+			text: sentence,
+			target_lang: "EN",
+			auth_key: process.env.NEXT_PUBLIC_DEEPL_AUTH_KEY
+		};
 		try {
-			const translated = await translate(sentence);
+			const translated = await translate(param)
+				.then((result) => {
+					return result.data.translations[0].text;
+				})
+				.catch((error) => {
+					console.log(error);
+					return "";
+				});
 			setSentences([...sentences, { original: sentence, translated, memo: "" }]);
 			setSentence("");
 		} catch (error) {
@@ -69,7 +83,7 @@ export const TranslateWordList = () => {
 	);
 };
 
-async function translate(text: string): Promise<string> {
+async function translat(text: string): Promise<string> {
 	try {
 		console.log("Translating text: ", text); // ここにconsole.logを追加しました
 		const res = await fetch("/api/translate", {
