@@ -12,7 +12,7 @@ type SentenceListProps = {
 
 export const SentenceList: FC<SentenceListProps> = ({ listId, sentences, onRemove, onPlay }) => {
 	return (
-		<Accordion allowToggle minW={"328px"}>
+		<Accordion allowToggle minW={"300px"}>
 			{sentences
 				.filter((item) => {
 					return item.id === listId;
