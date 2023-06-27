@@ -1,7 +1,8 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 
-type SentenceData = {
+export type SentenceData = {
+	id: string;
 	original: string;
 	translated: string;
 	memo: string;

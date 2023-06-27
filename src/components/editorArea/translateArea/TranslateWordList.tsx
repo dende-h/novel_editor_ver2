@@ -1,19 +1,18 @@
 // src/pages/index.tsx
 import { useState } from "react";
 import { Box, Button, Center, Input, Spinner, VStack } from "@chakra-ui/react";
-import { sentenceListAtoms } from "../../../globalState/atoms/sentenceListAtoms";
+import { SentenceData, sentenceListAtoms } from "../../../globalState/atoms/sentenceListAtoms";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { SentenceList } from "./SentenceList";
 import { isClientState } from "../../../globalState/atoms/isClientState";
 import translate, { Parameters } from "deepl";
 
-type SentenceData = {
-	original: string;
-	translated: string;
-	memo: string;
+type Props = {
+	id: string;
 };
 
-export const TranslateWordList = () => {
+export const TranslateWordList = (props: Props) => {
+	const { id } = props;
 	const isClient = useRecoilValue(isClientState);
 	const [sentence, setSentence] = useState("");
 	const [sentences, setSentences] = useRecoilState<SentenceData[]>(sentenceListAtoms);
@@ -38,7 +37,7 @@ export const TranslateWordList = () => {
 					console.log(error);
 					return "";
 				});
-			setSentences([...sentences, { original: sentence, translated, memo: "" }]);
+			setSentences([...sentences, { id, original: sentence, translated, memo: "" }]);
 			setSentence("");
 		} catch (error) {
 			console.error(error);
@@ -71,7 +70,7 @@ export const TranslateWordList = () => {
 						<Button colorScheme="teal" onClick={handleAddSentence} isDisabled={sentence.trim().length === 0}>
 							ワードを追加
 						</Button>
-						<SentenceList sentences={sentences} onRemove={handleRemoveSentence} onPlay={handlePlaySentence} />
+						<SentenceList id={id} sentences={sentences} onRemove={handleRemoveSentence} onPlay={handlePlaySentence} />
 					</>
 				) : (
 					<Center>

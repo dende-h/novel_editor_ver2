@@ -9,10 +9,15 @@ import {
 	useColorModeValue,
 	Button
 } from "@chakra-ui/react";
+import { type } from "os";
 import { LegacyRef, memo, useRef } from "react";
 import { TranslateWordList } from "./TranslateWordList";
 
-export const TranslateDrawer = memo(() => {
+type Props = {
+	id: string;
+};
+
+export const TranslateDrawer = memo(({ id }: Props) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const btnRef: LegacyRef<HTMLButtonElement> = useRef();
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
@@ -38,7 +43,7 @@ export const TranslateDrawer = memo(() => {
 					<DrawerCloseButton />
 					<DrawerHeader>翻訳リスト</DrawerHeader>
 					<DrawerBody>
-						<TranslateWordList />
+						<TranslateWordList id={id} />
 					</DrawerBody>
 				</DrawerContent>
 			</Drawer>
