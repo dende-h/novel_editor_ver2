@@ -22,22 +22,31 @@ export const TranslateWordList = () => {
 		setSentence(e.target.value);
 	};
 
+	// const handleAddSentence = async () => {
+	// 	const param: Parameters = {
+	// 		free_api: true,
+	// 		text: sentence,
+	// 		target_lang: "EN",
+	// 		auth_key: process.env.NEXT_PUBLIC_DEEPL_AUTH_KEY
+	// 	};
+	// 	try {
+	// 		const translated = await translate(param)
+	// 			.then((result) => {
+	// 				return result.data.translations[0].text;
+	// 			})
+	// 			.catch((error) => {
+	// 				console.log(error);
+	// 				return "";
+	// 			});
+	// 		setSentences([...sentences, { original: sentence, translated, memo: "" }]);
+	// 		setSentence("");
+	// 	} catch (error) {
+	// 		console.error(error);
+	// 	}
+	// };
 	const handleAddSentence = async () => {
-		const param: Parameters = {
-			free_api: true,
-			text: sentence,
-			target_lang: "EN",
-			auth_key: process.env.NEXT_PUBLIC_DEEPL_AUTH_KEY
-		};
 		try {
-			const translated = await translate(param)
-				.then((result) => {
-					return result.data.translations[0].text;
-				})
-				.catch((error) => {
-					console.log(error);
-					return "";
-				});
+			const translated = await translateText(sentence);
 			setSentences([...sentences, { original: sentence, translated, memo: "" }]);
 			setSentence("");
 		} catch (error) {
@@ -83,24 +92,20 @@ export const TranslateWordList = () => {
 	);
 };
 
-async function translat(text: string): Promise<string> {
-	try {
-		console.log("Translating text: ", text); // ここにconsole.logを追加しました
-		const res = await fetch("/api/translate", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify({ text })
-		});
-		if (!res.ok) {
-			throw new Error(res.statusText);
-		}
+async function translateText(text) {
+	const res = await fetch("/api/translate", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({ text: text })
+	});
+
+	if (res.ok) {
 		const data = await res.json();
-		console.log("Received response: ", data); // ここにconsole.logを追加しました
 		return data.translated;
-	} catch (error) {
-		console.error("Error during translation: ", error); // ここにconsole.logを追加しました
-		return "";
+	} else {
+		const error = await res.json();
+		throw new Error(error.error);
 	}
 }
