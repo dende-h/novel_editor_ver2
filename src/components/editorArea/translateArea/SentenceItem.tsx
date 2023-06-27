@@ -21,12 +21,12 @@ import { isClientState } from "../../../globalState/atoms/isClientState";
 
 type SentenceItemProps = {
 	sentenceId: number;
-	sentence: { id: string; original: string; translated: string; memo: string };
+	sentence: { original: string; translated: string; memo: string };
 	onRemove: () => void;
 	onPlay: () => void;
 };
 
-type Sentence = { id: string; original: string; translated: string; memo: string };
+type Sentence = { original: string; translated: string; memo: string };
 
 export const SentenceItem: FC<SentenceItemProps> = ({ sentenceId, sentence, onRemove, onPlay }) => {
 	const isClient = useRecoilValue(isClientState);

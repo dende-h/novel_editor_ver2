@@ -74,7 +74,7 @@ export const EditorArea = memo(() => {
 								</Text>
 								<HStack>
 									<Memo id={selectedDraft.id} title={selectedDraft.title} />
-									<TranslateDrawer id={selectedDraft.id} />
+									<TranslateDrawer />
 									{<PreviweModal title={selectedDraft.title} body={selectedDraft.body} isWritingHoraizontally={true} />}
 									{
 										<PreviweModal

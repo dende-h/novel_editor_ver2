@@ -7,17 +7,12 @@ import { SentenceList } from "./SentenceList";
 import { isClientState } from "../../../globalState/atoms/isClientState";
 
 type SentenceData = {
-	id: string;
 	original: string;
 	translated: string;
 	memo: string;
 };
 
-type Props = {
-	id: string;
-};
-
-export const TranslateWordList = (props: Props) => {
+export const TranslateWordList = () => {
 	const isClient = useRecoilValue(isClientState);
 	const [sentence, setSentence] = useState("");
 	const [sentences, setSentences] = useState<SentenceData[]>([]);
@@ -29,7 +24,7 @@ export const TranslateWordList = (props: Props) => {
 	const handleAddSentence = async () => {
 		try {
 			const translated = await translate(sentence);
-			setSentences([...sentences, { id: props.id, original: sentence, translated, memo: "" }]);
+			setSentences([...sentences, { original: sentence, translated, memo: "" }]);
 			setSentence("");
 		} catch (error) {
 			console.error(error);
@@ -62,12 +57,7 @@ export const TranslateWordList = (props: Props) => {
 						<Button colorScheme="teal" onClick={handleAddSentence} isDisabled={sentence.trim().length === 0}>
 							ワードを追加
 						</Button>
-						<SentenceList
-							listId={props.id}
-							sentences={sentences}
-							onRemove={handleRemoveSentence}
-							onPlay={handlePlaySentence}
-						/>
+						<SentenceList sentences={sentences} onRemove={handleRemoveSentence} onPlay={handlePlaySentence} />
 					</>
 				) : (
 					<Center>

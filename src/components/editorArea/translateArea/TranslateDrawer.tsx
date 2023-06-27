@@ -12,12 +12,7 @@ import {
 import { LegacyRef, memo, useRef } from "react";
 import { TranslateWordList } from "./TranslateWordList";
 
-type Props = {
-	id: string;
-};
-
-export const TranslateDrawer = memo((props: Props) => {
-	const { id } = props;
+export const TranslateDrawer = memo(() => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const btnRef: LegacyRef<HTMLButtonElement> = useRef();
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
@@ -43,7 +38,7 @@ export const TranslateDrawer = memo((props: Props) => {
 					<DrawerCloseButton />
 					<DrawerHeader>翻訳リスト</DrawerHeader>
 					<DrawerBody>
-						<TranslateWordList id={id} />
+						<TranslateWordList />
 					</DrawerBody>
 				</DrawerContent>
 			</Drawer>
