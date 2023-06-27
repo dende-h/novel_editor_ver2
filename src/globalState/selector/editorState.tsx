@@ -15,6 +15,8 @@ export type draftObject = {
 	lastEditedTime: Date;
 	imageUrl: string;
 	imageName: string;
+	preface?: string;
+	postscript?: string;
 };
 
 export const editorState = selector({

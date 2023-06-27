@@ -213,6 +213,17 @@ export const useDraft = () => {
 		);
 	};
 
+	const setPreface = (text: string) => {
+		const newPreface = text;
+
+		setDraft(draft.map((item) => (item.isSelected ? { ...item, preface: newPreface } : item)));
+	};
+
+	const setPostScript = (text: string) => {
+		const newPostScript = text;
+		setDraft(draft.map((item) => (item.isSelected ? { ...item, postscript: newPostScript } : item)));
+	};
+
 	return {
 		deleteAction,
 		onChangeTitleArea,
@@ -228,6 +239,8 @@ export const useDraft = () => {
 		onPublishedChange,
 		onLengthOver,
 		onRemoveImage,
-		onAddImage
+		onAddImage,
+		setPreface,
+		setPostScript
 	};
 };
