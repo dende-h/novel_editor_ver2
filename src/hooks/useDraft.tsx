@@ -213,15 +213,13 @@ export const useDraft = () => {
 		);
 	};
 
-	const setPreface = (text: string) => {
-		const newPreface = text;
+	const setPrefaceAndPostScript = (preface: string, postscript: string) => {
+		const newPreface = preface;
+		const newPostScript = postscript;
 
-		setDraft(draft.map((item) => (item.isSelected ? { ...item, preface: newPreface } : item)));
-	};
-
-	const setPostScript = (text: string) => {
-		const newPostScript = text;
-		setDraft(draft.map((item) => (item.isSelected ? { ...item, postscript: newPostScript } : item)));
+		setDraft(
+			draft.map((item) => (item.isSelected ? { ...item, preface: newPreface, postscript: newPostScript } : item))
+		);
 	};
 
 	return {
@@ -240,7 +238,6 @@ export const useDraft = () => {
 		onLengthOver,
 		onRemoveImage,
 		onAddImage,
-		setPreface,
-		setPostScript
+		setPrefaceAndPostScript
 	};
 };

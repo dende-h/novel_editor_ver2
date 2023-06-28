@@ -1,11 +1,10 @@
 import {
 	Box,
-	Flex,
 	HStack,
 	IconButton,
 	Input,
-	Spacer,
 	Text,
+	useBreakpointValue,
 	useClipboard,
 	useColorModeValue,
 	VStack
@@ -22,6 +21,7 @@ import { LexicalEditorArea } from "./LexicalEditorArea";
 import { Memo } from "./memoArea/Memo";
 import { PreviweModal } from "./PreviweModal";
 import { TranslateDrawer } from "./translateArea/TranslateDrawer";
+import { AddPrefaceAndPostscript } from "./addPrefaceAndPostscript/AddPrefaceAndPostscript";
 
 export const EditorArea = memo(() => {
 	const { onChangeTitleArea, onBlurFocusTitleInput, onLengthOver, onAddNovel, selectStateReset } = useDraft(); //Draftオブジェクトの操作hooks
@@ -75,14 +75,13 @@ export const EditorArea = memo(() => {
 								<HStack>
 									<Memo id={selectedDraft.id} title={selectedDraft.title} />
 									<TranslateDrawer id={selectedDraft.id} />
-									{<PreviweModal title={selectedDraft.title} body={selectedDraft.body} isWritingHoraizontally={true} />}
-									{
-										<PreviweModal
-											title={selectedDraft.title}
-											body={selectedDraft.body}
-											isWritingHoraizontally={false}
-										/>
-									}
+									<AddPrefaceAndPostscript
+										defaultPreface={selectedDraft.preface}
+										defaultPostscript={selectedDraft.postscript}
+									/>
+									<PreviweModal title={selectedDraft.title} body={selectedDraft.body} isWritingHoraizontally={true} />
+
+									<PreviweModal title={selectedDraft.title} body={selectedDraft.body} isWritingHoraizontally={false} />
 								</HStack>
 								<SelectMaxLengthSlider maxLength={bodyMaxLength} />
 							</VStack>

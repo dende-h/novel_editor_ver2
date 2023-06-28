@@ -31,8 +31,16 @@ export const PreviweModal: FC<Props> = memo((props: Props) => {
 
 	return (
 		<>
-			<Button ref={btnRef} onClick={onOpen} borderRadius={2} size={"xs"} colorScheme="orange" ml={4}>
-				{isWritingHoraizontally ? "横プレビュー" : "縦プレビュー"}
+			<Button
+				ref={btnRef}
+				onClick={onOpen}
+				borderRadius={2}
+				size={"xs"}
+				colorScheme="orange"
+				ml={4}
+				display={isWritingHoraizontally ? "block" : { base: "none", md: "block" }}
+			>
+				{isWritingHoraizontally ? "プレビュー" : "縦プレビュー"}
 			</Button>
 
 			<Modal isOpen={isOpen} onClose={onClose} size="full">
