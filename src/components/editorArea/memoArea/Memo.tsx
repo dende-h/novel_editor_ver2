@@ -24,7 +24,7 @@ import {
 } from "@chakra-ui/react";
 import { IoMdRemoveCircle, IoIosColorFill } from "react-icons/io";
 import { MemoViewer } from "./MemoViwer";
-import { Item, Items, memoState } from "../../globalState/atoms/memoState";
+import { Item, Items, memoState } from "../../../globalState/atoms/memoState";
 import { useRecoilState } from "recoil";
 
 const COLORS = ["#ffe1b4", "#FFF9D5", "#ECFAF5", "#CBF5E4", "#A5DEC8", "#FFF"];
@@ -131,7 +131,7 @@ export const Memo: React.FC<Props> = (props: Props) => {
 
 	return (
 		<>
-			<Button ref={btnRef} onClick={onOpen} borderRadius={2} size={"xs"} colorScheme="facebook" ml={4}>
+			<Button ref={btnRef} onClick={onOpen} borderRadius={2} size={"xs"} colorScheme="whatsapp" ml={4}>
 				メモ
 			</Button>
 			<Modal isOpen={isOpen} onClose={onClose} finalFocusRef={btnRef} size={"full"}>

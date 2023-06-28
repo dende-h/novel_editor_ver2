@@ -213,6 +213,15 @@ export const useDraft = () => {
 		);
 	};
 
+	const setPrefaceAndPostScript = (preface: string, postscript: string) => {
+		const newPreface = preface;
+		const newPostScript = postscript;
+
+		setDraft(
+			draft.map((item) => (item.isSelected ? { ...item, preface: newPreface, postscript: newPostScript } : item))
+		);
+	};
+
 	return {
 		deleteAction,
 		onChangeTitleArea,
@@ -228,6 +237,7 @@ export const useDraft = () => {
 		onPublishedChange,
 		onLengthOver,
 		onRemoveImage,
-		onAddImage
+		onAddImage,
+		setPrefaceAndPostScript
 	};
 };

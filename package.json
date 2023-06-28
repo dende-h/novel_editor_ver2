@@ -25,6 +25,7 @@
 		"axios": "^0.26.1",
 		"bcryptjs": "^2.4.3",
 		"date-fns": "^2.28.0",
+		"deepl": "^1.0.13",
 		"framer-motion": "^9.0.2",
 		"lexical": "^0.7.9",
 		"localforage": "^1.10.0",

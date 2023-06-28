@@ -67,7 +67,9 @@ export const useNovelPublished = () => {
 				user_name: item.userName,
 				image_url: item.imageUrl,
 				good_mark: goodMark ? goodMark : 0,
-				last_edit_time: item.lastEditedTime
+				last_edit_time: item.lastEditedTime,
+				preface: item.preface ? item.preface : null,
+				postscript: item.postscript ? item.postscript : null
 			};
 		});
 		const { error } = await supabase.from("drafts").insert(insertItems);

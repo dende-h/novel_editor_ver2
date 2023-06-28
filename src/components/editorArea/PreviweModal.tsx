@@ -8,14 +8,11 @@ import {
 	ModalFooter,
 	ModalHeader,
 	ModalOverlay,
-	useBreakpointValue,
 	useColorModeValue,
 	useDisclosure
 } from "@chakra-ui/react";
 import { FC, LegacyRef, memo, useRef } from "react";
-import { draftObject } from "../../globalState/selector/editorState";
-import { NovelViewer } from "./NovelViwer";
-
+import { NovelViewer } from "../draftViewArea/NovelViwer";
 type Props = {
 	title: string;
 	body: string;
@@ -34,8 +31,16 @@ export const PreviweModal: FC<Props> = memo((props: Props) => {
 
 	return (
 		<>
-			<Button ref={btnRef} onClick={onOpen} borderRadius={2} size={"xs"} colorScheme="orange" ml={4}>
-				{isWritingHoraizontally ? "横プレビュー" : "縦プレビュー"}
+			<Button
+				ref={btnRef}
+				onClick={onOpen}
+				borderRadius={2}
+				size={"xs"}
+				colorScheme="orange"
+				ml={4}
+				display={isWritingHoraizontally ? "block" : { base: "none", lg: "block" }}
+			>
+				{isWritingHoraizontally ? "プレビュー" : "縦プレビュー"}
 			</Button>
 
 			<Modal isOpen={isOpen} onClose={onClose} size="full">

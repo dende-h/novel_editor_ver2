@@ -4,8 +4,8 @@ import { useRecoilValue } from "recoil";
 import { isClientState } from "../globalState/atoms/isClientState";
 import { lastEditedTimeSort } from "../globalState/selector/lastEditedTimeSort";
 import "@fontsource/noto-serif-jp";
-import { DraftViweModal } from "../components/middleColumns/DraftViweModal";
-import { TagSearchBar } from "../components/middleColumns/TagSearchBar";
+import { DraftViweModal } from "../components/draftViewArea/DraftViweModal";
+import { TagSearchBar } from "../components/draftViewArea/TagSearchBar";
 import { viweDraftsSelector } from "../globalState/selector/viweDraftsSelector";
 import Seo from "../components/util/Seo";
 
