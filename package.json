@@ -26,6 +26,8 @@
 		"bcryptjs": "^2.4.3",
 		"date-fns": "^2.28.0",
 		"deepl": "^1.0.13",
+		"epub-gen": "^0.1.0",
+		"epub-gen-memory": "^1.0.10",
 		"framer-motion": "^9.0.2",
 		"lexical": "^0.7.9",
 		"localforage": "^1.10.0",

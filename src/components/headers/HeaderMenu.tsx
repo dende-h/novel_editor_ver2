@@ -83,6 +83,11 @@ export const HeaderMenu = memo(() => {
 								使い方
 							</MenuItem>
 						</Link>
+						<Link href={"/epubgen"} passHref>
+							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
+								電子書籍に出力(EPUB)
+							</MenuItem>
+						</Link>
 					</MenuList>
 				</>
 			)}
