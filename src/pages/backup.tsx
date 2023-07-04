@@ -99,8 +99,8 @@ export default function BackUP() {
 			setPublishedDraftsData(JSON.parse(fetchData.published_draft));
 			setUserImageUrl(JSON.parse(fetchData.user_image));
 			setUserIntroduction(fetchData.user_introduction);
-			setMemoData(JSON.parse(fetchData.memo_data));
-			setTranslateData(JSON.parse(fetchData.translate_words));
+			setMemoData(JSON.parse(fetchData.memo_data ? fetchData.memo_data : ""));
+			setTranslateData(JSON.parse(fetchData.translate_words ? fetchData.translate_words : ""));
 		}
 		setIsLoading(false);
 	};
@@ -130,7 +130,7 @@ export default function BackUP() {
 		setIsLoading(true);
 		try {
 			const hashedPassword = pass !== null ? await hash(pass, 10) : pass;
-			const { data, error } = await supabase.from("backup").insert([{ ...backUpDataObject, password: hashedPassword }]);
+			await supabase.from("backup").insert([{ ...backUpDataObject, password: hashedPassword }]);
 			try {
 				fetchData();
 			} catch (error) {
