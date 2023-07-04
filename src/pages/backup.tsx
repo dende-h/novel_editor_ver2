@@ -99,8 +99,8 @@ export default function BackUP() {
 			setPublishedDraftsData(JSON.parse(fetchData.published_draft));
 			setUserImageUrl(JSON.parse(fetchData.user_image));
 			setUserIntroduction(fetchData.user_introduction);
-			setMemoData(JSON.parse(fetchData.memo_data ? fetchData.memo_data : ""));
-			setTranslateData(JSON.parse(fetchData.translate_words ? fetchData.translate_words : ""));
+			setMemoData(JSON.parse(fetchData.memo_data));
+			setTranslateData(JSON.parse(fetchData.translate_words));
 		}
 		setIsLoading(false);
 	};
