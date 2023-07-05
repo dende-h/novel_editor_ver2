@@ -6,6 +6,7 @@ import { ImBlog } from "react-icons/im";
 import { IoLibrarySharp } from "react-icons/io5";
 import { HiLibrary } from "react-icons/hi";
 import { BiHelpCircle } from "react-icons/bi";
+import { TbBookDownload } from "react-icons/tb";
 import { ColorSwitchButton } from "../headers/ColorSwitchButton";
 import Link from "next/link";
 import { TimerPopover } from "./Timer/TimerPopover";
@@ -20,7 +21,8 @@ export const LeftMenuBar = memo(() => {
 		<ImBlog />,
 		<AiFillMail />,
 		<MdBackup />,
-		<BiHelpCircle />
+		<BiHelpCircle />,
+		<TbBookDownload />
 	];
 	const tooltipLabels = [
 		"原稿一覧・執筆",
@@ -30,7 +32,8 @@ export const LeftMenuBar = memo(() => {
 		"創作支援ブログ",
 		"お問い合わせフォーム",
 		"バックアップと復元",
-		"Re:teratureの使い方"
+		"Re:teratureの使い方",
+		"電子書籍に出力(EPUB)"
 	];
 	const path = [
 		"/",
@@ -40,7 +43,8 @@ export const LeftMenuBar = memo(() => {
 		"https://notion-blog-nextjs-nine.vercel.app/",
 		"/contact",
 		"/backup",
-		"https://perpetual-hemisphere-7a3.notion.site/How-to-use-Write-Novel-Now-a746fd05c74a42cda7bd15fb2886b580"
+		"https://perpetual-hemisphere-7a3.notion.site/How-to-use-Write-Novel-Now-a746fd05c74a42cda7bd15fb2886b580",
+		"/epubgen"
 	];
 
 	return (

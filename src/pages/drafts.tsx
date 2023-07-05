@@ -1,5 +1,4 @@
 import { Box, SimpleGrid } from "@chakra-ui/react";
-import Head from "next/head";
 import { useRecoilValue } from "recoil";
 import { isClientState } from "../globalState/atoms/isClientState";
 import { lastEditedTimeSort } from "../globalState/selector/lastEditedTimeSort";
