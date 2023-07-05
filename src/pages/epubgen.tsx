@@ -11,18 +11,23 @@ import {
 	Select,
 	Spacer,
 	Flex,
-	FormErrorMessage
+	FormErrorMessage,
+	Textarea
 } from "@chakra-ui/react";
 import { draftObjectArray, drafts } from "../globalState/atoms/drafts";
 import { userName } from "../globalState/atoms/userName";
+import { useTextToHTML } from "../hooks/useTextToHTML";
 
 type FormValues = {
 	title: string;
 	publisher: string;
+	description: string;
 	chapters: { title: string }[];
 };
 
 export default function EpubForm() {
+	const { textToHtml } = useTextToHTML();
+
 	const {
 		register,
 		handleSubmit,
@@ -61,17 +66,21 @@ export default function EpubForm() {
 			const foundDraft = draftsData.find((draft) => draft.id === chapter.title);
 			return {
 				title: foundDraft.title,
-				content: foundDraft.body
+				content: textToHtml(foundDraft.body)
 			};
 		});
+
+		const imgURL = draftsData.find((draft) => draft.id === data.chapters[0].title).imageUrl;
 
 		const options = {
 			title: data.title,
 			author: auther,
+			cover: imgURL,
 			publisher: data.publisher,
 			tocTitle: "目次",
 			version: 3,
-			verbose: false
+			verbose: false,
+			lang: "ja"
 		};
 
 		try {
@@ -90,7 +99,7 @@ export default function EpubForm() {
 		}
 	});
 	return (
-		<Box p="6" w="100%" h={"90vh"}>
+		<Box p="4" w="100%" h={"90vh"} overflowY="scroll">
 			<VStack spacing="6">
 				<Heading as="h1" size="xl">
 					EPUB生成
@@ -99,11 +108,25 @@ export default function EpubForm() {
 					<VStack align="stretch" spacing="4" w={{ base: "320px", md: "400px", lg: "550px" }}>
 						<FormControl isInvalid={!!errors.title}>
 							<FormLabel htmlFor="title" fontSize={{ base: "md", md: "lg" }}>
-								タイトル(本の表題になります)
+								タイトル(必須)
 							</FormLabel>
 							<Input
 								id="title"
 								{...register("title", { required: "タイトルは必須項目です" })}
+								size="lg"
+								variant="filled"
+								shadow="md"
+								_hover={{ shadow: "lg" }}
+								_focus={{ outline: "none", shadow: "lg" }}
+							/>
+							<FormErrorMessage>{errors.title && errors.title.message}</FormErrorMessage>
+						</FormControl>
+						<FormControl isInvalid={!!errors.title}>
+							<FormLabel htmlFor="description" fontSize={{ base: "md", md: "lg" }}>
+								本の説明やあらすじ(任意)
+							</FormLabel>
+							<Textarea
+								id="description"
 								size="lg"
 								variant="filled"
 								shadow="md"
@@ -155,6 +178,7 @@ export default function EpubForm() {
 										</option>
 									))}
 								</Select>
+
 								<FormErrorMessage>
 									{errors.chapters &&
 										errors.chapters[index] &&
