@@ -49,7 +49,7 @@ export const InfoForEpubGen = memo(() => {
 												<Text
 													fontFamily={"Noto Serif JP"}
 													fontWeight="semibold"
-													border={"InfoText"}
+													textDecoration="underline"
 													fontSize={{ base: "12px", md: "14px", lg: "16px" }}
 												>
 													{item}
