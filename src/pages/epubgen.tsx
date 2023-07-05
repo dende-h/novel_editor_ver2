@@ -80,7 +80,22 @@ export default function EpubForm() {
 			tocTitle: "目次",
 			version: 3,
 			verbose: false,
-			lang: "ja"
+			lang: "ja",
+			css: `
+    @font-face {
+      font-family: 'Noto Serif JP';
+      src: url('./fonts/NotoSerifJP-SemiBold.otf') format('opentype');
+    }
+    body {
+      font-family: 'Noto Serif JP', serif;
+    }
+  `,
+			fonts: [
+				{
+					filename: "NotoSerifJP-SemiBold.otf",
+					url: "https://enjzxtbbcyrptkkutovq.supabase.co/storage/v1/object/public/Fonts/NotoSerifJP-SemiBold.otf"
+				}
+			]
 		};
 
 		try {
