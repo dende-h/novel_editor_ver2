@@ -25,7 +25,6 @@ import { useState } from "react";
 type FormValues = {
 	title: string;
 	publisher: string;
-	description: string;
 	chapters: { title: string }[];
 };
 
@@ -51,7 +50,7 @@ export default function EpubForm() {
 	});
 
 	const draftsData = useRecoilValue<draftObjectArray>(drafts);
-	const auther = useRecoilValue<string>(userName);
+	const author = useRecoilValue<string>(userName);
 
 	const onSubmit = handleSubmit(async (data) => {
 		setIsLoading(true);
@@ -82,10 +81,9 @@ export default function EpubForm() {
 
 		const options = {
 			title: data.title,
-			author: auther,
+			author: author,
 			cover: imgURL,
 			publisher: data.publisher,
-			description: data.description,
 			tocTitle: "目次",
 			version: 3,
 			verbose: false,
@@ -152,20 +150,6 @@ export default function EpubForm() {
 										_focus={{ outline: "none", shadow: "lg" }}
 									/>
 									<FormErrorMessage>{errors.title && errors.title.message}</FormErrorMessage>
-								</FormControl>
-								<FormControl>
-									<FormLabel htmlFor="description" fontSize={{ base: "md", md: "lg" }}>
-										本の説明やあらすじ(任意)
-									</FormLabel>
-									<Textarea
-										id="description"
-										{...register("description")}
-										size="lg"
-										variant="filled"
-										shadow="md"
-										_hover={{ shadow: "lg" }}
-										_focus={{ outline: "none", shadow: "lg" }}
-									/>
 								</FormControl>
 								<FormControl>
 									<FormLabel htmlFor="publisher" fontSize={{ base: "md", md: "lg" }}>
