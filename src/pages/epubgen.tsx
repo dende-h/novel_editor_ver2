@@ -17,6 +17,7 @@ import {
 import { draftObjectArray, drafts } from "../globalState/atoms/drafts";
 import { userName } from "../globalState/atoms/userName";
 import { useTextToHTML } from "../hooks/useTextToHTML";
+import { InfoForEpubGen } from "../components/epub/InfoForEpubGen";
 
 type FormValues = {
 	title: string;
@@ -77,6 +78,7 @@ export default function EpubForm() {
 			author: auther,
 			cover: imgURL,
 			publisher: data.publisher,
+			description: data.description,
 			tocTitle: "目次",
 			version: 3,
 			verbose: false,
@@ -119,6 +121,7 @@ export default function EpubForm() {
 				<Heading as="h1" size="xl">
 					EPUB生成
 				</Heading>
+				<InfoForEpubGen />
 				<form onSubmit={onSubmit}>
 					<VStack align="stretch" spacing="4" w={{ base: "320px", md: "400px", lg: "550px" }}>
 						<FormControl isInvalid={!!errors.title}>
