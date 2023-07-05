@@ -1,0 +1,9 @@
+{
+	"plugins": [
+		"text"
+	],
+	"rules": {
+		"no-todo": true,
+		"preset-japanese": true
+	}
+}
