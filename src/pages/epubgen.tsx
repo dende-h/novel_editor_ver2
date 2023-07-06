@@ -28,7 +28,7 @@ type FormValues = {
 	chapters: { title: string }[];
 };
 
-export default function EpubForm() {
+function EpubForm() {
 	const { textToHtml } = useTextToHTML();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -231,3 +231,11 @@ export default function EpubForm() {
 		</Box>
 	);
 }
+export const getStaticProps = async () => {
+	return {
+		props: {
+			data: "This is static data"
+		}
+	};
+};
+export default EpubForm;
