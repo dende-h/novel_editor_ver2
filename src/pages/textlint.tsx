@@ -3,14 +3,10 @@ import { ChangeEventHandler, useEffect, useState } from "react";
 import { Box, Button, Text, Select, FormControl, useColorModeValue, Heading, HStack, Flex } from "@chakra-ui/react";
 import { useRecoilValue } from "recoil";
 import { draftObjectArray, drafts } from "../globalState/atoms/drafts";
-import { NovelViewer } from "../components/draftViewArea/NovelViwer";
-import { TextlintKernel, TextlintKernelOptions } from "@textlint/kernel";
-import TextPlugin from "@textlint/textlint-plugin-text";
-import GeneralNovelStyle from "textlint-rule-general-novel-style-ja";
 // import JaNoRedundantExpression from "textlint-rule-ja-no-redundant-expression";
 // import MaxTen from "textlint-rule-max-ten";
-import NoStartDuplicatedConjunction from "textlint-rule-no-start-duplicated-conjunction";
 import { NovelLintViewer } from "../components/textlint/NovelLintViewer";
+import { useToastTemplate } from "../hooks/useToastTemplate";
 // import NoDoubledJoshi from "textlint-rule-no-doubled-joshi";
 // import NoDoubleNegativeJa from "textlint-rule-no-double-negative-ja";
 
@@ -21,6 +17,7 @@ const Textlint = () => {
 	const [selectValue, setSelectValue] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const textLintUrl = "https://text-lint-novel.vercel.app/api/lint";
+	const { praimaryErrorToast, praimaryInfoToast } = useToastTemplate();
 	const onChangeSelect: ChangeEventHandler<HTMLSelectElement> = (e) => {
 		setSelectValue(e.target.value);
 	};
@@ -47,12 +44,18 @@ const Textlint = () => {
 			});
 			if (response.status === 500) {
 				const data = await response.json();
-				alert("Server error:");
+				praimaryErrorToast("サーバーエラー：再試行してみてください");
+				setIsLoading(false);
+				return;
+			}
+			if (response.status === 504) {
+				const data = await response.json();
+				praimaryErrorToast("タイムアウト：再試行してみてください");
 				setIsLoading(false);
 				return;
 			}
 			if (response.status === 200) {
-				alert("Success");
+				praimaryInfoToast("Success");
 			}
 			const data = await response.json();
 			if (data && data.result && Array.isArray(data.result.messages)) {
@@ -61,7 +64,7 @@ const Textlint = () => {
 				setResult([]);
 			}
 		} catch (error) {
-			alert(error);
+			praimaryErrorToast("サーバーエラー：再試行してみてください");
 			setIsLoading(false);
 			setResult([]);
 		}
