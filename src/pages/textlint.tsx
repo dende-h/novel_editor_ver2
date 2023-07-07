@@ -19,6 +19,7 @@ const Textlint = () => {
 	const [text, setText] = useState("検査対象が選択されていません");
 	const [result, setResult] = useState([]);
 	const [selectValue, setSelectValue] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
 	const textLintUrl = "https://text-lint-novel.vercel.app/api/lint";
 	const onChangeSelect: ChangeEventHandler<HTMLSelectElement> = (e) => {
 		setSelectValue(e.target.value);
@@ -37,6 +38,7 @@ const Textlint = () => {
 	}, [selectValue]);
 
 	const handleCheckText = async () => {
+		setIsLoading(true);
 		try {
 			const response = await fetch(textLintUrl, {
 				method: "POST",
@@ -45,11 +47,12 @@ const Textlint = () => {
 			});
 			if (response.status === 500) {
 				const data = await response.json();
-				console.error("Server error:", data.error);
+				alert("Server error:");
+				setIsLoading(false);
 				return;
 			}
 			if (response.status === 200) {
-				console.log("Success");
+				alert("Success");
 			}
 			const data = await response.json();
 			if (data && data.result && Array.isArray(data.result.messages)) {
@@ -58,9 +61,11 @@ const Textlint = () => {
 				setResult([]);
 			}
 		} catch (error) {
-			console.error(error);
+			alert(error);
+			setIsLoading(false);
 			setResult([]);
 		}
+		setIsLoading(false);
 	};
 
 	const boxBg = useColorModeValue("gray.50", "gray.800");
@@ -95,7 +100,8 @@ const Textlint = () => {
 				variant="solid"
 				mt="4"
 				w={"100%"}
-				isDisabled={text === "検査対象が選択されていません"}
+				isDisabled={text === "検査対象が選択されていません" || isLoading}
+				isLoading={isLoading}
 			>
 				自動校正検査を実行する
 			</Button>
