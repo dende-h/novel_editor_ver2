@@ -10,6 +10,7 @@ import GeneralNovelStyle from "textlint-rule-general-novel-style-ja";
 // import JaNoRedundantExpression from "textlint-rule-ja-no-redundant-expression";
 // import MaxTen from "textlint-rule-max-ten";
 import NoStartDuplicatedConjunction from "textlint-rule-no-start-duplicated-conjunction";
+import { NovelLintViewer } from "../components/textlint/NovelLintViewer";
 // import NoDoubledJoshi from "textlint-rule-no-doubled-joshi";
 // import NoDoubleNegativeJa from "textlint-rule-no-double-negative-ja";
 
@@ -99,7 +100,7 @@ const Textlint = () => {
 				自動校正検査を実行する
 			</Button>
 			<Box mt="6" p="2" bg={boxBg} borderRadius="md" maxH={"400px"} overflowY={"scroll"}>
-				<NovelViewer text={text} />
+				<NovelLintViewer text={text} result={result} />
 			</Box>
 			<Box mt="6" p="4" bg={boxBg} borderRadius="md">
 				{result.length < 1 ? (
