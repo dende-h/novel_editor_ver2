@@ -88,6 +88,11 @@ export const HeaderMenu = memo(() => {
 								電子書籍に出力(EPUB)
 							</MenuItem>
 						</Link>
+						<Link href={"/textlint"} passHref>
+							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
+								自動校正ツール
+							</MenuItem>
+						</Link>
 					</MenuList>
 				</>
 			)}

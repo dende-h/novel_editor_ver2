@@ -50,7 +50,7 @@ export const Header = memo(() => {
 					</Link>
 				</Box>
 
-				<Flex display={{ base: "block", lg: "none" }}>
+				<Flex>
 					<ColorSwitchButton aria-label={"darkTheme"} mr={1} boxSize={6} borderRadius={"full"} />
 
 					<HeaderMenu />

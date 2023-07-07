@@ -1,33 +1,34 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-import { TextlintKernel } from "@textlint/kernel";
-import TextPlugin from "@textlint/textlint-plugin-text";
-import GeneralNovelStyle from "textlint-rule-general-novel-style-ja";
+// pages/api/lint.js
 
-const kernel = new TextlintKernel();
+import { createLinter, loadTextlintrc } from "textlint";
 
-const options = {
-	filePath: "/path/to/file.txt",
-	ext: ".txt",
-	plugins: [
-		{
-			pluginId: "text",
-			plugin: TextPlugin
-		}
-	],
-	rules: [
-		{
-			ruleId: "general-novel-style-ja",
-			rule: GeneralNovelStyle
-		}
-	]
-};
 export default async function handler(req, res) {
+	// Ensure this is a POST request
+	if (req.method !== "POST") {
+		res.statusCode = 405;
+		res.end("Method Not Allowed");
+		return;
+	}
+
 	try {
-		const text = req.body.text;
-		const result = await kernel.lintText(text, options);
-		res.status(200).json({ result });
+		// Get the text from the request body
+		const { text } = req.body;
+
+		// Load the TextLint configuration
+		const descriptor = await loadTextlintrc();
+
+		// Create a new linter with the loaded configuration
+		const linter = createLinter({ descriptor });
+
+		// Lint the text
+		const result = await linter.lintText(text, "virtual.md"); // Add a virtual file path
+
+		// Return the linting result
+		res.statusCode = 200;
+		res.json(result);
 	} catch (error) {
-		console.error(error); // サーバーサイドのコンソールにエラー詳細を表示
-		res.status(500).json({ error: error.toString() }); // クライアントにエラー詳細を返す
+		console.error(error);
+		res.statusCode = 500;
+		res.end("Internal Server Error");
 	}
 }
