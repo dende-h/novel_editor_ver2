@@ -18,7 +18,7 @@ const Textlint = () => {
 	const [text, setText] = useState("検査対象が選択されていません");
 	const [result, setResult] = useState([]);
 	const [selectValue, setSelectValue] = useState(null);
-	const textLintUrl = process.env.NEXT_PUBLIC_TEXTLINT_API_URL;
+	const textLintUrl = "https://text-lint-novel.vercel.app/api/lint";
 	const onChangeSelect: ChangeEventHandler<HTMLSelectElement> = (e) => {
 		setSelectValue(e.target.value);
 	};
