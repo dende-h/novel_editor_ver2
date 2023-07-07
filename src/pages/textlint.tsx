@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { ChangeEventHandler, useEffect, useState } from "react";
-import { Box, Button, Text, Select, FormControl, useColorModeValue, Heading } from "@chakra-ui/react";
+import { Box, Button, Text, Select, FormControl, useColorModeValue, Heading, HStack, Flex } from "@chakra-ui/react";
 import { useRecoilValue } from "recoil";
 import { draftObjectArray, drafts } from "../globalState/atoms/drafts";
 import { NovelViewer } from "../components/draftViewArea/NovelViwer";
@@ -99,10 +99,25 @@ const Textlint = () => {
 			>
 				自動校正検査を実行する
 			</Button>
-			<Box mt="6" p="2" bg={boxBg} borderRadius="md" maxH={"400px"} overflowY={"scroll"}>
+			<Box
+				mt="6"
+				p="2"
+				bg={boxBg}
+				borderRadius="md"
+				maxH={"400px"}
+				overflowY={"scroll"}
+				display={{ base: "block", lg: "none" }}
+			>
 				<NovelLintViewer text={text} result={result} />
 			</Box>
-			<Box mt="6" p="4" bg={boxBg} borderRadius="md">
+			<Box
+				mt="6"
+				p="4"
+				bg={boxBg}
+				borderRadius="md"
+				display={{ base: "block", lg: "none" }}
+				fontSize={{ base: "14px", md: "16px" }}
+			>
 				{result.length < 1 ? (
 					<Text>校正指摘合計数：0箇所</Text>
 				) : (
@@ -127,6 +142,46 @@ const Textlint = () => {
 					</>
 				)}
 			</Box>
+			<Flex h={"100%"} display={{ base: "none", lg: "flex" }} flexDirection={"row"} justifyContent={"space-between"}>
+				<Box mt="6" p="2" bg={boxBg} borderRadius="md" maxH={"100%"} overflowY={"scroll"} w={"49%"}>
+					<NovelLintViewer text={text} result={result} />
+				</Box>
+				<Box
+					mt="6"
+					p="4"
+					bg={boxBg}
+					borderRadius="md"
+					maxH={"100%"}
+					overflowY={"scroll"}
+					w={"49%"}
+					ml={"2%"}
+					fontSize={{ base: "14px", md: "16px" }}
+				>
+					{result.length < 1 ? (
+						<Text>校正指摘合計数：0箇所</Text>
+					) : (
+						<>
+							<Text mb="4" color={"red"}>
+								校正指摘合計数：{result.length}箇所
+							</Text>
+							{result.map((item, index) => {
+								let fixText = item.fix ? item.fix.text : "修正提案なし";
+								if (fixText === " ") fixText = "半角スペースに修正";
+								else if (fixText === "　") fixText = "全角スペースに修正";
+								return (
+									<Box key={index} border="1px solid" borderColor={"red.500"} p="4" borderRadius="md" mb="2" bg={boxBg}>
+										<Text>
+											校正箇所：{item.loc.start.line}行{item.loc.start.column}文字目
+										</Text>
+										<Text>指摘理由：{item.message}</Text>
+										<Text>修正提案：{fixText}</Text>
+									</Box>
+								);
+							})}
+						</>
+					)}
+				</Box>
+			</Flex>
 		</Box>
 	);
 };

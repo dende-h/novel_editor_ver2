@@ -81,7 +81,7 @@ export const NovelLintViewer: FC<Props> = ({ text, result }) => {
 		<Box
 			className="ruby-text"
 			dangerouslySetInnerHTML={{ __html: markedLines.join("<br>") }}
-			fontSize={{ base: "12px", md: "16px", lg: "18px" }}
+			fontSize={{ base: "12px", md: "16px" }}
 			fontFamily={"Noto Serif JP"}
 			lineHeight={"1.5em"}
 			margin="10px"
