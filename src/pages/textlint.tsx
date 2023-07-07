@@ -18,6 +18,7 @@ const Textlint = () => {
 	const [text, setText] = useState("検査対象が選択されていません");
 	const [result, setResult] = useState([]);
 	const [selectValue, setSelectValue] = useState(null);
+	const textLintUrl = process.env.NEXT_PUBLIC_TEXTLINT_API_URL;
 	const onChangeSelect: ChangeEventHandler<HTMLSelectElement> = (e) => {
 		setSelectValue(e.target.value);
 	};
@@ -36,49 +37,24 @@ const Textlint = () => {
 
 	const handleCheckText = async () => {
 		try {
-			const kernel = new TextlintKernel();
-
-			const options: TextlintKernelOptions = {
-				filePath: "/path/to/file.txt",
-				ext: ".txt",
-				plugins: [
-					{
-						pluginId: "text",
-						plugin: TextPlugin
-					}
-				],
-				rules: [
-					{
-						ruleId: "general-novel-style-ja",
-						rule: GeneralNovelStyle
-					},
-					// {
-					// 	ruleId: "ja-no-redundant-expression",
-					// 	rule: JaNoRedundantExpression
-					// }
-					// {
-					// 	ruleId: "max-ten",
-					// 	rule: MaxTen
-					// }
-					{
-						ruleId: "no-start-duplicated-conjunction",
-						rule: NoStartDuplicatedConjunction
-					}
-					// {
-					// 	ruleId: "no-doubled-joshi",
-					// 	rule: NoDoubledJoshi
-					// }
-					// {
-					// 	ruleId: "no-double-negative-ja",
-					// 	rule: NoDoubleNegativeJa
-					// }
-				]
-			};
-
-			const result = await kernel.lintText(text, options);
-
-			if (result && result.messages && Array.isArray(result.messages)) {
-				setResult(result.messages);
+			const response = await fetch(textLintUrl, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ text })
+			});
+			if (response.status === 500) {
+				const data = await response.json();
+				console.error("Server error:", data.error);
+				return;
+			}
+			if (response.status === 200) {
+				console.log("Success");
+			}
+			const data = await response.json();
+			if (data && data.result && Array.isArray(data.result.messages)) {
+				setResult(data.result.messages);
+			} else {
+				setResult([]);
 			}
 		} catch (error) {
 			console.error(error);
