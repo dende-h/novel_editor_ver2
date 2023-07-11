@@ -16,6 +16,7 @@ import {
 	Textarea
 } from "@chakra-ui/react";
 import Head from "next/head";
+import Link from "next/link";
 import { memo } from "react";
 import { useRecoilValue } from "recoil";
 import { isClientState } from "../../globalState/atoms/isClientState";
@@ -87,9 +88,23 @@ export const ProfileArea = memo(() => {
 								>
 									<CardBody height="100%" p={{ base: "11px", lg: "auto" }}>
 										<Flex alignItems="center">
-											<Heading as={"h5"} fontSize={{ base: "sm", lg: "lg" }}>
-												{item.heading}
-											</Heading>
+											{item.heading === "公開済み原稿数:" ? (
+												<Link href={"/published"} passHref>
+													<Heading
+														as={"a"}
+														fontSize={{ base: "sm", lg: "lg" }}
+														color={"blue"}
+														borderBottom="1px"
+														borderColor={"blue"}
+													>
+														{item.heading}
+													</Heading>
+												</Link>
+											) : (
+												<Heading as={"h5"} fontSize={{ base: "sm", lg: "lg" }}>
+													{item.heading}
+												</Heading>
+											)}
 											<Spacer />
 											<HStack>
 												<Text fontSize={{ base: "xs", md: "sm", lg: "lg" }}>{item.description}</Text>

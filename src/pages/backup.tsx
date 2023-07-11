@@ -152,109 +152,111 @@ export default function BackUP() {
 				pageImgWidth="1200"
 				pageImgHeight="630"
 			/>
-			<Flex direction="column" p={2} w={{ base: "350px", md: "600px" }} marginX={"auto"} h="90vh">
-				<VStack spacing={8}>
-					<Box>
-						<Text fontSize="lg" fontWeight="bold" color={textColor}>
-							ペンネーム
-						</Text>
-						<Box bg={boxColor} p={4} borderRadius="md" shadow="md" minW={"300px"}>
-							<Text fontSize="lg" fontWeight="bold" color={textColor} textAlign="center">
-								{name === "Ghost Writer" ? "名前を設定してください" : name}
+			<Box p="6" w="100%" h={"90vh"} overflowY={"scroll"}>
+				<Flex direction="column" p={2} w={{ base: "350px", md: "600px" }} marginX={"auto"} h={"100%"}>
+					<VStack spacing={8}>
+						<Box>
+							<Text fontSize="lg" fontWeight="bold" color={textColor}>
+								ペンネーム
 							</Text>
+							<Box bg={boxColor} p={4} borderRadius="md" shadow="md" minW={"300px"}>
+								<Text fontSize="lg" fontWeight="bold" color={textColor} textAlign="center">
+									{name === "Ghost Writer" ? "名前を設定してください" : name}
+								</Text>
+							</Box>
+							<Box textAlign={"end"}>{isPublished ? undefined : <ChangeUserNameModal />}</Box>
 						</Box>
-						<Box textAlign={"end"}>{isPublished ? undefined : <ChangeUserNameModal />}</Box>
-					</Box>
-					<Box>
-						<Text fontSize="lg" fontWeight="bold" color={textColor}>
-							バックアップ用パスワード
-						</Text>
-						<Box bg={boxColor} p={4} borderRadius="md" shadow="md" minW={"300px"}>
-							<Text fontSize="lg" fontWeight="bold" color={pass ? "teal.500" : "red.500"} textAlign="center">
-								{pass ? "パスワード設定済み" : "パスワード未設定"}
+						<Box>
+							<Text fontSize="lg" fontWeight="bold" color={textColor}>
+								バックアップ用パスワード
 							</Text>
-						</Box>
+							<Box bg={boxColor} p={4} borderRadius="md" shadow="md" minW={"300px"}>
+								<Text fontSize="lg" fontWeight="bold" color={pass ? "teal.500" : "red.500"} textAlign="center">
+									{pass ? "パスワード設定済み" : "パスワード未設定"}
+								</Text>
+							</Box>
 
-						<Box textAlign={"end"}>
-							{isLoading ? <Spinner /> : pass === null ? <ChangePassWordModal /> : <CheckPassWordModal />}
+							<Box textAlign={"end"}>
+								{isLoading ? <Spinner /> : pass === null ? <ChangePassWordModal /> : <CheckPassWordModal />}
+							</Box>
+							<Text fontSize={"11px"} color="red.500">
+								※パスワードを忘れた場合復元が出来なくなります。必ず控えを取っておいてください
+								<br />
+								※バックアップデータが表示されない場合は再度データ取得してください
+								<br />
+								※パスワードが一致しないデータは取得されません
+							</Text>
 						</Box>
-						<Text fontSize={"11px"} color="red.500">
-							※パスワードを忘れた場合復元が出来なくなります。必ず控えを取っておいてください
-							<br />
-							※バックアップデータが表示されない場合は再度データ取得してください
-							<br />
-							※パスワードが一致しないデータは取得されません
-						</Text>
-					</Box>
-					<Button
-						minW={"300px"}
-						colorScheme="teal"
-						isDisabled={name !== "Ghost Writer" || pass || !isLoading ? false : true}
-						isLoading={isLoading}
-						onClick={fetchData}
-					>
-						データを取得する
-					</Button>
-					<Button
-						minW={"300px"}
-						colorScheme="teal"
-						isDisabled={name !== "Ghost Writer" || pass || !isLoading ? false : true}
-						isLoading={isLoading}
-						onClick={onClickBackUpButton}
-					>
-						バックアップする
-					</Button>
-				</VStack>
-				{isLoading ? (
-					<Box flex="1" display="flex" alignItems="center" justifyContent="center">
-						Loading...
-					</Box>
-				) : (
-					<>
-						<Text as={"h2"} fontWeight={"bold"} fontSize={"xl"} textAlign="center" mt={6}>
-							バックアップリスト
-						</Text>
-						<Divider w={{ base: "300px", md: "550px" }} mx={"auto"} my={2} />
-						<Box flex="1" overflowY="auto">
-							<VStack
-								borderColor="gray.200"
-								borderRadius="md"
-								spacing={2}
-								divider={<StackDivider borderColor="gray.200" />}
-							>
-								{backUpList.map((item) => {
-									return (
-										<HStack
-											key={item.id}
-											w={{ base: "300px", md: "550px" }}
-											bg={boxColor}
-											borderRadius="md"
-											shadow="md"
-											p={2}
-										>
-											<VStack align="start" spacing={1}>
-												<Text fontWeight="bold">{item.created_at}</Text>
-												<Text fontSize="sm" color="gray.500">
-													{item.id}
-												</Text>
-											</VStack>
-											<Spacer />
-											<HStack spacing={2}>
-												<AlertDialogBackUpReconstruction
-													id={item.id}
-													onClick={onClickReconstruction}
-													isLoading={isLoading}
-												/>
-												<AlertDialogBackUpDelete id={item.id} onClick={onClickDelete} isLoading={isLoading} />
+						<Button
+							minW={"300px"}
+							colorScheme="teal"
+							isDisabled={name !== "Ghost Writer" || pass || !isLoading ? false : true}
+							isLoading={isLoading}
+							onClick={fetchData}
+						>
+							データを取得する
+						</Button>
+						<Button
+							minW={"300px"}
+							colorScheme="teal"
+							isDisabled={name !== "Ghost Writer" || pass || !isLoading ? false : true}
+							isLoading={isLoading}
+							onClick={onClickBackUpButton}
+						>
+							バックアップする
+						</Button>
+					</VStack>
+					{isLoading ? (
+						<Box flex="1" display="flex" alignItems="center" justifyContent="center">
+							Loading...
+						</Box>
+					) : (
+						<>
+							<Text as={"h2"} fontWeight={"bold"} fontSize={"xl"} textAlign="center" mt={6}>
+								バックアップリスト
+							</Text>
+							<Divider w={{ base: "300px", md: "550px" }} mx={"auto"} my={2} />
+							<Box flex="1">
+								<VStack
+									borderColor="gray.200"
+									borderRadius="md"
+									spacing={2}
+									divider={<StackDivider borderColor="gray.200" />}
+								>
+									{backUpList.map((item) => {
+										return (
+											<HStack
+												key={item.id}
+												w={{ base: "300px", md: "550px" }}
+												bg={boxColor}
+												borderRadius="md"
+												shadow="md"
+												p={2}
+											>
+												<VStack align="start" spacing={1}>
+													<Text fontWeight="bold">{item.created_at}</Text>
+													<Text fontSize="sm" color="gray.500">
+														{item.id}
+													</Text>
+												</VStack>
+												<Spacer />
+												<HStack spacing={2}>
+													<AlertDialogBackUpReconstruction
+														id={item.id}
+														onClick={onClickReconstruction}
+														isLoading={isLoading}
+													/>
+													<AlertDialogBackUpDelete id={item.id} onClick={onClickDelete} isLoading={isLoading} />
+												</HStack>
 											</HStack>
-										</HStack>
-									);
-								})}
-							</VStack>
-						</Box>
-					</>
-				)}
-			</Flex>
+										);
+									})}
+								</VStack>
+							</Box>
+						</>
+					)}
+				</Flex>
+			</Box>
 		</>
 	);
 }

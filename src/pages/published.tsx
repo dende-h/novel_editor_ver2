@@ -1,5 +1,5 @@
 import Seo from "../components/util/Seo";
-import { VStack, Heading, Box, Center, Spinner, SimpleGrid } from "@chakra-ui/react";
+import { Heading, Box, Center, Spinner, SimpleGrid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { userName } from "../globalState/atoms/userName";
