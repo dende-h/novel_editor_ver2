@@ -1,15 +1,13 @@
 import Seo from "../components/util/Seo";
-import Image from "next/image";
-import { VStack, Heading, Box, Center, Table, Tbody, Td, Th, Thead, Tr, Text, Spinner } from "@chakra-ui/react";
+import { VStack, Heading, Box, Center, Spinner, SimpleGrid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { userName } from "../globalState/atoms/userName";
 import { supabase } from "../../lib/supabaseClient";
-import { draftData } from "../globalState/atoms/publishedDraftsData";
 import { useToastTemplate } from "../hooks/useToastTemplate";
-import { error } from "console";
+import NovelCard from "../components/publishedNovel/NovelCard";
 
-type FeatchData = {
+export type FeatchData = {
 	id: string;
 	good_mark: number;
 	title: string;
@@ -17,7 +15,7 @@ type FeatchData = {
 	last_edit_time: string;
 };
 
-type NovelId = {
+export type NovelId = {
 	novel_id: string;
 };
 
@@ -29,6 +27,7 @@ export default function Published() {
 	const [novelId, setNovelId] = useState<NovelId[]>([]);
 
 	const fetchPublishedDraftData = async (userName: string) => {
+		setIsLoading(true);
 		try {
 			const { data, error } = await supabase
 				.from("drafts")
@@ -42,21 +41,24 @@ export default function Published() {
 				toast.praimaryErrorToast("データの取得に失敗しました");
 				setNovelData([]);
 				setNovelId([]);
+				setIsLoading(false);
 				return Promise.reject(error);
 			}
 		} catch (error) {
 			toast.praimaryErrorToast("データの取得に失敗しました");
 			setNovelData([]);
 			setNovelId([]);
+			setIsLoading(false);
 			return Promise.reject(error);
 		}
+		setIsLoading(false);
 	};
 
+	console.log(novelData);
+
 	useEffect(() => {
-		setIsLoading(true);
 		fetchPublishedDraftData(name);
-		setIsLoading(false);
-	}, []);
+	}, [name]);
 
 	return (
 		<>
@@ -68,76 +70,31 @@ export default function Published() {
 				pageImgWidth="1200"
 				pageImgHeight="630"
 			/>
-			<Box p="6" w="100%" h={"90vh"}>
-				<VStack spacing="6">
-					<Heading as="h1" size="xl">
-						投稿済みの小説一覧
-					</Heading>
-					{isLoading ? (
-						<Center p={6}>
-							<Spinner />
-						</Center>
-					) : (
-						<Box borderRadius="md" borderWidth="1px" borderColor="gray.300" overflow="hidden" mt={4}>
-							<Table variant="simple" size="sm">
-								<Thead>
-									<Tr>
-										<Th textAlign="center" fontWeight="semibold">
-											タイトル
-										</Th>
-										<Th textAlign="center" fontWeight="semibold">
-											サムネイル画像
-										</Th>
-										<Th textAlign="center" fontWeight="semibold">
-											いいね数
-										</Th>
-										<Th textAlign="center" fontWeight="semibold">
-											コメント数
-										</Th>
-									</Tr>
-								</Thead>
-								<Tbody>
-									{novelData.map((draft, index) => {
-										return (
-											<Tr key={index}>
-												<Td textAlign="center">
-													<Text fontSize="sm">{draft.title}</Text>
-												</Td>
-
-												<Td>
-													<Center w={"72px"} h={"72px"} position={"relative"} mx={"auto"}>
-														<Image
-															alt={"image"}
-															src={draft.image_url ? draft.image_url : "/android-chrome-72x72.png"}
-															fill
-															style={{ objectFit: "contain" }}
-														/>
-													</Center>
-												</Td>
-
-												<Td>
-													<Text fontSize="sm">{draft.good_mark} 件</Text>
-												</Td>
-
-												<Td textAlign="center">
-													<Text fontSize="sm">
-														{
-															novelId.filter((novelId) => {
-																return novelId.novel_id === draft.id;
-															}).length
-														}
-														件
-													</Text>
-												</Td>
-											</Tr>
-										);
-									})}
-									)
-								</Tbody>
-							</Table>
-						</Box>
-					)}
-				</VStack>
+			<Box p="6" w="100%" h={"90vh"} overflowY={"scroll"}>
+				<Heading as="h1" size="lg" textAlign={"center"}>
+					投稿済みの小説一覧
+				</Heading>
+				{isLoading ? (
+					<Center p={6}>
+						<Spinner />
+					</Center>
+				) : novelData.length < 1 ? (
+					<Center p={6}>
+						<Heading as="h3" size="md">
+							投稿済みの小説はありません
+						</Heading>
+					</Center>
+				) : (
+					<SimpleGrid spacing={1} minChildWidth="300px">
+						{novelData.map((novel) => {
+							return (
+								<Center key={novel.id} mt={4}>
+									<NovelCard novel={novel} commentNovelId={novelId} />
+								</Center>
+							);
+						})}
+					</SimpleGrid>
+				)}
 			</Box>
 		</>
 	);
