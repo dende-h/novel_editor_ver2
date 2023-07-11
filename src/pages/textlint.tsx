@@ -1,19 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { ChangeEventHandler, useEffect, useState } from "react";
-import { Box, Button, Text, Select, FormControl, useColorModeValue, Heading, HStack, Flex } from "@chakra-ui/react";
+import { Box, Button, Text, Select, FormControl, useColorModeValue, Heading, Flex } from "@chakra-ui/react";
 import { useRecoilValue } from "recoil";
 import { draftObjectArray, drafts } from "../globalState/atoms/drafts";
-import { NovelViewer } from "../components/draftViewArea/NovelViwer";
-import { TextlintKernel, TextlintKernelOptions } from "@textlint/kernel";
-import TextPlugin from "@textlint/textlint-plugin-text";
-import GeneralNovelStyle from "textlint-rule-general-novel-style-ja";
-// import JaNoRedundantExpression from "textlint-rule-ja-no-redundant-expression";
-// import MaxTen from "textlint-rule-max-ten";
-import NoStartDuplicatedConjunction from "textlint-rule-no-start-duplicated-conjunction";
 import { NovelLintViewer } from "../components/textlint/NovelLintViewer";
 import Seo from "../components/util/Seo";
-// import NoDoubledJoshi from "textlint-rule-no-doubled-joshi";
-// import NoDoubleNegativeJa from "textlint-rule-no-double-negative-ja";
 
 const Textlint = () => {
 	const draftsData = useRecoilValue<draftObjectArray>(drafts);
