@@ -25,14 +25,14 @@ const ShortNovelVillage: React.FC = () => {
 				pageTitle="開発者情報"
 				pageDescription="当アプリ運営開発者の情報"
 				pageImg={null}
-				pagePath="https://next-novel-site.vercel.app/developer"
+				pagePath="https://novel-editor-ver2.vercel.app/developer"
 				pageImgHeight="600"
 				pageImgWidth="1200"
 			/>
 			<Container maxW="xl" centerContent mt={8}>
 				<VStack spacing={8} align="center">
 					<HStack>
-						<Image src={"/logo.png"} alt={"logoImage"} width={36} height={36} priority />
+						<Image src={"/android-chrome-36x36.png"} alt={"logoImage"} width={36} height={36} priority />
 						<Heading as="h1" size="lg" fontWeight="bold">
 							開発者プロフィール
 						</Heading>
