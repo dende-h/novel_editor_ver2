@@ -25,13 +25,6 @@ export const Footer = memo(() => {
 							</Heading>
 						</Box>
 					</Link>
-					<Link href="https://twitter.com/dendeiriamaka1" passHref>
-						<Box mr={4}>
-							<Heading as="h4" fontSize="sm">
-								Twitter
-							</Heading>
-						</Box>
-					</Link>
 					<Link href="/developer" passHref>
 						<Box mr={4}>
 							<Heading as="h4" fontSize="sm">
