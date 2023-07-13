@@ -11,6 +11,7 @@ import { ColorSwitchButton } from "../headers/ColorSwitchButton";
 import Link from "next/link";
 import { TimerPopover } from "./Timer/TimerPopover";
 import { MdBackup } from "react-icons/md";
+import { FaInfo } from "react-icons/fa";
 
 export const LeftMenuBar = memo(() => {
 	const menuIcons = [
@@ -23,7 +24,8 @@ export const LeftMenuBar = memo(() => {
 		<MdBackup />,
 		<BiHelpCircle />,
 		<TbBookDownload />,
-		<TbDeviceDesktopAnalytics />
+		<TbDeviceDesktopAnalytics />,
+		<FaInfo />
 	];
 	const tooltipLabels = [
 		"原稿一覧・執筆",
@@ -35,7 +37,8 @@ export const LeftMenuBar = memo(() => {
 		"バックアップと復元",
 		"Re:teratureの使い方",
 		"電子書籍に出力(EPUB)",
-		"自動校正ツール"
+		"自動校正ツール",
+		"開発者紹介"
 	];
 	const path = [
 		"/",
@@ -47,7 +50,8 @@ export const LeftMenuBar = memo(() => {
 		"/backup",
 		"https://perpetual-hemisphere-7a3.notion.site/How-to-use-Write-Novel-Now-a746fd05c74a42cda7bd15fb2886b580",
 		"/epubgen",
-		"textlint"
+		"/textlint",
+		"/developer"
 	];
 
 	return (
