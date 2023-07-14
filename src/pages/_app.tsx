@@ -11,6 +11,26 @@ import { Global } from "@emotion/react";
 import GoogleAnalytics from "../components/util/GoogleAnalytics";
 import usePageView from "../hooks/usePageView";
 import { Analytics } from "@vercel/analytics/react";
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+
+import enTranslation from "../../locales/en-US/common.json";
+import jaTranslation from "../../locales/ja-JP/common.json";
+
+i18n.use(initReactI18next).init({
+	resources: {
+		"en-US": {
+			translation: enTranslation
+		},
+		"ja-JP": {
+			translation: jaTranslation
+		}
+	},
+	lng: "ja-JP", // デフォルトの言語を設定します
+	interpolation: {
+		escapeValue: false
+	}
+});
 
 const SiteKey = process.env.NEXT_PUBLIC_GOOGLE_RECAOTCHA_KEY;
 

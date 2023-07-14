@@ -1,7 +1,9 @@
 import { Heading, Text, VStack } from "@chakra-ui/react";
 import Seo from "../components/util/Seo";
+import { useTranslation } from "react-i18next";
 
 export default function PrivacyPolicy() {
+	const { t } = useTranslation();
 	return (
 		<>
 			<Seo
@@ -18,6 +20,7 @@ export default function PrivacyPolicy() {
 				</Heading>
 				<VStack align="start" spacing={4}>
 					<Text>
+						{t("greeting")}
 						このドキュメントは当サイトRe:teratureにおいて個人情報を収集、使用、保護する方法について説明します。
 					</Text>
 					<Text fontWeight="bold">1. 当サイトに掲載されている広告について</Text>
@@ -70,23 +73,23 @@ export default function PrivacyPolicy() {
 						<br />
 						当サイトからリンクやバナーなどによって他のサイトに移動した場合、移動先サイトで提供される情報、サービス等について一切の責任を負いません。
 					</Text>
-					<Text fontWeight="bold">8. 投稿したコンテンツの著作権</Text>
+					<Text fontWeight="bold">7. 投稿したコンテンツの著作権</Text>
 					<Text>
 						当サイトから投稿先のLit:Biteに掲載されているコンテンツの著作権は、その提供者に帰属します。
 						<br />
 						本サイトのコンテンツを提供者以外の第三者が無断で転載・複製・編集することを禁じます。
 					</Text>
-					<Text fontWeight="bold">9. 違法なコンテンツ</Text>
+					<Text fontWeight="bold">8. 違法なコンテンツ</Text>
 					<Text>
 						当サイトにおいて暴力的または中傷的、性的、不正行為や差別を助長する、その他不適切な表現と判断した場合、予告なく掲載の削除等の措置を講じます。
 					</Text>
-					<Text fontWeight="bold">10. お問い合わせフォームについて</Text>
+					<Text fontWeight="bold">9. お問い合わせフォームについて</Text>
 					<Text>
 						当サイトでは、お問い合わせフォームからお問い合わせいただく際に、お名前とメールアドレス等の個人情報をご登録いただいています。
 						<br />
 						これらの個人情報は質問に対する回答を電子メールなどでご連絡する場合に利用させていただくものであり、個人情報をご提供いただく際の目的以外では利用いたしません。
 					</Text>
-					<Text fontWeight="bold">11. リンクについて</Text>
+					<Text fontWeight="bold">10. リンクについて</Text>
 					<Text>
 						当サイトは原則リンクフリーです。リンクを行う場合の許可や連絡は不要です。
 						<br />
@@ -94,13 +97,13 @@ export default function PrivacyPolicy() {
 						<br />
 						ただし、画像ファイルへの直リンク、インラインフレームを使用したHTMLページ内で表示する形でのリンクはご遠慮ください。
 					</Text>
-					<Text fontWeight="bold">12. プライバシーポリシーの変更</Text>
+					<Text fontWeight="bold">11. プライバシーポリシーの変更</Text>
 					<Text>
 						当サイトは、利用者に事前の通知なく、いつでもプライバシーポリシーを変更することができます。
 						<br />
 						変更後のプライバシーポリシーは、当サイトに掲載した時点で効力を発揮します。
 					</Text>
-					<Text fontWeight="bold">13. 最終更新日</Text>
+					<Text fontWeight="bold">12. 最終更新日</Text>
 					<Text>本プライバシーポリシーは2023年7月13日に最終更新されました。</Text>
 				</VStack>
 			</VStack>
