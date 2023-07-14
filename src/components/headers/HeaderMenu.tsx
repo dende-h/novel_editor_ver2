@@ -19,6 +19,7 @@ export const HeaderMenu = memo(() => {
 						_hover={{ bg: "gray.500", color: "white" }}
 						_active={{ bg: "gray.500", color: "white" }}
 						size={{ base: "xs", md: "sm" }}
+						my={"auto"}
 					>
 						{isOpen ? "Close" : "Menu"}
 					</MenuButton>

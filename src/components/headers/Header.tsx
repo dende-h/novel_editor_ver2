@@ -12,7 +12,6 @@ import { HeaderMenu } from "./HeaderMenu";
 //ヘッダーコンポーネント
 export const Header = memo(() => {
 	const headerBgColor = useColorModeValue("gray.300", "gray.700");
-	const selectBgColor = useColorModeValue("gray.100", "gray.800");
 	const selectValueColor = useColorModeValue("gray.800", "gray.100"); //カラーモードごと背景色
 	const isSelect = useRecoilValue<boolean>(isSelected); //小説がセレクト状態かどうかのフラグ
 	const router = useRouter(); //path判定用にuseRouterを利用
@@ -66,6 +65,7 @@ export const Header = memo(() => {
 						boxSize={7}
 						borderRadius={"full"}
 						_hover={{ bg: "gray.500", color: "gray.200" }}
+						my={"auto"}
 					/>
 					<Select
 						_hover={{ bg: "gray.500", color: "gray.200" }}
