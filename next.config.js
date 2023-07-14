@@ -6,5 +6,8 @@ module.exports = {
 				hostname: 'enjzxtbbcyrptkkutovq.supabase.co'
 			}
 		]
+	},
+	experimental: {
+		scrollRestoration: true
 	}
 };
