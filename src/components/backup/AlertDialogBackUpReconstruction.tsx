@@ -17,6 +17,7 @@ type Props = {
 	isLoading: boolean;
 };
 
+//バックアップを復元する際の確認ダイアログ
 export const AlertDialogBackUpReconstruction = memo((props: Props) => {
 	const { id, onClick, isLoading } = props;
 	const { isOpen, onOpen, onClose } = useDisclosure();

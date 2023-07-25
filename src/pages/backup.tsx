@@ -38,6 +38,7 @@ import { CheckPassWordModal } from "../components/backup/CheckPassModal";
 import { sentenceListAtoms } from "../globalState/atoms/sentenceListAtoms";
 
 export default function BackUP() {
+	//バックアップする永続化中の状態のsetStateを定義
 	const setDrafts = useSetRecoilState(drafts);
 	const setDraftsJson = useSetRecoilState(draftsJson);
 	const setIsSelected = useSetRecoilState(isSelected);
@@ -48,20 +49,23 @@ export default function BackUP() {
 	const setUserIntroduction = useSetRecoilState(userIntroduction);
 	const setMemoData = useSetRecoilState(memoState);
 	const setTranslateData = useSetRecoilState(sentenceListAtoms);
+	//復元の際に手入力が必要なユーザーネームとパスワードのsetStateは不要
 
-	const name = useRecoilValue(userName);
-	const pass = useRecoilValue(passWord);
-	const [isPublished, setIsPublished] = useRecoilState(isPublishedState);
-	const backUpDataObject = useRecoilValue(backUpData);
+	const name = useRecoilValue(userName); //ユーザーネーム
+	const pass = useRecoilValue(passWord); //パスワード
+	const [isPublished, setIsPublished] = useRecoilState(isPublishedState); //小説を公開しているか
+	const backUpDataObject = useRecoilValue(backUpData); //バックアップ用のオブジェクトデータ
 	const textColor = useColorModeValue("gray.700", "gray.200");
 	const boxColor = useColorModeValue("gray.100", "gray.900");
 	const [isLoading, setIsLoading] = useState(true);
-	const [backUpList, setBackUpList] = useState<{ id: string; created_at: string }[]>();
+	const [backUpList, setBackUpList] = useState<{ id: string; created_at: string }[]>(); //画面に表示する用のリスト
 
+	//ユーザーネームやパスワードの入力に変更があるたびデータをフェッチする
 	useEffect(() => {
 		fetchData();
 	}, [name, pass]);
 
+	//削除関数
 	const onClickDelete = async (id: string) => {
 		setIsLoading(true);
 		await supabase.from("backup").delete().eq("id", id);
@@ -69,12 +73,14 @@ export default function BackUP() {
 		setIsLoading(false);
 	};
 
+	//データ復元関数
 	const onClickReconstruction = async (id: string) => {
 		setIsLoading(true);
 		const { data, error } = await supabase.from("backup").select("*").eq("id", id);
 		if (error) {
 			alert(error.message);
 		} else {
+			//復元対象のデータ取得がエラーじゃなければ取ってきたデータを現在の状態にsetして上書きする
 			const fetchData: BackUpDataObject = {
 				drafts_data: data[0].drafts_data,
 				drafts_json_data: data[0].drafts_json_data,
@@ -90,6 +96,7 @@ export default function BackUP() {
 				memo_data: data[0].memo_data,
 				translate_words: data[0].translate_words
 			};
+			//json形式で保存しているものはパースしてからsetする
 			setDrafts(JSON.parse(fetchData.drafts_data));
 			setDraftsJson(JSON.parse(fetchData.drafts_json_data));
 			setIsPublished(fetchData.is_published);
@@ -105,14 +112,19 @@ export default function BackUP() {
 		setIsLoading(false);
 	};
 
+	//データをフェッチしてユーザー名とパスワードで表示データをフィルターする関数
 	const fetchData = async () => {
 		setIsLoading(true);
 
+		//ユーザー名一致でデータ郡を取得
 		const { data, error } = await supabase
 			.from("backup")
 			.select("id,created_at,password")
 			.eq("user_name", name)
 			.order("created_at", { ascending: false });
+
+		//自身が入力済みのパスワードとハッシュ化してあるパスワードを検査
+		//マッチするモノだけを表示するリストに追加
 		const newList = [];
 		for (const item of data) {
 			if (pass !== null) {
@@ -129,9 +141,11 @@ export default function BackUP() {
 	const onClickBackUpButton = async () => {
 		setIsLoading(true);
 		try {
+			//バックアップする際の保存するパスワードのハッシュ化
 			const hashedPassword = pass !== null ? await hash(pass, 10) : pass;
 			const { data, error } = await supabase.from("backup").insert([{ ...backUpDataObject, password: hashedPassword }]);
 			try {
+				//バックアップ処理成功したら、最新データをフェッチ
 				fetchData();
 			} catch (error) {
 				alert(error);

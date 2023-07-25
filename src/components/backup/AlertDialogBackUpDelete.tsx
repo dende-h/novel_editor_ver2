@@ -17,6 +17,7 @@ type Props = {
 	isLoading: boolean;
 };
 
+//バックアップを消去する際の確認ダイアログ
 export const AlertDialogBackUpDelete = memo((props: Props) => {
 	const { id, onClick, isLoading } = props;
 	const { isOpen, onOpen, onClose } = useDisclosure();
