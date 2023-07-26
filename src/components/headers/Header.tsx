@@ -15,11 +15,11 @@ export const Header = memo(() => {
 	const selectValueColor = useColorModeValue("gray.800", "gray.100"); //カラーモードごと背景色
 	const isSelect = useRecoilValue<boolean>(isSelected); //小説がセレクト状態かどうかのフラグ
 	const router = useRouter(); //path判定用にuseRouterを利用
-	const { i18n } = useTranslation();
+	// const { i18n } = useTranslation();
 
-	const changeLanguage = (lng) => {
-		i18n.changeLanguage(lng);
-	};
+	// const changeLanguage = (lng) => {
+	// 	i18n.changeLanguage(lng);
+	// };
 	return (
 		<>
 			<Flex
@@ -67,7 +67,7 @@ export const Header = memo(() => {
 						_hover={{ bg: "gray.500", color: "gray.200" }}
 						my={"auto"}
 					/>
-					<Select
+					{/* <Select
 						_hover={{ bg: "gray.500", color: "gray.200" }}
 						fontWeight="bold"
 						borderRadius="md"
@@ -80,13 +80,13 @@ export const Header = memo(() => {
 							changeLanguage(e.target.value);
 						}}
 					>
-						<option color={selectValueColor} value={"ja-JP"}>
+						<option color={selectValueColor} value={"ja"}>
 							lang/Ja
 						</option>
-						<option color={selectValueColor} value={"en-US"}>
+						<option color={selectValueColor} value={"en"}>
 							lang/En
 						</option>
-					</Select>
+					</Select> */}
 					<HeaderMenu />
 				</Flex>
 
