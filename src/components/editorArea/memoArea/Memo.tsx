@@ -4,10 +4,7 @@ import {
 	Button,
 	Textarea,
 	Flex,
-	Center,
-	Circle,
 	ModalFooter,
-	css,
 	Modal,
 	ModalBody,
 	ModalCloseButton,
@@ -17,7 +14,6 @@ import {
 	IconButton,
 	useDisclosure,
 	useColorModeValue,
-	Text,
 	Spacer,
 	VStack,
 	HStack

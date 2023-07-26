@@ -1,4 +1,4 @@
-import { Box, Text, useColorModeValue, Flex, Spacer } from "@chakra-ui/react";
+import { Box, Text, useColorModeValue, Flex } from "@chakra-ui/react";
 import format from "date-fns/format";
 import Image from "next/image";
 import { useRouter } from "next/router";

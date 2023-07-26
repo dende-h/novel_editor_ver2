@@ -11,12 +11,12 @@ export const numberOfCharacters: numberOfCharacters = {
 };
 
 export const userProfileItem: string[] = [
-	"ペンネーム：",
-	"原稿数：",
-	"公開設定原稿数：",
-	"公開済み原稿数:",
-	"本文総文字数：",
-	"最終更新日:"
+	"Alias",
+	"Manuscripts",
+	"Ready for Public.",
+	"Published",
+	"Total Chars",
+	"Last Updated"
 ];
 
 export const infoEpubGen: string[] = [
@@ -37,4 +37,24 @@ export const infoEpubGen: string[] = [
 	"文字化けやレイアウトの崩れが見られる場合、他の電子書籍リーダーを試すか、サポートに連絡してください。",
 	"原稿の改訂が必要な場合は、ダウンロード前に行ってください。ダウンロード後の編集はできません。",
 	"プライバシーに関する注意: 作成された電子書籍の内容は、当サイト側が一切保存または共有しません。"
+];
+
+export const infoEpubGenForEn: string[] = [
+	"Please note that form entries are not automatically saved.",
+	"The only e-books that can be output are in EPUB format.",
+	"The format is publishable to each e-book service.",
+	"When publishing, please follow the terms and conditions of that service.",
+	"A title and at least one or more chapters are required.",
+	"The cover is the image used in the Chapter 1 manuscript.",
+	"The author's name will be the pen name you have set in your profile.",
+	"Download using your browser's functionality. Chrome is recommended.",
+	"The generated file will be stored in the terminal, it will not remain on the web.",
+	"It may not work depending on the model and browser you are using.",
+	"Please note that minor layout changes are not possible.",
+	"If the file does not download, please disable your pop-up blocker.",
+	"The downloaded EPUB file can be opened in any suitable e-book reader.",
+	"The text may be broken depending on the reader you use.",
+	"If you see garbled text or broken layouts, try another e-reader or contact support.",
+	"If you need to revise your manuscript, please do so before downloading. Edits cannot be made after downloading.",
+	"Privacy Note: We do not store or share any of the content of the eBooks you create."
 ];

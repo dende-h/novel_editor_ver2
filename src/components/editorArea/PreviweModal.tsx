@@ -40,7 +40,7 @@ export const PreviweModal: FC<Props> = memo((props: Props) => {
 				ml={4}
 				display={isWritingHoraizontally ? "block" : { base: "none", lg: "block" }}
 			>
-				{isWritingHoraizontally ? "プレビュー" : "縦プレビュー"}
+				{isWritingHoraizontally ? "preview" : "vertical"}
 			</Button>
 
 			<Modal isOpen={isOpen} onClose={onClose} size="full">

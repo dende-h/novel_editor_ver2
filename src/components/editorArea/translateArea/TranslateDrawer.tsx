@@ -9,7 +9,6 @@ import {
 	useColorModeValue,
 	Button
 } from "@chakra-ui/react";
-import { type } from "os";
 import { LegacyRef, memo, useRef } from "react";
 import { TranslateWordList } from "./TranslateWordList";
 
@@ -41,7 +40,7 @@ export const TranslateDrawer = memo(({ id }: Props) => {
 				<DrawerOverlay />
 				<DrawerContent sx={css} bgColor={backgroundColor}>
 					<DrawerCloseButton />
-					<DrawerHeader>翻訳リスト</DrawerHeader>
+					<DrawerHeader>Translation List</DrawerHeader>
 					<DrawerBody>
 						<TranslateWordList id={id} />
 					</DrawerBody>

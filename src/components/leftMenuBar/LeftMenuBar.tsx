@@ -12,8 +12,11 @@ import Link from "next/link";
 import { TimerPopover } from "./Timer/TimerPopover";
 import { MdBackup } from "react-icons/md";
 import { FaInfo } from "react-icons/fa";
+import { useLocale } from "../../hooks/useLocale";
 
 export const LeftMenuBar = memo(() => {
+	const { locale } = useLocale();
+
 	const menuIcons = [
 		<AiFillEdit />,
 		<AiFillIdcard />,
@@ -40,6 +43,21 @@ export const LeftMenuBar = memo(() => {
 		"自動校正ツール",
 		"開発者紹介"
 	];
+
+	const tooltipLabelsForEn = [
+		"Manuscript List & Writing",
+		"Profile, Achievements & Posting",
+		"Vertical Reading of Manuscripts",
+		"Lit:Bite",
+		"Creative Writing Blog",
+		"Contact Form",
+		"Backup and Restore",
+		"How to Use Re:terature",
+		"Export to EPUB",
+		"Automatic Proofreading Tool",
+		"About the Developer"
+	];
+
 	const path = [
 		"/",
 		"/profile",
@@ -70,7 +88,10 @@ export const LeftMenuBar = memo(() => {
 				{menuIcons.map((item, index) => {
 					return (
 						<Box key={index}>
-							<Tooltip label={tooltipLabels[index]} placement={"right-end"}>
+							<Tooltip
+								label={locale === "ja" ? tooltipLabels[index] : tooltipLabelsForEn[index]}
+								placement={"right-end"}
+							>
 								<Link href={path[index]} passHref>
 									<IconButton
 										aria-label="menuList"
@@ -92,7 +113,7 @@ export const LeftMenuBar = memo(() => {
 					variant="ghost"
 					colorScheme={"teal"}
 				/>
-				<Tooltip label={"ポモドーロタイマー"} placement={"right-end"}>
+				<Tooltip label={"PomodoroTimer"} placement={"right-end"}>
 					<TimerPopover />
 				</Tooltip>
 			</VStack>

@@ -8,14 +8,13 @@ import {
 	Text,
 	Input,
 	AccordionIcon,
-	IconButton,
-	Spinner
+	IconButton
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { FC } from "react";
 import { MdRemoveCircle } from "react-icons/md";
 import { AiOutlinePlayCircle } from "react-icons/ai";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { SentenceData, sentenceListAtoms } from "../../../globalState/atoms/sentenceListAtoms";
 
 type SentenceItemProps = {

@@ -1,10 +1,15 @@
 /* eslint-disable @next/next/no-page-custom-font */
 import Head from "next/head";
+import { useLocale } from "../../hooks/useLocale";
 
 const Seo = ({ pageTitle, pageDescription, pagePath, pageImg, pageImgWidth, pageImgHeight }) => {
+	const { locale } = useLocale();
+
 	const defaultTitle = "Re:terature";
 	const defaultDescription =
-		"小説を書くために作られたシンプルなエディタアプリです。会員登録不要で誰でも無料で利用できます。書いた小説はTXT形式のダウンロードやクラウドにバックアップができます。WEBへ公開したい場合専用サイトへの公開も可能です。";
+		locale === "ja"
+			? "小説を書くために作られたシンプルなエディタアプリです。会員登録不要で誰でも無料で利用できます。書いた小説はTXT形式のダウンロードやクラウドにバックアップができます。WEBへ公開したい場合専用サイトへの公開も可能です。"
+			: "This is a simple editor application designed for writing novels. Anyone can use it for free, no registration required. You can download your novels in TXT format or back them up to the cloud, and if you want to publish them on the web, you can publish them to a dedicated website.";
 	const defaultImageUrl =
 		"https://enjzxtbbcyrptkkutovq.supabase.co/storage/v1/object/public/images/siteImage/android-chrome-256x256%20(1).png";
 	const title = pageTitle ? `${pageTitle} | ${defaultTitle}` : defaultTitle;

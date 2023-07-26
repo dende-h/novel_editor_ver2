@@ -15,7 +15,6 @@ import {
 	Tooltip,
 	Textarea
 } from "@chakra-ui/react";
-import Head from "next/head";
 import Link from "next/link";
 import { memo } from "react";
 import { useRecoilValue } from "recoil";
@@ -43,10 +42,6 @@ export const ProfileArea = memo(() => {
 
 	return (
 		<>
-			<Head>
-				<title>ユーザープロフィール</title>
-				<meta name="description" content="ユーザープロフィール" />
-			</Head>
 			{isClient ? (
 				<Box textAlign={"center"} paddingY={4} h={"90vh"} w={"100%"} overflow={"scroll"}>
 					<Divider borderWidth="2px" w={"auto"} />

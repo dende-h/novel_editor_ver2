@@ -18,14 +18,15 @@ import {
 } from "@chakra-ui/react";
 import { memo } from "react";
 import { CheckIcon } from "@chakra-ui/icons";
-import { infoEpubGen } from "../../constant/constant";
+import { infoEpubGen, infoEpubGenForEn } from "../../constant/constant";
+import { useLocale } from "../../hooks/useLocale";
 
 export const InfoForEpubGen = memo(() => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-
+	const { locale } = useLocale();
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	const buttonHoverBgColor = useColorModeValue("gray.300", "gray.500");
-	const items = infoEpubGen;
+	const items = locale === "ja" ? infoEpubGen : infoEpubGenForEn;
 
 	return (
 		<>

@@ -10,11 +10,10 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import { Box, chakra, useColorModeValue } from "@chakra-ui/react";
 import { useDraft } from "../../hooks/useDraft";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { editorState } from "../../globalState/selector/editorState";
 import { Toolbar } from "./Toolbar";
 import { draftsJson } from "../../globalState/atoms/draftJson";
-import { editorJson } from "../../globalState/selector/editorJson";
 import { useInitialJson } from "../../hooks/useInitialJson";
 
 const ChakraContentEditable = chakra(ContentEditable);
@@ -98,7 +97,7 @@ export const LexicalEditorArea = memo((props: { setValue: (value: SetStateAction
 									left={{ base: 6, lg: 8 }}
 									zIndex={1}
 								>
-									本文を入力...
+									Enter the text...
 								</Box>
 							}
 							ErrorBoundary={LexicalErrorBoundary}

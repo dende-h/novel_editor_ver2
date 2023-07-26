@@ -124,7 +124,7 @@ function EpubForm() {
 		} catch (error) {
 			console.error("Failed to generate ebook", error);
 			//処理が失敗したときのお知らせ
-			alert(`電子書籍の生成に失敗しました: ${error.message}`);
+			alert(`Failed to generate ebook: ${error.message}`);
 		}
 		setIsLoading(false);
 	});
