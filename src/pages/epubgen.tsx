@@ -12,7 +12,6 @@ import {
 	Spacer,
 	Flex,
 	FormErrorMessage,
-	Textarea,
 	Center,
 	Spinner
 } from "@chakra-ui/react";
@@ -30,7 +29,7 @@ type FormValues = {
 };
 
 function EpubForm() {
-	const { textToHtml } = useTextToHTML();
+	const { textToHtml } = useTextToHTML(); //テキストをHTML化するためのcustomフック
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	const {
@@ -64,14 +63,16 @@ function EpubForm() {
 
 		let epub;
 
+		//ライブラリimportをクライアントサイドで行う
 		if (typeof window !== "undefined") {
 			await import("epub-gen-memory/bundle").then((module) => {
 				epub = module.default;
 			});
 		}
 
+		//チャプターとして選択された小説のタイトルと本文をライブラリで使用する配列オブジェクト化
 		const chapters = data.chapters.map((chapter) => {
-			const foundDraft = draftsData.find((draft) => draft.id === chapter.title);
+			const foundDraft = draftsData.find((draft) => draft.id === chapter.title); //chaoter.titleには小説のIdが格納
 			return {
 				title: foundDraft.title,
 				content: textToHtml(foundDraft.body)
@@ -80,6 +81,7 @@ function EpubForm() {
 
 		const imgURL = draftsData.find((draft) => draft.id === data.chapters[0].title).imageUrl;
 
+		//必要データをoptionsにまとめる
 		const options = {
 			title: data.title,
 			author: author,
@@ -107,8 +109,11 @@ function EpubForm() {
 		};
 
 		try {
+			//ライブラリ実行
 			const epubBlob: Blob = await epub(options, chapters);
-
+			//実行したものをURL化
+			//疑似aタグを生成してクリック関数で実行
+			//実行後削除
 			const url = URL.createObjectURL(epubBlob);
 			const link = document.createElement("a");
 			link.href = url;
@@ -118,6 +123,7 @@ function EpubForm() {
 			link.remove();
 		} catch (error) {
 			console.error("Failed to generate ebook", error);
+			//処理が失敗したときのお知らせ
 			alert(`電子書籍の生成に失敗しました: ${error.message}`);
 		}
 		setIsLoading(false);
