@@ -92,9 +92,7 @@ export default {
 		userNameDeletionError: "ユーザー名削除にエラー発生しました",
 		communicationError: "通信エラーが発生しました",
 		stopProcessError: "停止処理にエラー発生しました",
-		errorOccurredStoppingPublication: "エラーが発生しました。公開を停止します",
-		communicationErrorTwo: "通信エラーが発生しました",
-		communicationErrorThree: "通信エラーが発生しました"
+		errorOccurredStoppingPublication: "エラーが発生しました。公開を停止します"
 	},
 	infoForEpubGen: {
 		readFirst: "《必ずお読みください》電子書籍の出力に際しての注意事項",
@@ -142,22 +140,22 @@ export default {
 		cancel: "キャンセル"
 	},
 	headerMenu: {
-		manuscriptList: "原稿一覧・執筆",
-		profileAndAchievements: "プロフィール・実績・投稿",
-		verticalReading: "原稿の縦読み閲覧",
+		manuscriptList: "執筆",
+		profileAndAchievements: "実績・投稿",
+		verticalReading: "原稿の閲覧",
 		litBite: "Lit:Bite",
 		creativeSupportBlog: "創作支援ブログ",
-		contactForm: "お問い合わせフォーム",
+		contactForm: "お問い合わせ",
 		backupAndRestore: "バックアップと復元",
-		howToUse: "Re:teratureの使い方",
-		exportToEPUB: "電子書籍に出力(EPUB)",
+		howToUse: "使い方",
+		exportToEPUB: "電子書籍出力(EPUB)",
 		autoCorrectionTool: "自動校正ツール",
 		developerIntro: "開発者紹介"
 	},
 	editorArea: {
-		title: "タイトル : ",
+		title: "タイトル",
 		char60: "60文字",
-		currentChar: "現在の文字数 : ",
+		currentChar: "現在の文字数",
 		char: "文字"
 	},
 	translate: {
@@ -182,7 +180,10 @@ export default {
 		emptyInput: "入力がありません",
 		duplicateNotAllowed: "重複することはできません",
 		tagLimit: "Tagは4つまでしか設定できません",
-		filterByTag: "タグで絞り込みが出来ます"
+		filterByTag: "タグで絞り込みが出来ます",
+		noSet: "未設定",
+		pick: "候補",
+		nothing: "なし"
 	},
 	uploadImageModal: {
 		addImage: "サムネイル画像の追加",
@@ -196,7 +197,10 @@ export default {
 		addNovel: "新しい小説を書く",
 		noConfig: "未設定",
 		published: "公開可能",
-		notPublished: "公開不可"
+		notPublished: "公開不可",
+		veryShort: "掌編",
+		SS: "SS",
+		Short: "短編"
 	},
 	downloadTXT: {
 		header: "小説のダウンロード",
@@ -251,6 +255,6 @@ export default {
 		bodyLine1: "消去したバックアップは元に戻すことはできません",
 		bodyLine2: "バックアップを完全に消去しますか？",
 		cancel: "キャンセル",
-		reconstruction: "消去する"
+		delete: "消去する"
 	}
 };

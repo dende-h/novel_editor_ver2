@@ -10,6 +10,7 @@ import {
 	Text
 } from "@chakra-ui/react";
 import React, { memo } from "react";
+import { useLocale } from "../../hooks/useLocale";
 
 type Props = {
 	id: string;
@@ -19,6 +20,7 @@ type Props = {
 
 //バックアップを消去する際の確認ダイアログ
 export const AlertDialogBackUpDelete = memo((props: Props) => {
+	const { t } = useLocale();
 	const { id, onClick, isLoading } = props;
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const cancelRef = React.useRef();
@@ -40,27 +42,27 @@ export const AlertDialogBackUpDelete = memo((props: Props) => {
 				isDisabled={isLoading}
 				isLoading={isLoading}
 			>
-				削除
+				{t.backUpDelete.button}
 			</Button>
 
 			<AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
 				<AlertDialogOverlay>
 					<AlertDialogContent>
 						<AlertDialogHeader fontSize="lg" fontWeight="bold">
-							バックアップデータの消去
+							{t.backUpDelete.header}
 						</AlertDialogHeader>
 
 						<AlertDialogBody>
-							<Text>消去したバックアップは元に戻すことはできません</Text>
-							<Text>バックアップを完全に消去しますか？</Text>
+							<Text>{t.backUpDelete.bodyLine1}</Text>
+							<Text>{t.backUpDelete.bodyLine2}</Text>
 						</AlertDialogBody>
 
 						<AlertDialogFooter>
 							<Button ref={cancelRef} onClick={onClose} _focus={{ boxShadow: "none" }}>
-								キャンセル
+								{t.backUpDelete.cancel}
 							</Button>
 							<Button colorScheme="red" onClick={onClickDeleteButton} ml={3} _focus={{ boxShadow: "none" }}>
-								消去する
+								{t.backUpDelete.delete}
 							</Button>
 						</AlertDialogFooter>
 					</AlertDialogContent>

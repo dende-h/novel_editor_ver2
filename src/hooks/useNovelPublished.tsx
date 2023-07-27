@@ -11,8 +11,10 @@ import { useState } from "react";
 import { userIntroduction } from "../globalState/atoms/userIntroduction";
 import { draftData, publishedDraftsData } from "../globalState/atoms/publishedDraftsData";
 import { userImageUrl } from "../globalState/atoms/userImageUrl";
+import { useLocale } from "./useLocale";
 
 export const useNovelPublished = () => {
+	const { t } = useLocale();
 	const setTimeStamp = useSetRecoilState<string>(lastPublishedTime);
 	const publishedDrafts = useRecoilValue(publishSettingsDraftsSelector);
 	const setIsPublished = useSetRecoilState<boolean>(isPublishedState);
@@ -28,7 +30,7 @@ export const useNovelPublished = () => {
 		const { data, error } = await supabase.from("drafts").select("id,good_mark").eq("user_name", userName);
 
 		if (error) {
-			toast.praimaryErrorToast("データの取得に失敗しました");
+			toast.praimaryErrorToast(t.useNovelPublished.fetchDataFailure);
 			return Promise.reject(error);
 		}
 		const newData: draftData[] = fetchDraftsData.map((item: draftData) => {
@@ -42,7 +44,7 @@ export const useNovelPublished = () => {
 	const deleteDrafts = async (userName: string) => {
 		const { error } = await supabase.from("drafts").delete().eq("user_name", userName);
 		if (error) {
-			toast.praimaryErrorToast("更新処理に失敗しました");
+			toast.praimaryErrorToast(t.useNovelPublished.updateFailure);
 			return Promise.reject(error);
 		}
 	};
@@ -74,7 +76,7 @@ export const useNovelPublished = () => {
 		});
 		const { error } = await supabase.from("drafts").insert(insertItems);
 		if (error) {
-			toast.praimaryErrorToast("アップロードに失敗しました");
+			toast.praimaryErrorToast(t.useNovelPublished.uploadFailure);
 			return Promise.reject(error);
 		}
 	};
@@ -84,7 +86,7 @@ export const useNovelPublished = () => {
 			.from("user")
 			.insert({ user_name: userName, Introduction: introduction, image_url: userImage.url });
 		if (error) {
-			error.code === "23505" && toast.praimaryErrorToast("そのペンネームは既に利用されています");
+			error.code === "23505" && toast.praimaryErrorToast(t.useNovelPublished.penNameAlreadyInUse);
 			return Promise.reject(error);
 		}
 	};
@@ -92,7 +94,7 @@ export const useNovelPublished = () => {
 	const deleteUserName = async (userName: string) => {
 		const { error } = await supabase.from("user").delete().eq("user_name", userName);
 		if (error) {
-			toast.praimaryErrorToast("ユーザー名の更新に失敗しました");
+			toast.praimaryErrorToast(t.useNovelPublished.userNameUpdateFailure);
 			return Promise.reject(error);
 		}
 	};
@@ -134,15 +136,15 @@ export const useNovelPublished = () => {
 					setIsLoading(false);
 				} catch {
 					await uploadUserName(penName);
-					toast.praimaryErrorToast("非公開処理にエラーが発生しました");
+					toast.praimaryErrorToast(t.useNovelPublished.privacyProcessError);
 					setIsLoading(false);
 				}
 			} catch {
-				toast.praimaryErrorToast("ユーザー名削除にエラー発生しました");
+				toast.praimaryErrorToast(t.useNovelPublished.userNameDeletionError);
 				setIsLoading(false);
 			}
 		} catch {
-			toast.praimaryErrorToast("通信エラーが発生しました");
+			toast.praimaryErrorToast(t.useNovelPublished.communicationError);
 			setIsLoading(false);
 		}
 	};
@@ -155,7 +157,7 @@ export const useNovelPublished = () => {
 				try {
 					await stopPublishedNovel();
 				} catch {
-					toast.praimaryErrorToast("停止処理にエラー発生しました");
+					toast.praimaryErrorToast(t.useNovelPublished.stopProcessError);
 					setIsLoading(false);
 				}
 			} else {
@@ -168,17 +170,17 @@ export const useNovelPublished = () => {
 						setPublished(publishedDrafts.length);
 						setIsLoading(false);
 					} catch (error) {
-						toast.praimaryErrorToast("エラーが発生しました。公開を停止します");
+						toast.praimaryErrorToast(t.useNovelPublished.errorOccurredStoppingPublication);
 						alert(error);
 						await stopPublishedNovel();
 					}
 				} catch {
-					toast.praimaryErrorToast("通信エラーが発生しました");
+					toast.praimaryErrorToast(t.useNovelPublished.communicationError);
 					setIsLoading(false);
 				}
 			}
 		} catch {
-			toast.praimaryErrorToast("通信エラーが発生しました");
+			toast.praimaryErrorToast(t.useNovelPublished.communicationError);
 			setIsLoading(false);
 		}
 	};

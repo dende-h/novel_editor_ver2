@@ -44,7 +44,7 @@ export default {
 	epubgen: {
 		addAtleastOneChapter: "Please add at least one more chapter",
 		toc: "Table of Contents",
-		ja: "ja",
+		ja: "en",
 		ebookFileGeneration: "E-book file generation",
 		manuscriptToEpub: "EPUB format e-book files can be generated from manuscripts",
 		generateEpub: "EPUB Generation",
@@ -66,7 +66,7 @@ export default {
 		sendInquiryToAdmin: "You can send an email inquiry to the administrator",
 		contactForm: "Contact Form",
 		pleaseEnterInquiry: "Please enter your inquiry",
-		submit: "Send Email"
+		submit: "Submit"
 	},
 	backUp: {
 		backupAndRestore: "Backup and Restore",
@@ -94,9 +94,7 @@ export default {
 		userNameDeletionError: "Error deleting user name.",
 		communicationError: "A communication error has occurred.",
 		stopProcessError: "Error occurred in the stop process",
-		errorOccurredStoppingPublication: "An error has occurred. We are suspending publication.",
-		communicationErrorTwo: "A communication error has occurred.",
-		communicationErrorThree: "A communication error has occurred."
+		errorOccurredStoppingPublication: "An error has occurred. We are suspending publication."
 	},
 	infoForEpubGen: {
 		readFirst: "Please read carefully before printing e-books.",
@@ -144,22 +142,22 @@ export default {
 		cancel: "cancel"
 	},
 	headerMenu: {
-		manuscriptList: "Manuscript List & Writing",
-		profileAndAchievements: "Profile, Achievements & Posting",
-		verticalReading: "Vertical Reading of Manuscripts",
+		manuscriptList: "Writing",
+		profileAndAchievements: "Achievements & Posting",
+		verticalReading: "Reading",
 		litBite: "Lit:Bite",
-		creativeSupportBlog: "Creative Writing Blog",
-		contactForm: "Contact Form",
-		backupAndRestore: "Backup and Restore",
-		howToUse: "How to Use Re:terature",
+		creativeSupportBlog: "Blog",
+		contactForm: "Contact",
+		backupAndRestore: "Backup & Restore",
+		howToUse: "How to Use",
 		exportToEPUB: "Export to EPUB",
-		autoCorrectionTool: "Automatic Proofreading Tool",
+		autoCorrectionTool: "Proofreading Tool",
 		developerIntro: "About the Developer"
 	},
 	editorArea: {
-		title: "Title : ",
+		title: "Title",
 		char60: "60 Char",
-		currentChar: "Current character count : ",
+		currentChar: "Current char",
 		char: "Character"
 	},
 	translate: {
@@ -184,7 +182,10 @@ export default {
 		emptyInput: "No input",
 		duplicateNotAllowed: "Cannot be duplicated",
 		tagLimit: "Only 4 tags can be set.",
-		filterByTag: "You can filter by tags."
+		filterByTag: "You can filter by tags.",
+		noSet: "no set",
+		pick: "pick",
+		nothing: "Nothing"
 	},
 	uploadImageModal: {
 		addImage: "Add thumbnail images",
@@ -198,7 +199,10 @@ export default {
 		addNovel: "Write a new novel",
 		noConfig: "unset",
 		published: "publishable",
-		notPublished: "closed public"
+		notPublished: "closed public",
+		veryShort: "sm",
+		SS: "md",
+		Short: "lg"
 	},
 	downloadTXT: {
 		header: "Download Novel",
@@ -254,6 +258,6 @@ export default {
 		bodyLine1: "Deleted backups cannot be restored",
 		bodyLine2: "Do you want to completely erase your backups?",
 		cancel: "cancel",
-		reconstruction: "deletion"
+		delete: "deletion"
 	}
 };

@@ -18,8 +18,10 @@ import { memo, useEffect } from "react";
 import { useCalcCharCount } from "../../hooks/useCalcCharCount";
 import { useDraft } from "../../hooks/useDraft";
 import { useInput } from "../../hooks/useInput";
+import { useLocale } from "../../hooks/useLocale";
 
 export const ChangeUserNameModal = memo(() => {
+	const { t } = useLocale();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	const inputFocusBgColor = useColorModeValue("gray.100", "gray.700");
@@ -53,13 +55,13 @@ export const ChangeUserNameModal = memo(() => {
 				fontSize={{ base: "xs", md: "sm", lg: "lg" }}
 				margin={1}
 			>
-				PNの変更
+				{t.changeUserNameModal.chagePH}
 			</Button>
 			<Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onCloseModal} size={"3xl"}>
 				<ModalOverlay />
 				<ModalContent backgroundColor={backgroundColor} borderRadius={"md"} border={"1px"} boxShadow={"lg"}>
 					<ModalHeader fontSize={"lg"} fontWeight={"bold"}>
-						ペンネームを変更する
+						{t.changeUserNameModal.chageName}
 					</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody pb={6} paddingTop={"0"}>
@@ -67,7 +69,7 @@ export const ChangeUserNameModal = memo(() => {
 							<HStack>
 								<Input
 									_focus={{ backgroundColor: inputFocusBgColor, boxShadow: "outline" }}
-									placeholder={"新しいペンネームを入力してください"}
+									placeholder={t.changeUserNameModal.newName}
 									onChange={onChangeInputForm}
 									maxLength={maxLength}
 									w={"300px"}
@@ -81,10 +83,10 @@ export const ChangeUserNameModal = memo(() => {
 					</ModalBody>
 					<ModalFooter>
 						<Button colorScheme="blue" mr={3} onClick={onSave} isDisabled={charCount === 0}>
-							保存
+							{t.changeUserNameModal.save}
 						</Button>
 						<Button onClick={onCloseModal} variant={"ghost"} _hover={{ bg: buttonHoverBgColor }}>
-							キャンセル
+							{t.changeUserNameModal.cancel}
 						</Button>
 					</ModalFooter>
 				</ModalContent>

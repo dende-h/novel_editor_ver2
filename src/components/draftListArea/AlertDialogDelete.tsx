@@ -11,9 +11,11 @@ import {
 import React, { memo } from "react";
 import { ImFire } from "react-icons/im";
 import { useDraft } from "../../hooks/useDraft";
+import { useLocale } from "../../hooks/useLocale";
 import { PrimaryIconButton } from "../templates/PrimaryIconButton";
 
 export const AlertDialogDelete = memo(() => {
+	const { t } = useLocale();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const cancelRef = React.useRef();
 	const { deleteAction } = useDraft();
@@ -39,17 +41,17 @@ export const AlertDialogDelete = memo(() => {
 				<AlertDialogOverlay>
 					<AlertDialogContent>
 						<AlertDialogHeader fontSize="lg" fontWeight="bold">
-							小説の焼却炉
+							{t.delete.header}
 						</AlertDialogHeader>
 
-						<AlertDialogBody>本当に焼却しますか？後から取り消すことはできません。</AlertDialogBody>
+						<AlertDialogBody>{t.delete.body}</AlertDialogBody>
 
 						<AlertDialogFooter>
 							<Button ref={cancelRef} onClick={onClose} _focus={{ boxShadow: "none" }}>
-								キャンセル
+								{t.delete.cancel}
 							</Button>
 							<Button colorScheme="red" onClick={onClickDeleteButton} ml={3} _focus={{ boxShadow: "none" }}>
-								焼却する
+								{t.delete.delete}
 							</Button>
 						</AlertDialogFooter>
 					</AlertDialogContent>

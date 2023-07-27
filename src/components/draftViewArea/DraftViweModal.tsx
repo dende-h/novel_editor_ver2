@@ -14,8 +14,7 @@ import {
 	useColorModeValue,
 	useDisclosure,
 	VStack,
-	Tooltip,
-	useBreakpointValue
+	Tooltip
 } from "@chakra-ui/react";
 import { FC, memo } from "react";
 import { draftObject } from "../../globalState/selector/editorState";

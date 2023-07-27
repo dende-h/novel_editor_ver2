@@ -13,7 +13,7 @@ export const numberOfCharacters: numberOfCharacters = {
 export const userProfileItem: string[] = [
 	"Alias",
 	"Manuscripts",
-	"Ready for Public.",
+	"Ready for Public",
 	"Published",
 	"Total Chars",
 	"Last Updated"

@@ -2,6 +2,7 @@ import { Box, Text, useColorModeValue, Flex } from "@chakra-ui/react";
 import format from "date-fns/format";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useLocale } from "../../hooks/useLocale";
 import { FeatchData, NovelId } from "../../pages/published";
 
 type Props = {
@@ -10,6 +11,7 @@ type Props = {
 };
 
 const NovelCard = (props: Props) => {
+	const { t } = useLocale();
 	const { novel, commentNovelId } = props;
 	const imageUrl = novel.image_url ? novel.image_url : "/android-chrome-256x256.png";
 	const backgroundCardFooterColor = useColorModeValue("gray.50", "gray.600");
@@ -44,21 +46,23 @@ const NovelCard = (props: Props) => {
 
 				<Flex>
 					<Text fontSize={"sm"} my={"auto"} mr={3}>
-						いいね：{novel.good_mark}件
+						{t.novelCard.like}：{novel.good_mark}
+						{t.novelCard.item}
 					</Text>
 
 					<Text fontSize={"sm"} my={"auto"} mr={3}>
-						コメント
+						{t.novelCard.comment}
 						{
 							commentNovelId.filter((novelId) => {
 								return novelId.novel_id === novel.id;
 							}).length
 						}
-						件
+						{t.novelCard.item}
 					</Text>
 				</Flex>
 				<Text fontSize={"sm"} overflow="hidden">
-					更新：{format(new Date(novel.last_edit_time), "yyyy/MM/dd-HH:mm")}
+					{t.novelCard.update}
+					{format(new Date(novel.last_edit_time), "yyyy/MM/dd-HH:mm")}
 				</Text>
 			</Box>
 		</Box>

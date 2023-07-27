@@ -21,8 +21,10 @@ import { useDraft } from "../../hooks/useDraft";
 import { isClientState } from "../../globalState/atoms/isClientState";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { drafts } from "../../globalState/atoms/drafts";
+import { useLocale } from "../../hooks/useLocale";
 
 export const LeftColumnArea = memo(() => {
+	const { t } = useLocale();
 	const [draft, setDraft] = useRecoilState(drafts);
 	const isSelect = useRecoilValue(isSelected);
 	const { onAddNovel, onEnterKey, onClickOpenDraft } = useDraft();
@@ -96,7 +98,7 @@ export const LeftColumnArea = memo(() => {
 											w={{ base: "270px", xl: "290px" }}
 											onClick={onAddNovel}
 										>
-											新しい小説を書く
+											{t.leftColumnArea.addNovel}
 										</Button>
 										<Text fontWeight={"bold"} fontStyle="italic">
 											{draft.length}:drafts
@@ -173,7 +175,7 @@ export const LeftColumnArea = memo(() => {
 																	w={"100%"}
 																>
 																	<Icon as={ImPriceTag} boxSize={4} color={"teal.400"} />
-																	<Text fontSize={{ base: "xs", xl: "md" }}>未設定</Text>
+																	<Text fontSize={{ base: "xs", xl: "md" }}>{t.leftColumnArea.noConfig}</Text>
 																</HStack>
 															) : (
 																<HStack
@@ -199,18 +201,18 @@ export const LeftColumnArea = memo(() => {
 															<VStack position={"absolute"} top={5} left={1} spacing={0}>
 																<Text fontSize={"xs"} fontWeight={"bold"} fontStyle={"italic"}>
 																	{item.maxLength <= veryShortNovel
-																		? "《 掌編 》"
+																		? `《 ${t.leftColumnArea.veryShort} 》`
 																		: item.maxLength <= shortShortNovel
-																		? "《 SS 》"
-																		: "《 短編 》"}
+																		? `《 ${t.leftColumnArea.SS} 》`
+																		: `《 ${t.leftColumnArea.Short} 》`}
 																</Text>
 																{item.isPublished ? (
 																	<Text color={"twitter.600"} fontWeight={"bold"} fontSize={"xs"}>
-																		公開可能
+																		{t.leftColumnArea.published}
 																	</Text>
 																) : (
 																	<Text color={"red.600"} fontWeight={"bold"} fontSize={"xs"}>
-																		公開不可
+																		{t.leftColumnArea.notPublished}
 																	</Text>
 																)}
 															</VStack>

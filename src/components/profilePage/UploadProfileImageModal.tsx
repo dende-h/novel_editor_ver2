@@ -25,9 +25,11 @@ import Dropzone, { FileWithPath } from "react-dropzone";
 import { supabase } from "../../../lib/supabaseClient";
 import Image from "next/image";
 import { userImageUrl } from "../../globalState/atoms/userImageUrl";
+import { useLocale } from "../../hooks/useLocale";
 
 //画像を追加するためのフォームモーダル
 export const UploadProfileImageModal = memo(() => {
+	const { t } = useLocale();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [uploading, setUploading] = useState(false);
 	const [uploadProgress, setUploadProgress] = useState(0);
@@ -115,7 +117,7 @@ export const UploadProfileImageModal = memo(() => {
 				<Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose} size={"3xl"}>
 					<ModalOverlay />
 					<ModalContent backgroundColor={backgroundColor}>
-						<ModalHeader>プロフィール画像の追加</ModalHeader>
+						<ModalHeader>{t.uploadProfileImageModal.addProfileImage}</ModalHeader>
 						<ModalCloseButton />
 						<ModalBody pb={6}>
 							{profileImage.url !== "" ? (
@@ -159,9 +161,9 @@ export const UploadProfileImageModal = memo(() => {
 												) : (
 													<>
 														<input {...getInputProps()} />
-														<Heading size="md">画像をドラッグ＆ドロップ</Heading>
+														<Heading size="md">{t.uploadProfileImageModal.dragAndDrop}</Heading>
 														<Box mt={4}>
-															<Button size="sm">ファイルを選択</Button>
+															<Button size="sm">{t.uploadProfileImageModal.selectFile}</Button>
 														</Box>
 													</>
 												)}
@@ -170,16 +172,16 @@ export const UploadProfileImageModal = memo(() => {
 									</Dropzone>
 								</Container>
 							)}
-							<Text color={"red"}>※ファイル名に記号やカナを使っている場合失敗することがあります。</Text>
+							<Text color={"red"}>{t.uploadProfileImageModal.fileNameWarning}</Text>
 						</ModalBody>
 						<ModalFooter>
 							{profileImage.url !== "" && (
 								<Button onClick={handleRemove} variant={"ghost"} _hover={{ bg: buttonHoverBgColor }}>
-									削除
+									{t.uploadProfileImageModal.delete}
 								</Button>
 							)}
 							<Button onClick={onClose} variant={"ghost"} _hover={{ bg: buttonHoverBgColor }}>
-								キャンセル
+								{t.uploadProfileImageModal.cancel}
 							</Button>
 						</ModalFooter>
 					</ModalContent>

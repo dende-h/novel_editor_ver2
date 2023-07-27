@@ -21,6 +21,7 @@ import { useTextToHTML } from "../hooks/useTextToHTML";
 import { InfoForEpubGen } from "../components/epub/InfoForEpubGen";
 import { useState } from "react";
 import Seo from "../components/util/Seo";
+import { useLocale } from "../hooks/useLocale";
 
 type FormValues = {
 	title: string;
@@ -29,6 +30,7 @@ type FormValues = {
 };
 
 function EpubForm() {
+	const { t } = useLocale();
 	const { textToHtml } = useTextToHTML(); //テキストをHTML化するためのcustomフック
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -56,7 +58,7 @@ function EpubForm() {
 		setIsLoading(true);
 
 		if (data.chapters.length === 0) {
-			alert("最低一つ以上の章を追加してください");
+			alert(t.epubgen.addAtleastOneChapter);
 			setIsLoading(false);
 			return;
 		}
@@ -87,10 +89,10 @@ function EpubForm() {
 			author: author,
 			cover: imgURL,
 			publisher: data.publisher,
-			tocTitle: "目次",
+			tocTitle: t.epubgen.toc,
 			version: 3,
 			verbose: false,
-			lang: "ja",
+			lang: t.epubgen.ja,
 			css: `
     @font-face {
       font-family: 'Noto Serif JP';
@@ -131,8 +133,8 @@ function EpubForm() {
 	return (
 		<>
 			<Seo
-				pageTitle="電子書籍ファイル生成"
-				pageDescription="原稿からEPUB形式の電子書籍ファイルを生成できます"
+				pageTitle={t.epubgen.ebookFileGeneration}
+				pageDescription={t.epubgen.manuscriptToEpub}
 				pagePath="https://novel-editor-ver2.vercel.app/epubgen"
 				pageImg={null}
 				pageImgWidth="1200"
@@ -141,7 +143,7 @@ function EpubForm() {
 			<Box p="4" w="100%" h={"90vh"} overflowY="scroll">
 				<VStack spacing="6">
 					<Heading as="h1" size="xl">
-						EPUB生成
+						{t.epubgen.generateEpub}
 					</Heading>
 					<InfoForEpubGen />
 					<form onSubmit={onSubmit}>
@@ -154,11 +156,11 @@ function EpubForm() {
 								<>
 									<FormControl isInvalid={!!errors.title}>
 										<FormLabel htmlFor="title" fontSize={{ base: "md", md: "lg" }}>
-											タイトル(必須)
+											{t.epubgen.titleRequired}
 										</FormLabel>
 										<Input
 											id="title"
-											{...register("title", { required: "タイトルは必須項目です" })}
+											{...register("title", { required: t.epubgen.titleIsRequired })}
 											size="lg"
 											variant="filled"
 											shadow="md"
@@ -169,7 +171,7 @@ function EpubForm() {
 									</FormControl>
 									<FormControl>
 										<FormLabel htmlFor="publisher" fontSize={{ base: "md", md: "lg" }}>
-											出版社（任意）
+											{t.epubgen.publisherOptional}
 										</FormLabel>
 										<Input
 											id="publisher"
@@ -188,15 +190,16 @@ function EpubForm() {
 										>
 											<Flex align="center">
 												<FormLabel htmlFor={`chapters[${index}].title`} fontSize={{ base: "md", md: "lg" }}>
-													チャプター{index + 1}
+													{t.epubgen.chapter}
+													{index + 1}
 												</FormLabel>
 												<Spacer />
 												<Button size={"xs"} colorScheme="red" onClick={() => remove(index)}>
-													削除
+													{t.epubgen.delete}
 												</Button>
 											</Flex>
 											<Select
-												{...register(`chapters.${index}.title`, { required: "章のタイトルは必須項目です" })}
+												{...register(`chapters.${index}.title`, { required: t.epubgen.chapterTitleIsRequired })}
 												id={`chapters[${index}].title`}
 												size="lg"
 												variant="filled"
@@ -227,7 +230,7 @@ function EpubForm() {
 								alignSelf={{ base: "center", lg: "flex-end" }}
 								colorScheme="facebook"
 							>
-								章を追加
+								{t.epubgen.addChapter}
 							</Button>
 							<Button
 								type="submit"
@@ -239,7 +242,7 @@ function EpubForm() {
 								isDisabled={isLoading}
 								isLoading={isLoading}
 							>
-								生成
+								{t.epubgen.generate}
 							</Button>
 						</VStack>
 					</form>

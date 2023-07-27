@@ -12,8 +12,10 @@ import { Memo } from "./memoArea/Memo";
 import { PreviweModal } from "./PreviweModal";
 import { TranslateDrawer } from "./translateArea/TranslateDrawer";
 import { AddPrefaceAndPostscript } from "./addPrefaceAndPostscript/AddPrefaceAndPostscript";
+import { useLocale } from "../../hooks/useLocale";
 
 export const EditorArea = memo(() => {
+	const { t } = useLocale();
 	const { onChangeTitleArea, onBlurFocusTitleInput, onLengthOver, onAddNovel, selectStateReset } = useDraft(); //Draftオブジェクトの操作hooks
 	const { charCount, calcCharCount, isCharCountOverflow } = useCalcCharCount(); //文字数計算のロジック部
 	const selectedDraft: draftObject = useRecoilValue(editorState);
@@ -38,7 +40,9 @@ export const EditorArea = memo(() => {
 					<Box p={{ base: 2, md: 3, lg: 4, xl: 6 }} w={"100%"} position={"relative"} zIndex={1} h={"90vh"}>
 						<VStack spacing={4} w={"100%"}>
 							<VStack w={"100%"}>
-								<Text fontSize={{ base: "xs", md: "sm" }}>{`タイトル : ${selectedDraft.title.length} / 60文字`}</Text>
+								<Text
+									fontSize={{ base: "xs", md: "sm" }}
+								>{`${t.editorArea.title} : ${selectedDraft.title.length} / ${t.editorArea.char60}`}</Text>
 								<Input
 									fontSize={{ base: "md", md: "lg", lg: "xl" }}
 									value={selectedDraft.title}
@@ -60,7 +64,7 @@ export const EditorArea = memo(() => {
 							</VStack>
 							<VStack w={"85%"} spacing={2}>
 								<Text textColor={isCharCountOverflow && "red"} fontSize={{ base: "xs", md: "sm" }}>
-									現在の文字数 : {charCount} / {bodyMaxLength} 文字
+									{t.editorArea.currentChar} : {charCount} / {bodyMaxLength} {t.editorArea.char}
 								</Text>
 								<HStack>
 									<Memo id={selectedDraft.id} title={selectedDraft.title} />

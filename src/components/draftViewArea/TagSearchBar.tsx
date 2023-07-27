@@ -7,10 +7,12 @@ import { allTagsArray } from "../../globalState/selector/allTagsArray";
 import { useCalcCharCount } from "../../hooks/useCalcCharCount";
 import { useEnterKeyEvent } from "../../hooks/useEnterKeyEvent";
 import { useInput } from "../../hooks/useInput";
+import { useLocale } from "../../hooks/useLocale";
 import { useToastTemplate } from "../../hooks/useToastTemplate";
 import { PrimaryIconButton } from "../templates/PrimaryIconButton";
 
 export const TagSearchBar = memo(() => {
+	const { t } = useLocale();
 	const { setConposing, onEnterKeySubmitEvent } = useEnterKeyEvent();
 	const { praimaryErrorToast } = useToastTemplate();
 	const { onChangeInputForm, value, setValue } = useInput();
@@ -24,7 +26,7 @@ export const TagSearchBar = memo(() => {
 
 	const onEnterKeyUp = () => {
 		if (value.length === 0) {
-			praimaryErrorToast("入力がありません");
+			praimaryErrorToast(t.tagSearchBar.emptyInput);
 		} else {
 			onClickAddTagsButton();
 		}
@@ -39,14 +41,14 @@ export const TagSearchBar = memo(() => {
 			return item !== value;
 		});
 		if (tags.length > duplicateCheckArray.length) {
-			praimaryErrorToast("重複することはできません");
+			praimaryErrorToast(t.tagSearchBar.duplicateNotAllowed);
 		} else {
 			const newTags = [...tags, value];
 			const tagArrayMaxLength = 4;
 			if (newTags.length < tagArrayMaxLength + 1) {
 				setTags(newTags);
 			} else {
-				praimaryErrorToast("Tagは4つまでしか設定できません");
+				praimaryErrorToast(t.tagSearchBar.tagLimit);
 			}
 		}
 
@@ -62,7 +64,7 @@ export const TagSearchBar = memo(() => {
 			? allTags.filter((item) => {
 					return item.includes(value);
 			  })
-			: "未設定";
+			: t.tagSearchBar.noSet;
 
 	return (
 		<>
@@ -71,13 +73,17 @@ export const TagSearchBar = memo(() => {
 					<HStack position={"relative"} zIndex={1}>
 						<Tooltip
 							hasArrow
-							label={tooltipText.length === 0 ? "候補：なし" : `候補：${tooltipText.toString()}`}
+							label={
+								tooltipText.length === 0
+									? `${t.tagSearchBar.pick}：${t.tagSearchBar.nothing}`
+									: `${t.tagSearchBar.pick}：${tooltipText.toString()}`
+							}
 							placement={"top-start"}
 							isOpen={charCount !== 0}
 						>
 							<Input
 								value={value}
-								placeholder={"タグで絞り込みが出来ます"}
+								placeholder={t.tagSearchBar.filterByTag}
 								onChange={onChangeInputForm}
 								maxLength={maxLength}
 								overflow={"hidden"}

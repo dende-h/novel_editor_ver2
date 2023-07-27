@@ -6,15 +6,18 @@ import { draftObjectArray, drafts } from "../globalState/atoms/drafts";
 import { NovelLintViewer } from "../components/textlint/NovelLintViewer";
 import Seo from "../components/util/Seo";
 import { useToastTemplate } from "../hooks/useToastTemplate";
+import { useLocale } from "../hooks/useLocale";
 
 const Textlint = () => {
+	const { t } = useLocale();
 	const draftsData = useRecoilValue<draftObjectArray>(drafts);
-	const [text, setText] = useState("検査対象が選択されていません");
+	const [text, setText] = useState(t.textlint.noSelection);
 	const [result, setResult] = useState([]);
 	const [selectValue, setSelectValue] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const textLintUrl = "https://text-lint-novel.vercel.app/api/lint";
 	const { praimaryErrorToast, praimaryInfoToast } = useToastTemplate();
+
 	const onChangeSelect: ChangeEventHandler<HTMLSelectElement> = (e) => {
 		setSelectValue(e.target.value);
 	};
@@ -27,7 +30,7 @@ const Textlint = () => {
 				? draftsData.find((draft) => {
 						return draft.id === selectValue;
 				  })?.body
-				: "検査対象が選択されていません"
+				: t.textlint.noSelection
 		);
 	}, [selectValue]);
 
@@ -41,13 +44,13 @@ const Textlint = () => {
 			});
 			if (response.status === 500) {
 				const data = await response.json();
-				praimaryErrorToast("サーバーエラー：再試行してみてください");
+				praimaryErrorToast(t.textlint.serverErrorRetry);
 				setIsLoading(false);
 				return;
 			}
 			if (response.status === 504) {
 				const data = await response.json();
-				praimaryErrorToast("タイムアウト：再試行してみてください");
+				praimaryErrorToast(t.textlint.timeoutRetry);
 				setIsLoading(false);
 				return;
 			}
@@ -61,7 +64,7 @@ const Textlint = () => {
 				setResult([]);
 			}
 		} catch (error) {
-			praimaryErrorToast("サーバーエラー：再試行してみてください");
+			praimaryErrorToast(t.textlint.serverErrorRetry);
 			setIsLoading(false);
 			setResult([]);
 		}
@@ -73,8 +76,8 @@ const Textlint = () => {
 	return (
 		<>
 			<Seo
-				pageTitle="自動校正ツール"
-				pageDescription="原稿の校正箇所を検出することができます"
+				pageTitle={t.textlint.autoCorrectionTool}
+				pageDescription={t.textlint.detectProofreadingPoints}
 				pagePath="https://novel-editor-ver2.vercel.app/textlint"
 				pageImg={null}
 				pageImgWidth="1200"
@@ -82,12 +85,12 @@ const Textlint = () => {
 			/>
 			<Box p={{ base: "4", md: "6" }} h={"90vh"} w={"100%"} overflowY={"scroll"}>
 				<Heading as="h1" size="lg" textAlign={"center"} mb={6}>
-					自動校正ツール
+					{t.textlint.autoCorrectionTool}
 				</Heading>
 				<FormControl>
 					<Select
 						onChange={onChangeSelect}
-						placeholder="タイトルを選択"
+						placeholder={t.textlint.selectTitle}
 						size="lg"
 						variant="filled"
 						shadow="md"
@@ -109,10 +112,10 @@ const Textlint = () => {
 					variant="solid"
 					mt="4"
 					w={"100%"}
-					isDisabled={text === "検査対象が選択されていません" || isLoading}
+					isDisabled={text === t.textlint.noSelection || isLoading}
 					isLoading={isLoading}
 				>
-					自動校正検査を実行する
+					{t.textlint.executeAutoProofreading}
 				</Button>
 				<Box
 					mt="6"
@@ -134,23 +137,35 @@ const Textlint = () => {
 					fontSize={{ base: "14px", md: "16px" }}
 				>
 					{result.length < 1 ? (
-						<Text>校正指摘合計数：0箇所</Text>
+						<Text>{t.textlint.totalProofreadingPointsZero}</Text>
 					) : (
 						<>
 							<Text mb="4" color={"red"}>
-								校正指摘合計数：{result.length}箇所
+								{t.textlint.totalProofreadingPoints}
+								{result.length}
+								{t.textlint.numberOfPlaces}
 							</Text>
 							{result.map((item, index) => {
-								let fixText = item.fix ? item.fix.text : "修正提案なし";
-								if (fixText === " ") fixText = "半角スペースに修正";
-								else if (fixText === "　") fixText = "全角スペースに修正";
+								let fixText = item.fix ? item.fix.text : t.textlint.noCorrectionProposal;
+								if (fixText === " ") fixText = t.textlint.correctToHalfSpace;
+								else if (fixText === "　") fixText = t.textlint.correctToFullSpace;
 								return (
 									<Box key={index} border="1px solid" borderColor={"red.500"} p="4" borderRadius="md" mb="2" bg={boxBg}>
 										<Text>
-											校正箇所：{item.loc.start.line}行{item.loc.start.column}文字目
+											{t.textlint.proofreadingPoints}
+											{item.loc.start.line}
+											{t.textlint.line}
+											{item.loc.start.column}
+											{t.textlint.character}
 										</Text>
-										<Text>指摘理由：{item.message}</Text>
-										<Text>修正提案：{fixText}</Text>
+										<Text>
+											{t.textlint.indicationReason}
+											{item.message}
+										</Text>
+										<Text>
+											{t.textlint.correctionProposal}
+											{fixText}
+										</Text>
 									</Box>
 								);
 							})}
@@ -173,16 +188,18 @@ const Textlint = () => {
 						fontSize={{ base: "14px", md: "16px" }}
 					>
 						{result.length < 1 ? (
-							<Text>校正指摘合計数：0箇所</Text>
+							<Text>{t.textlint.totalProofreadingPointsZero}</Text>
 						) : (
 							<>
 								<Text mb="4" color={"red"}>
-									校正指摘合計数：{result.length}箇所
+									{t.textlint.totalProofreadingPoints}
+									{result.length}
+									{t.textlint.numberOfPlaces}
 								</Text>
 								{result.map((item, index) => {
-									let fixText = item.fix ? item.fix.text : "修正提案なし";
-									if (fixText === " ") fixText = "半角スペースに修正";
-									else if (fixText === "　") fixText = "全角スペースに修正";
+									let fixText = item.fix ? item.fix.text : t.textlint.noCorrectionProposal;
+									if (fixText === " ") fixText = t.textlint.correctToHalfSpace;
+									else if (fixText === "　") fixText = t.textlint.correctToFullSpace;
 									return (
 										<Box
 											key={index}
@@ -194,10 +211,20 @@ const Textlint = () => {
 											bg={boxBg}
 										>
 											<Text>
-												校正箇所：{item.loc.start.line}行{item.loc.start.column}文字目
+												{t.textlint.proofreadingPoints}
+												{item.loc.start.line}
+												{t.textlint.line}
+												{item.loc.start.column}
+												{t.textlint.character}
 											</Text>
-											<Text>指摘理由：{item.message}</Text>
-											<Text>修正提案：{fixText}</Text>
+											<Text>
+												{t.textlint.indicationReason}
+												{item.message}
+											</Text>
+											<Text>
+												{t.textlint.correctionProposal}
+												{fixText}
+											</Text>
 										</Box>
 									);
 								})}
