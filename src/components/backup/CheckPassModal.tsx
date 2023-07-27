@@ -17,7 +17,7 @@ import {
 	FormErrorMessage
 } from "@chakra-ui/react";
 import { memo, useEffect, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { passWord } from "../../globalState/atoms/passWord";
 import { useCalcCharCount } from "../../hooks/useCalcCharCount";
 import { useInput } from "../../hooks/useInput";
@@ -28,7 +28,7 @@ export const CheckPassWordModal = memo(() => {
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	const inputfontColor = useColorModeValue("gray.700", "gray.700");
 	const buttonHoverBgColor = useColorModeValue("gray.300", "gray.500");
-	const setPass = useSetRecoilState(passWord);
+
 	const { onChangeInputForm, value, setValue } = useInput();
 	const { calcCharCount, charCount } = useCalcCharCount();
 	const pass = useRecoilValue(passWord);

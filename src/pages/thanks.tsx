@@ -9,7 +9,6 @@ export default function Thanks() {
 		<>
 			<Head>
 				<title>Thank you</title>
-				<meta name="description" content={t.thanksPage.success} />
 			</Head>
 
 			<Box textAlign="center" marginTop={"50px"} h={"90vh"}>

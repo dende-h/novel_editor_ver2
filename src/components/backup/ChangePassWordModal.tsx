@@ -16,12 +16,9 @@ import {
 	FormControl,
 	FormErrorMessage
 } from "@chakra-ui/react";
-import { hash } from "bcryptjs";
 import { memo, useEffect, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { supabase } from "../../../lib/supabaseClient";
+import { useSetRecoilState } from "recoil";
 import { passWord } from "../../globalState/atoms/passWord";
-import { userName } from "../../globalState/atoms/userName";
 import { useCalcCharCount } from "../../hooks/useCalcCharCount";
 import { useInput } from "../../hooks/useInput";
 
@@ -34,7 +31,7 @@ export const ChangePassWordModal = memo(() => {
 	const { onChangeInputForm, value, setValue } = useInput();
 	const { calcCharCount, charCount } = useCalcCharCount();
 	const maxLength = 15;
-	const penName = useRecoilValue(userName);
+
 	const [isValid, setIsValid] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
 

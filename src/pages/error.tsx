@@ -7,7 +7,6 @@ export default function Error() {
 		<>
 			<Head>
 				<title>Error</title>
-				<meta name="description" content="問い合わせの送信が失敗しました" />
 			</Head>
 
 			<Box textAlign="center" marginTop={"50px"} h={"90vh"}>
