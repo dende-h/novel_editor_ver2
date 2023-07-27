@@ -91,6 +91,13 @@ export const EnDeveloper = () => {
 							<ListItem mb={1}>
 								<HStack spacing={0}>
 									<ListIcon as={MdSettings} color="green.500" />
+									<Text fontWeight={"bold"}>23/07/27</Text>
+								</HStack>
+								<Text>Dual language support for the site</Text>
+							</ListItem>
+							<ListItem mb={1}>
+								<HStack spacing={0}>
+									<ListIcon as={MdSettings} color="green.500" />
 									<Text fontWeight={"bold"}>23/07/13</Text>
 								</HStack>
 								<Text>Policy revisions and addition of developer introduction page</Text>
