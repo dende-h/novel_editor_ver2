@@ -2,255 +2,258 @@
 
 export default {
 	thanksPage: {
-		thanks: "お問い合わせありがとうございます。",
-		pleaseWait: "回答までしばらくお待ちください。"
+		thanks: "Thank you for your inquiry.",
+		pleaseWait: "Please wait a moment for our response."
 	},
 	errorPage: {
-		error: "送信エラーが発生しました。",
-		afterShortTime: "暫く経ってからお問い合わせください。"
+		error: "A transmission error has occurred.",
+		afterShortTime: "Please contact us after a while."
 	},
 	textlint: {
-		noSelection: "検査対象が選択されていません",
-		serverErrorRetry: "サーバーエラー：再試行してみてください",
-		timeoutRetry: "タイムアウト：再試行してみてください",
-		autoCorrectionTool: "自動校正ツール",
-		detectProofreadingPoints: "原稿の校正箇所を検出することができます",
-		selectTitle: "タイトルを選択",
-		executeAutoProofreading: "自動校正検査を実行する",
-		totalProofreadingPointsZero: "校正指摘合計数：0箇所",
-		totalProofreadingPoints: "校正指摘合計数：",
-		numberOfPlaces: "箇所",
-		noCorrectionProposal: "修正提案なし",
-		correctToHalfSpace: "半角スペースに修正",
-		correctToFullSpace: "全角スペースに修正",
-		proofreadingPoints: "校正箇所：",
-		line: "行",
-		character: "文字目",
-		indicationReason: "指摘理由：",
-		correctionProposal: "修正提案："
+		noSelection: "No test target has been selected.",
+		serverErrorRetry: "Server Error: Please try again",
+		timeoutRetry: "Timeout: Please try again",
+		autoCorrectionTool: "Auto Calibration Tool",
+		detectProofreadingPoints: "Detects proofreading areas in the manuscript",
+		selectTitle: "Select Title",
+		executeAutoProofreading: "Perform automatic calibration checks",
+		totalProofreadingPointsZero: "Total number of calibration points: 0",
+		totalProofreadingPoints: "Total number of calibration remarks:",
+		numberOfPlaces: "place",
+		noCorrectionProposal: "No amendments proposed",
+		correctToHalfSpace: "Corrected to single-byte spaces",
+		correctToFullSpace: "Corrected to full-width spaces",
+		proofreadingPoints: "Calibration point:",
+		line: "row",
+		character: "character",
+		indicationReason: "Reason for pointing out:",
+		correctionProposal: "Proposed Amendment:"
 	},
 	published: {
-		dataFetchFailure: "データの取得に失敗しました",
-		publishedNovels: "投稿済みの小説",
-		viewPublishedStatus: "投稿済みのステータスを閲覧できます",
-		publishedNovelsList: "投稿済みの小説一覧",
-		noPublishedNovels: "投稿済みの小説はありません"
+		dataFetchFailure: "Failed to retrieve data.",
+		publishedNovels: "Novels already submitted",
+		viewPublishedStatus: "You can view the status of your submitted",
+		publishedNovelsList: "List of submitted novels",
+		noPublishedNovels: "No novels have been submitted"
 	},
 	profile: {
-		userPage: "ユーザー管理ページ",
-		pageDescription: "書いた小説の数や文字数を確認したり、小説の公開設定、ペンネーム、自己紹介などの変更ができます"
+		userPage: "User Management Page",
+		pageDescription:
+			"You can check the number of novels you have written and the number of characters, change your novel's publication settings, pen name, self-introduction, etc."
 	},
 	epubgen: {
-		addAtleastOneChapter: "最低一つ以上の章を追加してください",
-		toc: "目次",
+		addAtleastOneChapter: "Please add at least one more chapter",
+		toc: "Table of Contents",
 		ja: "ja",
-		ebookFileGeneration: "電子書籍ファイル生成",
-		manuscriptToEpub: "原稿からEPUB形式の電子書籍ファイルを生成できます",
-		generateEpub: "EPUB生成",
-		titleRequired: "タイトル(必須)",
-		titleIsRequired: "タイトルは必須項目です",
-		publisherOptional: "出版社（任意）",
-		chapter: "チャプター",
-		delete: "削除",
-		chapterTitleIsRequired: "章のタイトルは必須項目です",
-		addChapter: "章を追加",
-		generate: "生成"
+		ebookFileGeneration: "E-book file generation",
+		manuscriptToEpub: "EPUB format e-book files can be generated from manuscripts",
+		generateEpub: "EPUB Generation",
+		titleRequired: "Title (required)",
+		titleIsRequired: "Title is a required field",
+		publisherOptional: "Publisher (optional)",
+		chapter: "chapter",
+		delete: "deletion",
+		chapterTitleIsRequired: "Chapter title is a required field",
+		addChapter: "Additional Chapters",
+		generate: "generation"
 	},
 	drafts: {
-		draftsPage: "原稿一覧ページ",
-		draftsPageDescription: "書いた小説を縦書きビューワーで読むことができます。ルビ記法のルビが反映されます。"
+		draftsPage: "Manuscript List Page",
+		draftsPageDescription: "You can read your novel in a vertical viewer. Ruby notation ruby will be reflected."
 	},
 	contact: {
-		inquiryForm: "問い合わせフォーム",
-		sendInquiryToAdmin: "管理人への問い合わせメールを送信できます",
-		contactForm: "コンタクトフォーム",
-		pleaseEnterInquiry: "お問い合わせ内容を入力してください",
-		submit: "送信"
+		inquiryForm: "Inquiry Form",
+		sendInquiryToAdmin: "You can send an email inquiry to the administrator",
+		contactForm: "Contact Form",
+		pleaseEnterInquiry: "Please enter your inquiry",
+		submit: "Send Email"
 	},
 	backUp: {
-		backupAndRestore: "バックアップと復元",
-		novelBackupRestore: "小説のバックアップと復元ができます",
-		penName: "ペンネーム",
-		setName: "名前を設定してください",
-		backupPassword: "バックアップ用パスワード",
-		passwordSet: "パスワード設定済み",
-		passwordNotSet: "パスワード未設定",
-		forgotPasswordNote: "※パスワードを忘れた場合復元が出来なくなります。必ず控えを取っておいてください",
-		dataRetrieveNote: "※バックアップデータが表示されない場合は再度データ取得してください",
-		passwordMismatchNote: "※パスワードが一致しないデータは取得されません",
-		getData: "データを取得する",
-		backup: "バックアップする",
-		backupList: "バックアップリスト"
+		backupAndRestore: "Backup and Restore",
+		novelBackupRestore: "Novels can be backed up and restored",
+		penName: "Alias",
+		setName: "Set your Alias",
+		backupPassword: "Password for backup",
+		passwordSet: "Password set",
+		passwordNotSet: "Password not set",
+		forgotPasswordNote:
+			"*If you forget your password, you will not be able to restore it. Please be sure to keep a copy of your password.",
+		dataRetrieveNote: "*If backup data is not displayed, please acquire the data again.",
+		passwordMismatchNote: "*Data without a matching password will not be retrieved.",
+		getData: "Retrieve data",
+		backup: "Backup",
+		backupList: "Backup list"
 	},
 	useNovelPublished: {
-		fetchDataFailure: "データの取得に失敗しました",
-		updateFailure: "更新処理に失敗しました",
-		uploadFailure: "アップロードに失敗しました",
-		penNameAlreadyInUse: "そのペンネームは既に利用されています",
-		userNameUpdateFailure: "ユーザー名の更新に失敗しました",
-		privacyProcessError: "非公開処理にエラーが発生しました",
-		userNameDeletionError: "ユーザー名削除にエラー発生しました",
-		communicationError: "通信エラーが発生しました",
-		stopProcessError: "停止処理にエラー発生しました",
-		errorOccurredStoppingPublication: "エラーが発生しました。公開を停止します",
-		communicationErrorTwo: "通信エラーが発生しました",
-		communicationErrorThree: "通信エラーが発生しました"
+		fetchDataFailure: "Failed to retrieve data.",
+		updateFailure: "Update process failed.",
+		uploadFailure: "Upload failed.",
+		penNameAlreadyInUse: "That pseudonym is already in use.",
+		userNameUpdateFailure: "Failed to update user name",
+		privacyProcessError: "An error has occurred in the private process.",
+		userNameDeletionError: "Error deleting user name.",
+		communicationError: "A communication error has occurred.",
+		stopProcessError: "Error occurred in the stop process",
+		errorOccurredStoppingPublication: "An error has occurred. We are suspending publication.",
+		communicationErrorTwo: "A communication error has occurred.",
+		communicationErrorThree: "A communication error has occurred."
 	},
 	infoForEpubGen: {
-		readFirst: "《必ずお読みください》電子書籍の出力に際しての注意事項",
-		bookDownloadNotes: "子書籍ダウンロードの注意点",
-		close: "閉じる"
+		readFirst: "Please read carefully before printing e-books.",
+		bookDownloadNotes: "Notes on e-book downloads",
+		close: "close"
 	},
 	novelCard: {
-		like: "いいね",
-		comment: "コメント",
-		item: "件",
-		update: "更新 : "
+		like: "good",
+		comment: "comment",
+		item: "item",
+		update: "Update :"
 	},
 	uploadProfileImageModal: {
-		addProfileImage: "プロフィール画像の追加",
-		dragAndDrop: "画像をドラッグ＆ドロップ",
-		selectFile: "ファイルを選択",
-		fileNameWarning: "※ファイル名に記号やカナを使っている場合失敗することがあります。",
-		delete: "削除",
-		cancel: "キャンセル"
+		addProfileImage: "Adding a profile picture",
+		dragAndDrop: "Drag and drop images",
+		selectFile: "Select File",
+		fileNameWarning: "*If you use symbols or kana in the file name, it may fail.",
+		delete: "deletion",
+		cancel: "cancel"
 	},
 	profileArea: {
-		studyRoomSuffix: "の書斎",
-		cannotChangePenname: "小説公開中ペンネームは変更できません",
-		selfIntroduction: "自己紹介",
-		twoHundredCharacters: "200文字",
-		clickToEdit: "クリックで編集可能です",
-		cannotEditWhilePublishing: "公開中は編集できません",
-		synchronizePublicSettings: "公開設定を同期します",
-		updateAddition: "追加更新",
-		canStopPublishing: "小説の公開を停止できます",
-		stopPublishing: "公開を停止",
-		postNovel: "小説を投稿",
-		lastUpdated: "最終更新日時：",
-		synchronizeNewChanges: "追加更新で新しい変更をWEBサイトに同期します",
-		stopAllPublishing: "公開停止で全ての公開を停止します",
-		cannotPostSamePenname: "既に同じペンネームでの投稿がある場合は投稿できません",
-		noNovelsToPublish: "公開設定済みの小説がありません",
-		canPublishNovels: "公開設定済みの小説を公開できます"
+		studyRoomSuffix: "room",
+		cannotChangePenname: "Pen name cannot be changed while the novel is being published.",
+		selfIntroduction: "self-introduction",
+		twoHundredCharacters: "200Char",
+		clickToEdit: "Click to edit",
+		cannotEditWhilePublishing: "Cannot be edited while it is open to the public",
+		synchronizePublicSettings: "Synchronize public settings",
+		updateAddition: "additional update",
+		canStopPublishing: "You can stop publishing your novel",
+		stopPublishing: "Suspended from Publication",
+		postNovel: "Submit a novel",
+		lastUpdated: "Final update :",
+		synchronizeNewChanges: "Synchronize new changes to the website with additional updates",
+		stopAllPublishing: "Suspend all public disclosure",
+		cannotPostSamePenname: "If there is already a submission under the same pen name, you cannot submit it.",
+		noNovelsToPublish: "There are no novels set for publication.",
+		canPublishNovels: "You can publish a novel that has already been set to publish."
 	},
 	changeUserNameModal: {
-		chagePH: "PNの変更",
-		chageName: "ペンネームを変更する",
-		newName: "新しいペンネームを入力してください",
-		save: "保存",
-		cancel: "キャンセル"
+		chagePH: "Change PN",
+		chageName: "Change Alias",
+		newName: "Please enter your new Alias",
+		save: "save",
+		cancel: "cancel"
 	},
 	headerMenu: {
-		manuscriptList: "原稿一覧・執筆",
-		profileAndAchievements: "プロフィール・実績・投稿",
-		verticalReading: "原稿の縦読み閲覧",
+		manuscriptList: "Manuscript List & Writing",
+		profileAndAchievements: "Profile, Achievements & Posting",
+		verticalReading: "Vertical Reading of Manuscripts",
 		litBite: "Lit:Bite",
-		creativeSupportBlog: "創作支援ブログ",
-		contactForm: "お問い合わせフォーム",
-		backupAndRestore: "バックアップと復元",
-		howToUse: "Re:teratureの使い方",
-		exportToEPUB: "電子書籍に出力(EPUB)",
-		autoCorrectionTool: "自動校正ツール",
-		developerIntro: "開発者紹介"
+		creativeSupportBlog: "Creative Writing Blog",
+		contactForm: "Contact Form",
+		backupAndRestore: "Backup and Restore",
+		howToUse: "How to Use Re:terature",
+		exportToEPUB: "Export to EPUB",
+		autoCorrectionTool: "Automatic Proofreading Tool",
+		developerIntro: "About the Developer"
 	},
 	editorArea: {
-		title: "タイトル : ",
-		char60: "60文字",
-		currentChar: "現在の文字数 : ",
-		char: "文字"
+		title: "Title : ",
+		char60: "60 Char",
+		currentChar: "Current character count : ",
+		char: "Character"
 	},
 	translate: {
-		enterword: "翻訳ワードを入力(70文字まで)",
-		add: "ワードを追加",
-		translation: "翻訳"
+		enterword: "Enter the translated word (70 characters)",
+		add: "Add word",
+		translation: "trans"
 	},
 	memoArea: {
-		newMemo: "新しいメモ",
-		addMemo: "付箋を追加",
-		close: "とじる"
+		newMemo: "New Memo",
+		addMemo: "Add sticky note",
+		close: "close"
 	},
 	prefaceAndPostscript: {
-		button: "前後書き",
-		header: "【 前書き / 後書き 】",
-		placeholder: "前書きやあらすじを記入できます(200文字)",
-		placeholder2: "後書きを記入できます(200文字)",
-		save: "保存",
-		cancel: "キャンセル"
+		button: "pre/post",
+		header: "[Foreword / postscript]",
+		placeholder: "You can fill in a preface or synopsis (200 characters)",
+		placeholder2: "You can fill in the postscript (200 characters)",
+		save: "save",
+		cancel: "cancel"
 	},
 	tagSearchBar: {
-		emptyInput: "入力がありません",
-		duplicateNotAllowed: "重複することはできません",
-		tagLimit: "Tagは4つまでしか設定できません",
-		filterByTag: "タグで絞り込みが出来ます"
+		emptyInput: "No input",
+		duplicateNotAllowed: "Cannot be duplicated",
+		tagLimit: "Only 4 tags can be set.",
+		filterByTag: "You can filter by tags."
 	},
 	uploadImageModal: {
-		addImage: "サムネイル画像の追加",
-		dragAndDrop: "画像をドラッグ＆ドロップ",
-		choice: "ファイルを選択",
-		redText: "※ファイル名に記号やカナを使っている場合失敗することがあります。",
-		delete: "削除",
-		cancel: "キャンセル"
+		addImage: "Add thumbnail images",
+		dragAndDrop: "Drag and drop images",
+		choice: "Select File",
+		redText: "*If you use symbols or kana in the file name, it may fail.",
+		delete: "deletion",
+		cancel: "cancel"
 	},
 	leftColumnArea: {
-		addNovel: "新しい小説を書く",
-		noConfig: "未設定",
-		published: "公開可能",
-		notPublished: "公開不可"
+		addNovel: "Write a new novel",
+		noConfig: "unset",
+		published: "publishable",
+		notPublished: "closed public"
 	},
 	downloadTXT: {
-		header: "小説のダウンロード",
-		body: "テキスト形式で小説を保存できます",
-		cancel: "キャンセル",
-		download: "ダウンロード"
+		header: "Download Novel",
+		body: "You can save your novel in text format",
+		cancel: "cancel",
+		download: "download"
 	},
 	delete: {
-		header: "小説の焼却炉",
-		body: "本当に焼却しますか？後から取り消すことはできません。",
-		cancel: "キャンセル",
-		delete: "焼却する"
+		header: "Novel incinerator",
+		body: "Do you really want to incinerate it? It cannot be revoked after the fact.",
+		cancel: "cancel",
+		delete: "Incinerate"
 	},
 	addTag: {
-		noEnter: "入力がありません",
-		dupliacte: "重複することはできません",
-		tagArray: "Tagは4つまでしか設定できません",
-		header: "タグ追加",
-		placeholder: "追加するタグを入力して下さい",
-		save: "保存",
-		cancel: "キャンセル"
+		noEnter: "No input",
+		dupliacte: "Cannot be duplicated",
+		tagArray: "Only 4 tags can be set.",
+		header: "Add Tag",
+		placeholder: "Please enter the tag you wish to add",
+		save: "save",
+		cancel: "cancel"
 	},
 	setPassword: {
-		mess1: "パスワードは8文字以上必要です",
-		mess2: "パスワードは半角英数字である必要があります",
-		mess3: "パスワードは英字と数字を少なくとも1つずつ含む必要があります",
-		alert: "パスワードは半角英数字で8文字以上必要です",
-		button: "パスワードの変更",
-		header: "パスワードを変更する",
-		placeholder: "半角英数8文字以上",
-		save: "保存",
-		cancel: "キャンセル"
+		mess1: "Password must be at least 8 characters",
+		mess2: "Password must be one-byte alphanumeric characters",
+		mess3: "Password must contain at least one alphabetical character and one numeric character",
+		alert: "Password must be at least 8 single-byte alphanumeric characters",
+		button: "Change Password",
+		header: "Change Password",
+		placeholder: "At least 8 single-byte alphanumeric characters",
+		save: "save",
+		cancel: "cancel"
 	},
 	checkPassword: {
-		errorMess: "現在のパスワードと一致しません",
-		button: "パスワードの変更",
-		header: "現在のパスワード確認",
-		placeholder: "現在のパスワードを入力してください",
-		cancel: "キャンセル"
+		errorMess: "Password does not match current password",
+		button: "Change Password",
+		header: "Confirm current password",
+		placeholder: "Please enter your current password",
+		cancel: "cancel"
 	},
 	backUpReconstruction: {
-		button: "復元",
-		header: "バックアップデータの復元（上書き）",
-		bodyLine1: "復元すると上書きされます。 現在の状態をバックアップしていない場合元に戻すことはできなくなります。",
-		bodyLine2: "選択したバックアップを復元してよろしいですか？",
-		cancel: "キャンセル",
-		reconstruction: "復元する"
+		button: "restore",
+		header: "Restore (overwrite) backup data",
+		bodyLine1:
+			"When restored, it will be overwritten. If you have not backed up the current state, you will not be able to restore it.",
+		bodyLine2: "Are you sure you want to restore the selected backup?",
+		cancel: "cancel",
+		reconstruction: "restore"
 	},
 	backUpDelete: {
-		button: "削除",
-		header: "バックアップデータの消去",
-		bodyLine1: "消去したバックアップは元に戻すことはできません",
-		bodyLine2: "バックアップを完全に消去しますか？",
-		cancel: "キャンセル",
-		reconstruction: "消去する"
+		button: "deletion",
+		header: "Erase backup data",
+		bodyLine1: "Deleted backups cannot be restored",
+		bodyLine2: "Do you want to completely erase your backups?",
+		cancel: "cancel",
+		reconstruction: "deletion"
 	}
 };

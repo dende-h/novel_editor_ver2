@@ -1,8 +1,7 @@
-import { Box, Button, Center, Flex, Heading, HStack, Select, useColorModeValue } from "@chakra-ui/react";
+import { Box, Flex, Heading, useColorModeValue } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { memo } from "react";
-import { useTranslation } from "react-i18next";
 import { useRecoilValue } from "recoil";
 import { isSelected } from "../../globalState/atoms/isSelected";
 import { DrawerLeftArea } from "../draftListArea/DrawerLeftArea";
@@ -12,7 +11,6 @@ import { HeaderMenu } from "./HeaderMenu";
 //ヘッダーコンポーネント
 export const Header = memo(() => {
 	const headerBgColor = useColorModeValue("gray.300", "gray.700");
-	const selectValueColor = useColorModeValue("gray.800", "gray.100"); //カラーモードごと背景色
 	const isSelect = useRecoilValue<boolean>(isSelected); //小説がセレクト状態かどうかのフラグ
 	const router = useRouter(); //path判定用にuseRouterを利用
 	// const { i18n } = useTranslation();

@@ -98,7 +98,7 @@ export default {
 	},
 	infoForEpubGen: {
 		readFirst: "《必ずお読みください》電子書籍の出力に際しての注意事項",
-		bookDownloadNotes: "子書籍ダウンロードの注意点",
+		bookDownloadNotes: "電子書籍ダウンロードの注意点",
 		close: "閉じる"
 	},
 	novelCard: {
