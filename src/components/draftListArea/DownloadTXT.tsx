@@ -5,7 +5,6 @@ import {
 	AlertDialogFooter,
 	AlertDialogHeader,
 	AlertDialogOverlay,
-	Box,
 	Button,
 	useDisclosure
 } from "@chakra-ui/react";
@@ -13,9 +12,11 @@ import React, { memo } from "react";
 import { ImDownload2 } from "react-icons/im";
 import { useRecoilValue } from "recoil";
 import { editorState } from "../../globalState/selector/editorState";
+import { useLocale } from "../../hooks/useLocale";
 import { PrimaryIconButton } from "../templates/PrimaryIconButton";
 
 export const DownloadTXT = memo(() => {
+	const { t } = useLocale();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const cancelRef = React.useRef();
 	const downloadDraft = useRecoilValue(editorState);
@@ -55,17 +56,17 @@ export const DownloadTXT = memo(() => {
 				<AlertDialogOverlay>
 					<AlertDialogContent>
 						<AlertDialogHeader fontSize="lg" fontWeight="bold">
-							小説のダウンロード
+							{t.downloadTXT.header}
 						</AlertDialogHeader>
 
-						<AlertDialogBody>テキスト形式で小説を保存できます</AlertDialogBody>
+						<AlertDialogBody>{t.downloadTXT.body}</AlertDialogBody>
 
 						<AlertDialogFooter>
 							<Button ref={cancelRef} onClick={onClose} _focus={{ boxShadow: "none" }}>
-								キャンセル
+								{t.downloadTXT.cancel}
 							</Button>
 							<Button colorScheme="teal" onClick={onClickDownloadButton} ml={3} _focus={{ boxShadow: "none" }}>
-								ダウンロード
+								{t.downloadTXT.download}
 							</Button>
 						</AlertDialogFooter>
 					</AlertDialogContent>

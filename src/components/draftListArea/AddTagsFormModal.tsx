@@ -26,11 +26,13 @@ import { editorState } from "../../globalState/selector/editorState";
 import { useCalcCharCount } from "../../hooks/useCalcCharCount";
 import { useEnterKeyEvent } from "../../hooks/useEnterKeyEvent";
 import { useInput } from "../../hooks/useInput";
+import { useLocale } from "../../hooks/useLocale";
 import { useToastTemplate } from "../../hooks/useToastTemplate";
 import { PrimaryIconButton } from "../templates/PrimaryIconButton";
 
 //タグを追加するためのフォームモーダル
 export const AddTagsFormModal = memo(() => {
+	const { t } = useLocale();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const displayDraft = useRecoilValue(editorState);
 	const { setConposing, onEnterKeySubmitEvent } = useEnterKeyEvent();
@@ -53,7 +55,7 @@ export const AddTagsFormModal = memo(() => {
 	//フォーム入力でエンターキーを押したあとの動作
 	const onEnterKeyUp = () => {
 		if (value.length === 0) {
-			praimaryErrorToast("入力がありません");
+			praimaryErrorToast(t.addTag.noEnter);
 		} else {
 			onClickAddTagsButton();
 		}
@@ -73,14 +75,14 @@ export const AddTagsFormModal = memo(() => {
 			return item !== value;
 		});
 		if (tags.length > duplicateCheckArray.length) {
-			praimaryErrorToast("重複することはできません");
+			praimaryErrorToast(t.addTag.dupliacte);
 		} else {
 			const newTags = [...tags, value];
 			const tagArrayMaxLength = 4;
 			if (newTags.length < tagArrayMaxLength + 1) {
 				setTags(newTags);
 			} else {
-				praimaryErrorToast("Tagは4つまでしか設定できません");
+				praimaryErrorToast(t.addTag.tagArray);
 			}
 		}
 		setIsChanged(true);
@@ -117,14 +119,14 @@ export const AddTagsFormModal = memo(() => {
 			<Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onCloseModal} size={"3xl"}>
 				<ModalOverlay />
 				<ModalContent backgroundColor={backgroundColor}>
-					<ModalHeader>タグ追加</ModalHeader>
+					<ModalHeader>{t.addTag.header}</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody pb={6}>
 						<Center padding={2} marginBottom={2}>
 							<HStack position={"relative"} zIndex={1}>
 								<Input
 									value={value}
-									placeholder={"追加するタグを入力して下さい"}
+									placeholder={t.addTag.placeholder}
 									onChange={onChangeInputForm}
 									maxLength={maxLength}
 									overflow={"hidden"}
@@ -190,10 +192,10 @@ export const AddTagsFormModal = memo(() => {
 					</ModalBody>
 					<ModalFooter>
 						<Button colorScheme="blue" mr={3} onClick={onClickSave} isDisabled={!isChanged}>
-							保存
+							{t.addTag.save}
 						</Button>
 						<Button onClick={onCloseModal} variant={"ghost"} _hover={{ bg: buttonHoverBgColor }}>
-							キャンセル
+							{t.addTag.cancel}
 						</Button>
 					</ModalFooter>
 				</ModalContent>

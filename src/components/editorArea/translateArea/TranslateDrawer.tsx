@@ -9,8 +9,8 @@ import {
 	useColorModeValue,
 	Button
 } from "@chakra-ui/react";
-import { type } from "os";
 import { LegacyRef, memo, useRef } from "react";
+import { useLocale } from "../../../hooks/useLocale";
 import { TranslateWordList } from "./TranslateWordList";
 
 type Props = {
@@ -18,6 +18,7 @@ type Props = {
 };
 
 export const TranslateDrawer = memo(({ id }: Props) => {
+	const { t } = useLocale();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const btnRef: LegacyRef<HTMLButtonElement> = useRef();
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
@@ -34,14 +35,14 @@ export const TranslateDrawer = memo(({ id }: Props) => {
 	return (
 		<>
 			<Button ref={btnRef} onClick={onOpen} borderRadius={2} size={"xs"} colorScheme="whatsapp" ml={4}>
-				翻訳
+				{t.translate.translation}
 			</Button>
 
 			<Drawer isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={btnRef} size={"sm"}>
 				<DrawerOverlay />
 				<DrawerContent sx={css} bgColor={backgroundColor}>
 					<DrawerCloseButton />
-					<DrawerHeader>翻訳リスト</DrawerHeader>
+					<DrawerHeader>Translation List</DrawerHeader>
 					<DrawerBody>
 						<TranslateWordList id={id} />
 					</DrawerBody>

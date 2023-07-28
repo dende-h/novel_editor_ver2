@@ -4,10 +4,7 @@ import {
 	Button,
 	Textarea,
 	Flex,
-	Center,
-	Circle,
 	ModalFooter,
-	css,
 	Modal,
 	ModalBody,
 	ModalCloseButton,
@@ -17,7 +14,6 @@ import {
 	IconButton,
 	useDisclosure,
 	useColorModeValue,
-	Text,
 	Spacer,
 	VStack,
 	HStack
@@ -26,6 +22,7 @@ import { IoMdRemoveCircle, IoIosColorFill } from "react-icons/io";
 import { MemoViewer } from "./MemoViwer";
 import { Item, Items, memoState } from "../../../globalState/atoms/memoState";
 import { useRecoilState } from "recoil";
+import { useLocale } from "../../../hooks/useLocale";
 
 const COLORS = ["#ffe1b4", "#FFF9D5", "#ECFAF5", "#CBF5E4", "#A5DEC8", "#FFF"];
 
@@ -35,6 +32,7 @@ type Props = {
 };
 
 export const Memo: React.FC<Props> = (props: Props) => {
+	const { t } = useLocale();
 	const { id, title } = props;
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const btnRef: LegacyRef<HTMLButtonElement> = useRef();
@@ -64,7 +62,7 @@ export const Memo: React.FC<Props> = (props: Props) => {
 			memos.map((memo) => {
 				if (memo.id === id) {
 					const newItem: Item = {
-						t: "新しいメモ",
+						t: t.memoArea.newMemo,
 						x: Math.floor(Math.random() * 300),
 						y: Math.floor(Math.random() * 300),
 						c: 0
@@ -132,7 +130,7 @@ export const Memo: React.FC<Props> = (props: Props) => {
 	return (
 		<>
 			<Button ref={btnRef} onClick={onOpen} borderRadius={2} size={"xs"} colorScheme="whatsapp" ml={4}>
-				メモ
+				Memo
 			</Button>
 			<Modal isOpen={isOpen} onClose={onClose} finalFocusRef={btnRef} size={"full"}>
 				<ModalOverlay />
@@ -270,10 +268,10 @@ export const Memo: React.FC<Props> = (props: Props) => {
 					<ModalFooter>
 						<HStack>
 							<Button onClick={() => add()} colorScheme={"teal"}>
-								付箋を追加
+								{t.memoArea.addMemo}
 							</Button>
 							<Button onClick={onClose} colorScheme={"gray"}>
-								とじる
+								{t.memoArea.close}
 							</Button>
 						</HStack>
 					</ModalFooter>

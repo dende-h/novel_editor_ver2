@@ -1,13 +1,14 @@
 import Head from "next/head";
 import Link from "next/link";
 import { Box, Heading, VStack, Text } from "@chakra-ui/react";
+import { useLocale } from "../hooks/useLocale";
 
 export default function Error() {
+	const { t } = useLocale();
 	return (
 		<>
 			<Head>
 				<title>Error</title>
-				<meta name="description" content="問い合わせの送信が失敗しました" />
 			</Head>
 
 			<Box textAlign="center" marginTop={"50px"} h={"90vh"}>
@@ -15,8 +16,8 @@ export default function Error() {
 					<Heading as="h1" fontSize="3xl" mb="4">
 						Error!
 					</Heading>
-					<Text>送信エラーが発生しました。</Text>
-					<Text>暫く経ってからお問い合わせください。</Text>
+					<Text>{t.errorPage.error}</Text>
+					<Text>{t.errorPage.afterShortTime}</Text>
 					<Box>
 						<Link href="/" color="blue.500">
 							Back to Home

@@ -6,6 +6,7 @@ import { userName } from "../globalState/atoms/userName";
 import { supabase } from "../../lib/supabaseClient";
 import { useToastTemplate } from "../hooks/useToastTemplate";
 import NovelCard from "../components/publishedNovel/NovelCard";
+import { useLocale } from "../hooks/useLocale";
 
 export type FeatchData = {
 	id: string;
@@ -20,6 +21,7 @@ export type NovelId = {
 };
 
 export default function Published() {
+	const { t } = useLocale();
 	const [isLoading, setIsLoading] = useState(false);
 	const name = useRecoilValue(userName);
 	const toast = useToastTemplate();
@@ -38,14 +40,14 @@ export default function Published() {
 				const { data, error } = await supabase.from("comments").select("novel_id");
 				setNovelId(data);
 			} catch (error) {
-				toast.praimaryErrorToast("データの取得に失敗しました");
+				toast.praimaryErrorToast(t.published.dataFetchFailure);
 				setNovelData([]);
 				setNovelId([]);
 				setIsLoading(false);
 				return Promise.reject(error);
 			}
 		} catch (error) {
-			toast.praimaryErrorToast("データの取得に失敗しました");
+			toast.praimaryErrorToast(t.published.dataFetchFailure);
 			setNovelData([]);
 			setNovelId([]);
 			setIsLoading(false);
@@ -63,8 +65,8 @@ export default function Published() {
 	return (
 		<>
 			<Seo
-				pageTitle="投稿済みの小説"
-				pageDescription="投稿済みのステータスを閲覧できます"
+				pageTitle={t.published.noPublishedNovels}
+				pageDescription={t.published.viewPublishedStatus}
 				pagePath="https://novel-editor-ver2.vercel.app/published"
 				pageImg={null}
 				pageImgWidth="1200"
@@ -72,7 +74,7 @@ export default function Published() {
 			/>
 			<Box p="6" w="100%" h={"90vh"} overflowY={"scroll"}>
 				<Heading as="h1" size="lg" textAlign={"center"}>
-					投稿済みの小説一覧
+					{t.published.publishedNovelsList}
 				</Heading>
 				{isLoading ? (
 					<Center p={6}>
@@ -81,7 +83,7 @@ export default function Published() {
 				) : novelData.length < 1 ? (
 					<Center p={6}>
 						<Heading as="h3" size="md">
-							投稿済みの小説はありません
+							{t.published.noPublishedNovels}
 						</Heading>
 					</Center>
 				) : (

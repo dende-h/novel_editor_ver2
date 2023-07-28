@@ -21,8 +21,10 @@ import { useSetRecoilState } from "recoil";
 import { passWord } from "../../globalState/atoms/passWord";
 import { useCalcCharCount } from "../../hooks/useCalcCharCount";
 import { useInput } from "../../hooks/useInput";
+import { useLocale } from "../../hooks/useLocale";
 
 export const ChangePassWordModal = memo(() => {
+	const { t } = useLocale();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	const inputfontColor = useColorModeValue("gray.700", "gray.700");
@@ -46,11 +48,11 @@ export const ChangePassWordModal = memo(() => {
 		setIsValid(isValid);
 
 		if (!isLongEnough) {
-			setErrorMessage("パスワードは8文字以上必要です");
+			setErrorMessage(t.setPassword.mess1);
 		} else if (!isAlphanumeric) {
-			setErrorMessage("パスワードは半角英数字である必要があります");
+			setErrorMessage(t.setPassword.mess2);
 		} else if (!containsNumberAndLetter) {
-			setErrorMessage("パスワードは英字と数字を少なくとも1つずつ含む必要があります");
+			setErrorMessage(t.setPassword.mess3);
 		} else {
 			setErrorMessage("");
 		}
@@ -61,7 +63,7 @@ export const ChangePassWordModal = memo(() => {
 			setValue("");
 			onClose();
 		} else {
-			alert("パスワードは半角英数字で8文字以上必要です");
+			alert(t.setPassword.alert);
 		}
 	};
 
@@ -83,13 +85,13 @@ export const ChangePassWordModal = memo(() => {
 				fontSize={{ base: "xs", md: "sm", lg: "lg" }}
 				margin={1}
 			>
-				パスワードの変更
+				{t.setPassword.button}
 			</Button>
 			<Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onCloseModal} size={"3xl"}>
 				<ModalOverlay />
 				<ModalContent backgroundColor={backgroundColor} borderRadius={"md"} border={"1px"} boxShadow={"lg"}>
 					<ModalHeader fontSize={"lg"} fontWeight={"bold"}>
-						パスワードを変更する
+						{t.setPassword.header}
 					</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody pb={6} paddingTop={"0"}>
@@ -98,7 +100,7 @@ export const ChangePassWordModal = memo(() => {
 								<FormControl isInvalid={!isValid && charCount > 0}>
 									<Input
 										_focus={{ backgroundColor: isValid ? "green.100" : "red.100", boxShadow: "none" }}
-										placeholder={"半角英数8文字以上"}
+										placeholder={t.setPassword.placeholder}
 										onChange={onChangeInputFormWithValidation}
 										maxLength={maxLength}
 										w={"300px"}
@@ -116,10 +118,10 @@ export const ChangePassWordModal = memo(() => {
 					</ModalBody>
 					<ModalFooter>
 						<Button colorScheme="blue" mr={3} onClick={onSave} isDisabled={!isValid || charCount === 0}>
-							保存
+							{t.setPassword.save}
 						</Button>
 						<Button onClick={onCloseModal} variant={"ghost"} _hover={{ bg: buttonHoverBgColor }}>
-							キャンセル
+							{t.setPassword.cancel}
 						</Button>
 					</ModalFooter>
 				</ModalContent>

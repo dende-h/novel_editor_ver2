@@ -36,8 +36,10 @@ import { memoState } from "../globalState/atoms/memoState";
 import { hash, compare } from "bcryptjs";
 import { CheckPassWordModal } from "../components/backup/CheckPassModal";
 import { sentenceListAtoms } from "../globalState/atoms/sentenceListAtoms";
+import { useLocale } from "../hooks/useLocale";
 
 export default function BackUP() {
+	const { t } = useLocale();
 	//バックアップする永続化中の状態のsetStateを定義
 	const setDrafts = useSetRecoilState(drafts);
 	const setDraftsJson = useSetRecoilState(draftsJson);
@@ -159,8 +161,8 @@ export default function BackUP() {
 	return (
 		<>
 			<Seo
-				pageTitle="バックアップと復元"
-				pageDescription="小説のバックアップと復元ができます"
+				pageTitle={t.backUp.backupAndRestore}
+				pageDescription={t.backUp.novelBackupRestore}
 				pagePath="https://novel-editor-ver2.vercel.app/profile"
 				pageImg={null}
 				pageImgWidth="1200"
@@ -171,22 +173,22 @@ export default function BackUP() {
 					<VStack spacing={8}>
 						<Box>
 							<Text fontSize="lg" fontWeight="bold" color={textColor}>
-								ペンネーム
+								{t.backUp.penName}
 							</Text>
 							<Box bg={boxColor} p={4} borderRadius="md" shadow="md" minW={"300px"}>
 								<Text fontSize="lg" fontWeight="bold" color={textColor} textAlign="center">
-									{name === "Ghost Writer" ? "名前を設定してください" : name}
+									{name === "Ghost Writer" ? t.backUp.setName : name}
 								</Text>
 							</Box>
 							<Box textAlign={"end"}>{isPublished ? undefined : <ChangeUserNameModal />}</Box>
 						</Box>
 						<Box>
 							<Text fontSize="lg" fontWeight="bold" color={textColor}>
-								バックアップ用パスワード
+								{t.backUp.backupPassword}
 							</Text>
 							<Box bg={boxColor} p={4} borderRadius="md" shadow="md" minW={"300px"}>
 								<Text fontSize="lg" fontWeight="bold" color={pass ? "teal.500" : "red.500"} textAlign="center">
-									{pass ? "パスワード設定済み" : "パスワード未設定"}
+									{pass ? t.backUp.passwordSet : t.backUp.passwordNotSet}
 								</Text>
 							</Box>
 
@@ -194,11 +196,11 @@ export default function BackUP() {
 								{isLoading ? <Spinner /> : pass === null ? <ChangePassWordModal /> : <CheckPassWordModal />}
 							</Box>
 							<Text fontSize={"11px"} color="red.500">
-								※パスワードを忘れた場合復元が出来なくなります。必ず控えを取っておいてください
+								{t.backUp.forgotPasswordNote}
 								<br />
-								※バックアップデータが表示されない場合は再度データ取得してください
+								{t.backUp.dataRetrieveNote}
 								<br />
-								※パスワードが一致しないデータは取得されません
+								{t.backUp.passwordMismatchNote}
 							</Text>
 						</Box>
 						<Button
@@ -208,7 +210,7 @@ export default function BackUP() {
 							isLoading={isLoading}
 							onClick={fetchData}
 						>
-							データを取得する
+							{t.backUp.getData}
 						</Button>
 						<Button
 							minW={"300px"}
@@ -217,7 +219,7 @@ export default function BackUP() {
 							isLoading={isLoading}
 							onClick={onClickBackUpButton}
 						>
-							バックアップする
+							{t.backUp.backup}
 						</Button>
 					</VStack>
 					{isLoading ? (
@@ -227,7 +229,7 @@ export default function BackUP() {
 					) : (
 						<>
 							<Text as={"h2"} fontWeight={"bold"} fontSize={"xl"} textAlign="center" mt={6}>
-								バックアップリスト
+								{t.backUp.backupList}
 							</Text>
 							<Divider w={{ base: "300px", md: "550px" }} mx={"auto"} my={2} />
 							<Box flex="1">

@@ -6,12 +6,14 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { SentenceList } from "./SentenceList";
 import { isClientState } from "../../../globalState/atoms/isClientState";
 import translate, { Parameters } from "deepl";
+import { useLocale } from "../../../hooks/useLocale";
 
 type Props = {
 	id: string;
 };
 
 export const TranslateWordList = (props: Props) => {
+	const { t } = useLocale();
 	const { id } = props;
 	const isClient = useRecoilValue(isClientState);
 	const [sentence, setSentence] = useState("");
@@ -63,7 +65,7 @@ export const TranslateWordList = (props: Props) => {
 						<Input
 							value={sentence}
 							onChange={handleSentenceChange}
-							placeholder="翻訳ワードを入力(70文字まで)"
+							placeholder={t.translate.enterword}
 							size="md"
 							maxLength={70}
 						/>
@@ -72,7 +74,7 @@ export const TranslateWordList = (props: Props) => {
 							onClick={() => handleAddSentence(sentence)}
 							isDisabled={sentence.trim().length === 0}
 						>
-							ワードを追加
+							{t.translate.add}
 						</Button>
 						<SentenceList id={id} sentences={sentences} onRemove={handleRemoveSentence} onPlay={handlePlaySentence} />
 					</>

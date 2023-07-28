@@ -13,6 +13,7 @@ import {
 	FormErrorMessage
 } from "@chakra-ui/react";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import { useLocale } from "../hooks/useLocale";
 
 type FormValues = {
 	name: string;
@@ -22,6 +23,7 @@ type FormValues = {
 };
 
 export default function Contact() {
+	const { t } = useLocale();
 	const router = useRouter();
 	const {
 		register,
@@ -61,8 +63,8 @@ export default function Contact() {
 	return (
 		<>
 			<Seo
-				pageTitle="問い合わせフォーム"
-				pageDescription="管理人への問い合わせメールを送信できます"
+				pageTitle={t.contact.inquiryForm}
+				pageDescription={t.contact.sendInquiryToAdmin}
 				pagePath="https://novel-editor-ver2.vercel.app/contact"
 				pageImg={null}
 				pageImgWidth="1200"
@@ -71,7 +73,7 @@ export default function Contact() {
 			<Box p="6" w="100%" h={"90vh"}>
 				<VStack spacing="6">
 					<Heading as="h1" size="xl">
-						コンタクトフォーム
+						{t.contact.contactForm}
 					</Heading>
 					<form onSubmit={onSubmit}>
 						<VStack align="stretch" spacing="4">
@@ -130,7 +132,7 @@ export default function Contact() {
 								<Textarea
 									id="message"
 									name="message"
-									placeholder="お問い合わせ内容を入力してください"
+									placeholder={t.contact.pleaseEnterInquiry}
 									{...register("message")}
 									size="lg"
 									variant="filled"
@@ -147,7 +149,7 @@ export default function Contact() {
 								w={{ base: "100%", lg: "auto" }}
 								alignSelf={{ base: "center", lg: "flex-end" }}
 							>
-								送信
+								{t.contact.submit}
 							</Button>
 						</VStack>
 					</form>

@@ -49,7 +49,7 @@ export const useDraft = () => {
 		};
 		const newDraft: draftObject = {
 			id: id,
-			title: "無題",
+			title: "untitled",
 			body: "",
 			userName: defaultUserName,
 			isSelected: true,
@@ -73,8 +73,8 @@ export const useDraft = () => {
 			{
 				id: id,
 				memoList: {
-					item1: { t: "クリックで編集", x: 100, y: 100, c: 0 },
-					item2: { t: "ドラッグ＆ドロップで移動", x: 200, y: 200, c: 0 }
+					item1: { t: "Click to edit", x: 100, y: 100, c: 0 },
+					item2: { t: "Move by drag & drop", x: 200, y: 200, c: 0 }
 				}
 			}
 		]);
@@ -110,8 +110,8 @@ export const useDraft = () => {
 					{
 						id: draftId,
 						memoList: {
-							item1: { t: "クリックで編集", x: 100, y: 100, c: 0 },
-							item2: { t: "ドラッグ＆ドロップで移動", x: 200, y: 200, c: 0 }
+							item1: { t: "Click to edit", x: 100, y: 100, c: 0 },
+							item2: { t: "Move by drag & drop", x: 200, y: 200, c: 0 }
 						}
 					}
 				]);

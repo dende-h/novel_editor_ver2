@@ -18,26 +18,27 @@ import {
 } from "@chakra-ui/react";
 import { memo } from "react";
 import { CheckIcon } from "@chakra-ui/icons";
-import { infoEpubGen } from "../../constant/constant";
+import { infoEpubGen, infoEpubGenForEn } from "../../constant/constant";
+import { useLocale } from "../../hooks/useLocale";
 
 export const InfoForEpubGen = memo(() => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-
+	const { locale, t } = useLocale();
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	const buttonHoverBgColor = useColorModeValue("gray.300", "gray.500");
-	const items = infoEpubGen;
+	const items = locale === "ja" ? infoEpubGen : infoEpubGenForEn;
 
 	return (
 		<>
 			<Box>
 				<Text as="a" onClick={() => onOpen()} color="red" _hover={{ cursor: "pointer" }}>
-					《必ずお読みください》電子書籍の出力に際しての注意事項
+					{t.infoForEpubGen.readFirst}
 				</Text>
 
 				<Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose} size={"3xl"}>
 					<ModalOverlay />
 					<ModalContent backgroundColor={backgroundColor}>
-						<ModalHeader>電子書籍ダウンロードの注意点</ModalHeader>
+						<ModalHeader>{t.infoForEpubGen.bookDownloadNotes}</ModalHeader>
 						<ModalCloseButton />
 						<ModalBody p={6}>
 							<Box>
@@ -62,7 +63,7 @@ export const InfoForEpubGen = memo(() => {
 						</ModalBody>
 						<ModalFooter>
 							<Button onClick={onClose} variant={"ghost"} _hover={{ bg: buttonHoverBgColor }} colorScheme={"red"}>
-								閉じる
+								{t.infoForEpubGen.close}
 							</Button>
 						</ModalFooter>
 					</ModalContent>

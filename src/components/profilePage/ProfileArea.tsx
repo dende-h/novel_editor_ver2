@@ -15,7 +15,6 @@ import {
 	Tooltip,
 	Textarea
 } from "@chakra-ui/react";
-import Head from "next/head";
 import Link from "next/link";
 import { memo } from "react";
 import { useRecoilValue } from "recoil";
@@ -25,12 +24,14 @@ import { lastPublishedTime } from "../../globalState/atoms/lastPublishedTime";
 import { userName } from "../../globalState/atoms/userName";
 import { profileItem } from "../../globalState/selector/profileItem";
 import { publishSettingsDraftsSelector } from "../../globalState/selector/publishSettingsDraftsSelector";
+import { useLocale } from "../../hooks/useLocale";
 import { useNovelPublished } from "../../hooks/useNovelPublished";
 import { useUserIntroductionInput } from "../../hooks/useUserIntroductionInput";
 import { ChangeUserNameModal } from "./ChangeUserNameModal";
 import { UploadProfileImageModal } from "./UploadProfileImageModal";
 
 export const ProfileArea = memo(() => {
+	const { t } = useLocale();
 	const isClient = useRecoilValue(isClientState);
 	const userPenName = useRecoilValue(userName);
 	const profileArray = useRecoilValue(profileItem);
@@ -43,15 +44,10 @@ export const ProfileArea = memo(() => {
 
 	return (
 		<>
-			<Head>
-				<title>ユーザープロフィール</title>
-				<meta name="description" content="ユーザープロフィール" />
-			</Head>
 			{isClient ? (
 				<Box textAlign={"center"} paddingY={4} h={"90vh"} w={"100%"} overflow={"scroll"}>
 					<Divider borderWidth="2px" w={"auto"} />
 					<Divider marginTop={1} marginLeft={0.5} w={"auto"} />
-
 					<Heading
 						w={"100%"}
 						textOverflow={"ellipsis"}
@@ -59,14 +55,14 @@ export const ProfileArea = memo(() => {
 						whiteSpace={"nowrap"}
 						fontSize={{ base: "md", md: "xl", lg: "2xl" }}
 					>
-						{userPenName}の書斎
+						{userPenName}
+						{t.profileArea.studyRoomSuffix}
 					</Heading>
-
 					<Divider marginBottom={1} marginLeft={0.5} w={"auto"} />
 					<Divider borderWidth="2px" w={"auto"} />
 					{isPublished ? (
 						<Text color={"red"} fontSize={{ base: "sm", md: "md", lg: "lg" }}>
-							小説公開中ペンネームは変更できません
+							{t.profileArea.cannotChangePenname}
 						</Text>
 					) : (
 						<Box ml={"60%"}>
@@ -88,7 +84,7 @@ export const ProfileArea = memo(() => {
 								>
 									<CardBody height="100%" p={{ base: "11px", lg: "auto" }}>
 										<Flex alignItems="center">
-											{item.heading === "公開済み原稿数:" ? (
+											{item.heading === "Published" ? (
 												<Link href={"/published"} passHref>
 													<Heading
 														as={"a"}
@@ -126,13 +122,13 @@ export const ProfileArea = memo(() => {
 						<Card w={{ base: "300px", md: "400px", lg: "500px" }} h={"auto"} backgroundColor={backgroundColor}>
 							<CardBody>
 								<Heading as={"h5"} fontSize={"sm"}>
-									{`自己紹介(${textValue.length}/200文字)`}
+									{`${t.profileArea.selfIntroduction}(${textValue.length}/${t.profileArea.twoHundredCharacters})`}
 								</Heading>
 
 								<Textarea
 									value={textValue}
 									onChange={onChangeTextArea}
-									placeholder={isPublished || "クリックで編集可能です"}
+									placeholder={isPublished || t.profileArea.clickToEdit}
 									maxLength={200}
 									fontSize={"sm"}
 									border="none"
@@ -142,7 +138,7 @@ export const ProfileArea = memo(() => {
 								/>
 								{isPublished && (
 									<Text color={"red.500"} position={"absolute"} top={"50%"} left={"30%"}>
-										公開中は編集できません
+										{t.profileArea.cannotEditWhilePublishing}
 									</Text>
 								)}
 							</CardBody>
@@ -155,7 +151,7 @@ export const ProfileArea = memo(() => {
 					) : (
 						<Box textAlign={"center"} marginTop={5}>
 							{isPublished ? (
-								<Tooltip label={"公開設定を同期します"} placement="top">
+								<Tooltip label={t.profileArea.synchronizePublicSettings} placement="top">
 									<Button
 										colorScheme={"teal"}
 										size={{ base: "xs", md: "sm", lg: "md" }}
@@ -164,12 +160,12 @@ export const ProfileArea = memo(() => {
 										isDisabled={isLoading}
 										margin={2}
 									>
-										追加更新
+										{t.profileArea.updateAddition}
 									</Button>
 								</Tooltip>
 							) : undefined}
 							{isPublished ? (
-								<Tooltip label={"小説の公開を停止できます"} placement="top">
+								<Tooltip label={t.profileArea.canStopPublishing} placement="top">
 									<Button
 										colorScheme={"red"}
 										size={{ base: "xs", md: "sm", lg: "md" }}
@@ -178,7 +174,7 @@ export const ProfileArea = memo(() => {
 										isDisabled={isLoading}
 										margin={2}
 									>
-										{"公開を停止"}
+										{t.profileArea.stopPublishing}
 									</Button>
 								</Tooltip>
 							) : (
@@ -190,31 +186,29 @@ export const ProfileArea = memo(() => {
 									isDisabled={publishedDrafts.length === 0 || userPenName === "Ghost Writer"}
 									margin={2}
 								>
-									{"小説を投稿"}
+									{t.profileArea.postNovel}
 								</Button>
 							)}
-							<Text>{isPublished ? `最終更新日時：${timeStamp}` : timeStamp}</Text>
+							<Text>{isPublished ? `${t.profileArea.lastUpdated}${timeStamp}` : timeStamp}</Text>
 							{isPublished ? (
 								<>
 									<Text color={"green.500"} fontSize={{ base: "xs", md: "sm", lg: "lg" }}>
-										追加更新で新しい変更をWEBサイトに同期します
+										{t.profileArea.synchronizeNewChanges}
 									</Text>
 									<Text color={"red.500"} fontSize={{ base: "xs", md: "sm", lg: "lg" }}>
-										公開停止で全ての公開を停止します
+										{t.profileArea.stopAllPublishing}
 									</Text>
 								</>
 							) : (
 								<>
 									<Text color={"red.500"} fontSize={{ base: "xs", md: "sm", lg: "lg" }}>
-										既に同じペンネームでの投稿がある場合は投稿できません
+										{t.profileArea.cannotChangePenname}
 									</Text>
 									<Text
 										color={publishedDrafts.length === 0 ? "red.500" : "green.500"}
 										fontSize={{ base: "xs", md: "sm", lg: "lg" }}
 									>
-										{publishedDrafts.length === 0
-											? "公開設定済みの小説がありません"
-											: "公開設定済みの小説を公開できます"}
+										{publishedDrafts.length === 0 ? t.profileArea.noNovelsToPublish : t.profileArea.canPublishNovels}
 									</Text>
 								</>
 							)}

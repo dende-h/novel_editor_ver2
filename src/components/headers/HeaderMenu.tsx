@@ -2,8 +2,10 @@ import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import { Menu, MenuButton, Button, MenuList, MenuItem, useColorModeValue } from "@chakra-ui/react";
 import Link from "next/link";
 import { memo } from "react";
+import { useLocale } from "../../hooks/useLocale";
 
 export const HeaderMenu = memo(() => {
+	const { t } = useLocale();
 	const headerMenuHoverColor = useColorModeValue("gray.500", "gray.700");
 	const headerBgColor = useColorModeValue("gray.300", "gray.700");
 
@@ -18,7 +20,8 @@ export const HeaderMenu = memo(() => {
 						borderRadius="md"
 						_hover={{ bg: "gray.500", color: "white" }}
 						_active={{ bg: "gray.500", color: "white" }}
-						size={"sm"}
+						size={{ base: "xs", md: "sm" }}
+						my={"auto"}
 					>
 						{isOpen ? "Close" : "Menu"}
 					</MenuButton>
@@ -32,22 +35,22 @@ export const HeaderMenu = memo(() => {
 					>
 						<Link href={"/"} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								原稿編集
+								{t.headerMenu.manuscriptList}
 							</MenuItem>
 						</Link>
 						<Link href={"/profile"} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								実績・投稿
+								{t.headerMenu.profileAndAchievements}
 							</MenuItem>
 						</Link>
 						<Link href={"/drafts"} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								原稿の閲覧
+								{t.headerMenu.verticalReading}
 							</MenuItem>
 						</Link>
 						<Link href={"https://next-novel-site.vercel.app/"} passHref target="_blank" rel="noopener noreferrer">
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								Lit:Bite
+								{t.headerMenu.litBite}
 							</MenuItem>
 						</Link>
 						<Link
@@ -57,18 +60,18 @@ export const HeaderMenu = memo(() => {
 							rel="noopener noreferrer"
 						>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								創作支援ブログ
+								{t.headerMenu.creativeSupportBlog}
 							</MenuItem>
 						</Link>
 
 						<Link href={"/contact"} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								お問い合わせフォーム
+								{t.headerMenu.contactForm}
 							</MenuItem>
 						</Link>
 						<Link href={"/backup"} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								バックアップと復元
+								{t.headerMenu.backupAndRestore}
 							</MenuItem>
 						</Link>
 						<Link
@@ -80,22 +83,22 @@ export const HeaderMenu = memo(() => {
 							rel="noopener noreferrer"
 						>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								使い方
+								{t.headerMenu.howToUse}
 							</MenuItem>
 						</Link>
 						<Link href={"/epubgen"} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								電子書籍に出力(EPUB)
+								{t.headerMenu.exportToEPUB}
 							</MenuItem>
 						</Link>
 						<Link href={"/textlint"} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								自動校正ツール
+								{t.headerMenu.autoCorrectionTool}
 							</MenuItem>
 						</Link>
 						<Link href={"/developer"} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								開発者紹介
+								{t.headerMenu.developerIntro}
 							</MenuItem>
 						</Link>
 					</MenuList>

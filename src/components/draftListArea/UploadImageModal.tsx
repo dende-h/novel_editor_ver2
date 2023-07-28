@@ -26,9 +26,11 @@ import Dropzone, { FileWithPath } from "react-dropzone";
 import { supabase } from "../../../lib/supabaseClient";
 import Image from "next/image";
 import { useDraft } from "../../hooks/useDraft";
+import { useLocale } from "../../hooks/useLocale";
 
 //画像を追加するためのフォームモーダル
 export const UploadImageModal = memo(() => {
+	const { t } = useLocale();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const displayDraft = useRecoilValue(editorState);
 	const [uploading, setUploading] = useState(false);
@@ -120,7 +122,7 @@ export const UploadImageModal = memo(() => {
 				<Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose} size={"3xl"}>
 					<ModalOverlay />
 					<ModalContent backgroundColor={backgroundColor}>
-						<ModalHeader>サムネイル画像の追加</ModalHeader>
+						<ModalHeader>{t.uploadImageModal.addImage}</ModalHeader>
 						<ModalCloseButton />
 						<ModalBody pb={6}>
 							{displayDraft?.isImageUpload ? (
@@ -164,9 +166,9 @@ export const UploadImageModal = memo(() => {
 												) : (
 													<>
 														<input {...getInputProps()} />
-														<Heading size="md">画像をドラッグ＆ドロップ</Heading>
+														<Heading size="md">{t.uploadImageModal.dragAndDrop}</Heading>
 														<Box mt={4}>
-															<Button size="sm">ファイルを選択</Button>
+															<Button size="sm">{t.uploadImageModal.choice}</Button>
 														</Box>
 													</>
 												)}
@@ -175,16 +177,16 @@ export const UploadImageModal = memo(() => {
 									</Dropzone>
 								</Container>
 							)}
-							<Text color={"red"}>※ファイル名に記号やカナを使っている場合失敗することがあります。</Text>
+							<Text color={"red"}>{t.uploadImageModal.redText}</Text>
 						</ModalBody>
 						<ModalFooter>
 							{displayDraft?.isImageUpload && (
 								<Button onClick={handleRemove} variant={"ghost"} _hover={{ bg: buttonHoverBgColor }}>
-									削除
+									{t.uploadImageModal.delete}
 								</Button>
 							)}
 							<Button onClick={onClose} variant={"ghost"} _hover={{ bg: buttonHoverBgColor }}>
-								キャンセル
+								{t.uploadImageModal.cancel}
 							</Button>
 						</ModalFooter>
 					</ModalContent>

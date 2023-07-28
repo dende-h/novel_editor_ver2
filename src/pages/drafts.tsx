@@ -7,8 +7,10 @@ import { DraftViweModal } from "../components/draftViewArea/DraftViweModal";
 import { TagSearchBar } from "../components/draftViewArea/TagSearchBar";
 import { viweDraftsSelector } from "../globalState/selector/viweDraftsSelector";
 import Seo from "../components/util/Seo";
+import { useLocale } from "../hooks/useLocale";
 
 export default function Drafts() {
+	const { t } = useLocale();
 	const isClient = useRecoilValue(isClientState);
 	const drafts = useRecoilValue(lastEditedTimeSort);
 	const searchTagsDrafts = useRecoilValue(viweDraftsSelector);
@@ -16,8 +18,8 @@ export default function Drafts() {
 	return (
 		<>
 			<Seo
-				pageTitle="原稿一覧ページ"
-				pageDescription="書いた小説を縦書きビューワーで読むことができます。ルビ記法のルビが反映されます。"
+				pageTitle={t.drafts.draftsPage}
+				pageDescription={t.drafts.draftsPageDescription}
 				pagePath="https://novel-editor-ver2.vercel.app/drafts"
 				pageImg={null}
 				pageImgWidth="1200"

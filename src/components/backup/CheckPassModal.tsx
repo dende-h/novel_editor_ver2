@@ -17,18 +17,20 @@ import {
 	FormErrorMessage
 } from "@chakra-ui/react";
 import { memo, useEffect, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { passWord } from "../../globalState/atoms/passWord";
 import { useCalcCharCount } from "../../hooks/useCalcCharCount";
 import { useInput } from "../../hooks/useInput";
+import { useLocale } from "../../hooks/useLocale";
 import { ChangePassWordModal } from "./ChangePassWordModal";
 
 export const CheckPassWordModal = memo(() => {
+	const { t } = useLocale();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	const inputfontColor = useColorModeValue("gray.700", "gray.700");
 	const buttonHoverBgColor = useColorModeValue("gray.300", "gray.500");
-	const setPass = useSetRecoilState(passWord);
+
 	const { onChangeInputForm, value, setValue } = useInput();
 	const { calcCharCount, charCount } = useCalcCharCount();
 	const pass = useRecoilValue(passWord);
@@ -45,7 +47,7 @@ export const CheckPassWordModal = memo(() => {
 		setIsValid(isValid);
 
 		if (!isValid) {
-			setErrorMessage("現在のパスワードと一致しません");
+			setErrorMessage(t.checkPassword.errorMess);
 		} else {
 			setErrorMessage("");
 		}
@@ -69,13 +71,13 @@ export const CheckPassWordModal = memo(() => {
 				fontSize={{ base: "xs", md: "sm", lg: "lg" }}
 				margin={1}
 			>
-				パスワードの変更
+				{t.checkPassword.button}
 			</Button>
 			<Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onCloseModal} size={"3xl"}>
 				<ModalOverlay />
 				<ModalContent backgroundColor={backgroundColor} borderRadius={"md"} border={"1px"} boxShadow={"lg"}>
 					<ModalHeader fontSize={"lg"} fontWeight={"bold"}>
-						現在のパスワード確認
+						{t.checkPassword.header}
 					</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody pb={6} paddingTop={"0"}>
@@ -84,7 +86,7 @@ export const CheckPassWordModal = memo(() => {
 								<FormControl isInvalid={!isValid && charCount > 0}>
 									<Input
 										_focus={{ backgroundColor: isValid ? "green.100" : "red.100", boxShadow: "none" }}
-										placeholder={"現在のパスワードを入力してください"}
+										placeholder={t.checkPassword.placeholder}
 										onChange={onChangeInputFormWithValidation}
 										maxLength={maxLength}
 										w={"300px"}
@@ -103,7 +105,7 @@ export const CheckPassWordModal = memo(() => {
 					<ModalFooter>
 						{isValid && <ChangePassWordModal />}
 						<Button onClick={onCloseModal} variant={"ghost"} _hover={{ bg: buttonHoverBgColor }}>
-							キャンセル
+							{t.checkPassword.cancel}
 						</Button>
 					</ModalFooter>
 				</ModalContent>

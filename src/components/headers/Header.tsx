@@ -1,4 +1,4 @@
-import { Box, Center, Flex, Heading, HStack, useColorModeValue } from "@chakra-ui/react";
+import { Box, Flex, Heading, useColorModeValue } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { memo } from "react";
@@ -10,10 +10,14 @@ import { HeaderMenu } from "./HeaderMenu";
 
 //ヘッダーコンポーネント
 export const Header = memo(() => {
-	const headerBgColor = useColorModeValue("gray.300", "gray.700"); //カラーモードごと背景色
+	const headerBgColor = useColorModeValue("gray.300", "gray.700");
 	const isSelect = useRecoilValue<boolean>(isSelected); //小説がセレクト状態かどうかのフラグ
 	const router = useRouter(); //path判定用にuseRouterを利用
+	// const { i18n } = useTranslation();
 
+	// const changeLanguage = (lng) => {
+	// 	i18n.changeLanguage(lng);
+	// };
 	return (
 		<>
 			<Flex
@@ -39,11 +43,12 @@ export const Header = memo(() => {
 						<Heading
 							as={"h1"}
 							ml={{ lg: "20px" }}
-							fontSize={{ base: "2xl", lg: "3xl" }}
+							fontSize={{ base: "xl", lg: "2xl" }}
 							fontWeight={"light"}
 							_hover={{ opacity: 0.8, cursor: "pointer" }}
 							fontFamily={"heading"}
 							fontStyle={"oblique"}
+							textAlign="left"
 						>
 							Re:terature
 						</Heading>
@@ -51,8 +56,35 @@ export const Header = memo(() => {
 				</Box>
 
 				<Flex>
-					<ColorSwitchButton aria-label={"darkTheme"} mr={1} boxSize={6} borderRadius={"full"} />
-
+					<ColorSwitchButton
+						bg={headerBgColor}
+						aria-label={"darkTheme"}
+						mr={1}
+						boxSize={7}
+						borderRadius={"full"}
+						_hover={{ bg: "gray.500", color: "gray.200" }}
+						my={"auto"}
+					/>
+					{/* <Select
+						_hover={{ bg: "gray.500", color: "gray.200" }}
+						fontWeight="bold"
+						borderRadius="md"
+						border={"none"}
+						bg={headerBgColor}
+						w={{ base: "85px", md: "97px" }}
+						mr={1}
+						size={{ base: "xs", md: "sm" }}
+						onChange={(e) => {
+							changeLanguage(e.target.value);
+						}}
+					>
+						<option color={selectValueColor} value={"ja"}>
+							lang/Ja
+						</option>
+						<option color={selectValueColor} value={"en"}>
+							lang/En
+						</option>
+					</Select> */}
 					<HeaderMenu />
 				</Flex>
 

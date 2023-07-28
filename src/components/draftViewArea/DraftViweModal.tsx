@@ -14,8 +14,7 @@ import {
 	useColorModeValue,
 	useDisclosure,
 	VStack,
-	Tooltip,
-	useBreakpointValue
+	Tooltip
 } from "@chakra-ui/react";
 import { FC, memo } from "react";
 import { draftObject } from "../../globalState/selector/editorState";
@@ -36,7 +35,6 @@ export const DraftViweModal: FC<Pick<draftObject, "title" | "body">> = memo(({ t
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	const textBackgroundColor = useColorModeValue("gray.100", "gray.500");
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const isSmallScreen = useBreakpointValue({ base: true, md: false });
 
 	return (
 		<>

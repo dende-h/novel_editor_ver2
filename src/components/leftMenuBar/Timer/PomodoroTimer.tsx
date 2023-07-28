@@ -140,7 +140,7 @@ export const PomodoroTimer = memo(() => {
 			</Text>
 
 			<Box display="flex" justifyContent="center" alignItems="center">
-				<Tooltip label={"スタートタイマー"} placement={"right-end"}>
+				<Tooltip label={"Timer start"} placement={"right-end"}>
 					<IconButton
 						aria-label="startTimer"
 						icon={<BsFillPlayCircleFill />}
@@ -151,7 +151,7 @@ export const PomodoroTimer = memo(() => {
 						onClick={startTimer}
 					/>
 				</Tooltip>
-				<Tooltip label={"タイマーストップ"} placement={"right-end"}>
+				<Tooltip label={"Timer stop"} placement={"right-end"}>
 					<IconButton
 						aria-label="stopTimer"
 						icon={<BsPauseCircleFill />}
@@ -162,7 +162,7 @@ export const PomodoroTimer = memo(() => {
 						onClick={stopTimer}
 					/>
 				</Tooltip>
-				<Tooltip label={"タイマーリセット"} placement={"right-end"}>
+				<Tooltip label={"Timer reset"} placement={"right-end"}>
 					<IconButton
 						aria-label="resetTimer"
 						icon={<RxReset />}
@@ -173,7 +173,7 @@ export const PomodoroTimer = memo(() => {
 						onClick={resetTimer}
 					/>
 				</Tooltip>
-				<Tooltip label={isAlarmOn ? "現在アラームがON状態" : "現在アラームがOff状態"} placement={"right-end"}>
+				<Tooltip label={isAlarmOn ? "Alarm is ON" : "Alarm is OFF"} placement={"right-end"}>
 					<IconButton
 						aria-label="togglealarm"
 						icon={isAlarmOn ? <GiSoundOn /> : <GiSoundOff />}
@@ -185,7 +185,7 @@ export const PomodoroTimer = memo(() => {
 					/>
 				</Tooltip>
 				<Box display={isAlarmOn ? "block" : "none"}>
-					<Tooltip label={"アラームを止める"} placement={"right-end"}>
+					<Tooltip label={"Stop Alarm"} placement={"right-end"}>
 						<IconButton
 							aria-label="alarmstop"
 							icon={<BiBellOff />}

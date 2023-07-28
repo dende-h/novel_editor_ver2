@@ -14,21 +14,21 @@ export const Footer = memo(() => {
 					<Link href="/contact" passHref>
 						<Box mr={4}>
 							<Heading as="h4" fontSize="sm">
-								お問い合わせ
+								Contact
 							</Heading>
 						</Box>
 					</Link>
 					<Link href="/policy" passHref>
 						<Box mr={4}>
 							<Heading as="h4" fontSize="sm">
-								プライバシーポリシー
+								Policy
 							</Heading>
 						</Box>
 					</Link>
 					<Link href="/developer" passHref>
 						<Box mr={4}>
 							<Heading as="h4" fontSize="sm">
-								開発者
+								Developer
 							</Heading>
 						</Box>
 					</Link>
