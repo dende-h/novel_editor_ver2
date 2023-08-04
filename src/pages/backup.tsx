@@ -175,7 +175,7 @@ export default function BackUP() {
 							<Text fontSize="lg" fontWeight="bold" color={textColor}>
 								{t.backUp.penName}
 							</Text>
-							<Box bg={boxColor} p={4} borderRadius="md" shadow="md" minW={"300px"}>
+							<Box bg={boxColor} p={4} borderRadius="md" shadow="md" w={{ base: "300px", md: "550px" }}>
 								<Text fontSize="lg" fontWeight="bold" color={textColor} textAlign="center">
 									{name === "Ghost Writer" ? t.backUp.setName : name}
 								</Text>
@@ -186,7 +186,7 @@ export default function BackUP() {
 							<Text fontSize="lg" fontWeight="bold" color={textColor}>
 								{t.backUp.backupPassword}
 							</Text>
-							<Box bg={boxColor} p={4} borderRadius="md" shadow="md" minW={"300px"}>
+							<Box bg={boxColor} p={4} borderRadius="md" shadow="md" w={{ base: "300px", md: "550px" }}>
 								<Text fontSize="lg" fontWeight="bold" color={pass ? "teal.500" : "red.500"} textAlign="center">
 									{pass ? t.backUp.passwordSet : t.backUp.passwordNotSet}
 								</Text>
@@ -195,6 +195,8 @@ export default function BackUP() {
 							<Box textAlign={"end"}>
 								{isLoading ? <Spinner /> : pass === null ? <ChangePassWordModal /> : <CheckPassWordModal />}
 							</Box>
+						</Box>
+						<Box w={{ base: "300px", md: "550px" }}>
 							<Text fontSize={"11px"} color="red.500">
 								{t.backUp.forgotPasswordNote}
 								<br />
