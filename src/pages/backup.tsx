@@ -168,7 +168,7 @@ export default function BackUP() {
 				pageImgWidth="1200"
 				pageImgHeight="630"
 			/>
-			<Box p="6" w="100%" h={"90vh"} overflowY={"scroll"}>
+			<Box p="2" w="100%" h={"90vh"} overflowY={"scroll"}>
 				<Flex direction="column" p={2} w={{ base: "350px", md: "600px" }} marginX={"auto"} h={"100%"}>
 					<VStack spacing={8}>
 						<Box>
