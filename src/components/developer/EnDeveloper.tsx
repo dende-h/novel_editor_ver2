@@ -56,8 +56,8 @@ export const EnDeveloper = () => {
 						<ListItem mb={1}>
 							<Text fontWeight={"bold"}>self-introduction</Text>
 							<Text>
-								I write novels as a hobby. I usually work as an SE in a company. I developed this application so that
-								writers can concentrate on their creative work.
+								I write novels as a hobby. I usually work as an SE in a company. I developed this app to be an
+								easy-to-use novel editor so that writers can concentrate on their writing.
 							</Text>
 							<Text>
 								<Text
@@ -70,6 +70,11 @@ export const EnDeveloper = () => {
 									Submission Novel Sites
 								</Text>
 								We are also developing a new website. You can submit your novels to that site from this application.
+							</Text>
+							<Text>It is not an application for submitting, but for writing a novel.</Text>
+							<Text>
+								Try writing crisply for now, erasing, adjusting the number of letters to practice keeping it to that
+								number, and so on.
 							</Text>
 							<Text>We will do our best to support everyone's creative activities.</Text>
 							<Link href={"https://twitter.com/dendeiriamaka1"} passHref>
