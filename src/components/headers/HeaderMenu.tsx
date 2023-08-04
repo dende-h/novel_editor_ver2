@@ -43,7 +43,7 @@ export const HeaderMenu = memo(() => {
 								{t.headerMenu.profileAndAchievements}
 							</MenuItem>
 						</Link>
-						<Link href={"/drafts"} passHref>
+						<Link href={"/published"} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
 								{t.headerMenu.verticalReading}
 							</MenuItem>

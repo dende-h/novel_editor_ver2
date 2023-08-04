@@ -8,7 +8,8 @@ import {
 	PopoverFooter,
 	IconButton,
 	useDisclosure,
-	useColorModeValue
+	useColorModeValue,
+	Box
 } from "@chakra-ui/react";
 import React from "react";
 import { RiTimerFill } from "react-icons/ri";
@@ -21,37 +22,39 @@ export const TimerPopover = React.forwardRef<HTMLDivElement>((props, ref) => {
 	const bgFooter = useColorModeValue("gray.100", "gray.900");
 
 	return (
-		<Popover isOpen={isOpen} onOpen={onOpen} onClose={onClose} placement="right-start" closeOnBlur={false}>
-			<PopoverTrigger>
-				<IconButton
-					as={"button"}
-					aria-label="PomodoroTimer"
-					icon={<RiTimerFill />}
-					variant="ghost"
-					colorScheme={"twitter"}
-					fontSize="24px"
-					boxSize={10}
-				/>
-			</PopoverTrigger>
+		<Box display={{ base: "none", md: "block" }}>
+			<Popover isOpen={isOpen} onOpen={onOpen} onClose={onClose} placement="bottom-start" closeOnBlur={false}>
+				<PopoverTrigger>
+					<IconButton
+						as={"button"}
+						aria-label="PomodoroTimer"
+						icon={<RiTimerFill />}
+						variant="ghost"
+						colorScheme={"twitter"}
+						fontSize="24px"
+						boxSize={10}
+					/>
+				</PopoverTrigger>
 
-			<Portal>
-				<PopoverContent>
-					<PopoverBody background={bg}>
-						<PomodoroTimer />
-					</PopoverBody>
-					<PopoverFooter background={bgFooter}>
-						<IconButton
-							aria-label="close"
-							icon={<IoIosArrowDropleftCircle />}
-							variant="ghost"
-							colorScheme={"twitter"}
-							fontSize="24px"
-							boxSize={10}
-							onClick={onClose}
-						/>
-					</PopoverFooter>
-				</PopoverContent>
-			</Portal>
-		</Popover>
+				<Portal>
+					<PopoverContent>
+						<PopoverBody background={bg}>
+							<PomodoroTimer />
+						</PopoverBody>
+						<PopoverFooter background={bgFooter}>
+							<IconButton
+								aria-label="close"
+								icon={<IoIosArrowDropleftCircle />}
+								variant="ghost"
+								colorScheme={"twitter"}
+								fontSize="24px"
+								boxSize={10}
+								onClick={onClose}
+							/>
+						</PopoverFooter>
+					</PopoverContent>
+				</Portal>
+			</Popover>
+		</Box>
 	);
 });

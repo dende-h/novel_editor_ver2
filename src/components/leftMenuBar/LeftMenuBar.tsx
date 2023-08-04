@@ -33,7 +33,7 @@ export const LeftMenuBar = memo(() => {
 	const tooltipLabels = [
 		"原稿一覧・執筆",
 		"プロフィール・実績・投稿",
-		"原稿の縦読み閲覧",
+		"公開済みの小説一覧",
 		"Lit:Bite",
 		"創作支援ブログ",
 		"お問い合わせフォーム",
@@ -47,7 +47,7 @@ export const LeftMenuBar = memo(() => {
 	const tooltipLabelsForEn = [
 		"Manuscript List & Writing",
 		"Profile, Achievements & Posting",
-		"Vertical Reading of Manuscripts",
+		"published List",
 		"Lit:Bite",
 		"Creative Writing Blog",
 		"Contact Form",
@@ -61,7 +61,7 @@ export const LeftMenuBar = memo(() => {
 	const path = [
 		"/",
 		"/profile",
-		"/drafts",
+		"/published",
 		"https://next-novel-site.vercel.app/",
 		"https://notion-blog-nextjs-nine.vercel.app/",
 		"/contact",
@@ -82,7 +82,7 @@ export const LeftMenuBar = memo(() => {
 				h={"100%"}
 				display={{ base: "none", lg: "block" }}
 				textAlign={"center"}
-				spacing={6}
+				spacing={2}
 				paddingY={8}
 			>
 				{menuIcons.map((item, index) => {
@@ -106,16 +106,6 @@ export const LeftMenuBar = memo(() => {
 						</Box>
 					);
 				})}
-				<ColorSwitchButton
-					aria-label={"dark-sw"}
-					boxSize={10}
-					borderRadius={"full"}
-					variant="ghost"
-					colorScheme={"teal"}
-				/>
-				<Tooltip label={"PomodoroTimer"} placement={"right-end"}>
-					<TimerPopover />
-				</Tooltip>
 			</VStack>
 		</>
 	);

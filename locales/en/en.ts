@@ -144,7 +144,7 @@ export default {
 	headerMenu: {
 		manuscriptList: "Writing",
 		profileAndAchievements: "Achievements & Posting",
-		verticalReading: "Reading",
+		verticalReading: "Published List",
 		litBite: "Lit:Bite",
 		creativeSupportBlog: "Blog",
 		contactForm: "Contact",

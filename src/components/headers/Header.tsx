@@ -1,10 +1,11 @@
-import { Box, Flex, Heading, useColorModeValue } from "@chakra-ui/react";
+import { Box, Flex, Heading, Tooltip, useColorModeValue } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { memo } from "react";
 import { useRecoilValue } from "recoil";
 import { isSelected } from "../../globalState/atoms/isSelected";
 import { DrawerLeftArea } from "../draftListArea/DrawerLeftArea";
+import { TimerPopover } from "../leftMenuBar/Timer/TimerPopover";
 import { ColorSwitchButton } from "./ColorSwitchButton";
 import { HeaderMenu } from "./HeaderMenu";
 
@@ -56,6 +57,9 @@ export const Header = memo(() => {
 				</Box>
 
 				<Flex>
+					<Tooltip label={"PomodoroTimer"} placement={"right-end"}>
+						<TimerPopover />
+					</Tooltip>
 					<ColorSwitchButton
 						bg={headerBgColor}
 						aria-label={"darkTheme"}

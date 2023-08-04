@@ -142,7 +142,7 @@ export default {
 	headerMenu: {
 		manuscriptList: "執筆",
 		profileAndAchievements: "実績・投稿",
-		verticalReading: "原稿の閲覧",
+		verticalReading: "公開済み一覧",
 		litBite: "Lit:Bite",
 		creativeSupportBlog: "創作支援ブログ",
 		contactForm: "お問い合わせ",
