@@ -26,4 +26,6 @@ See package.json for version
 
 #### Click here to download a sample of the output e-book file.
 
-[Sample e-book file](https://www.dropbox.com/sh/gicqsm08gc07ukb/AAAVZW24DYQpJvGq28HTi5iUa?dl=0)
+[Sample e-book file](https://www.dropbox.com/scl/fi/8tamsxet8q42bad6553lk/Smile-for-you.epub?rlkey=wjft7rl7svd3z9uxxlj7moksh&dl=0)
+
+Must be downloaded and viewed with an e-reader that supports EPUB format
