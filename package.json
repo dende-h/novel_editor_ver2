@@ -31,7 +31,7 @@
 		"deepl": "^1.0.13",
 		"epub-gen": "^0.1.0",
 		"epub-gen-memory": "^1.0.10",
-		"framer-motion": "^9.0.2",
+		"framer-motion": "^9.1.7",
 		"i18next": "^23.2.11",
 		"lexical": "^0.7.9",
 		"localforage": "^1.10.0",
