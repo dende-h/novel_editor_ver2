@@ -1,35 +1,29 @@
-### 使い始めるとき
+### About Re:terature
 
-- プロジェクトを始めるディレクトリ上で`git clone`します。
+- ‟Re:terature” is a simple editor application designed for writing novels!
+- Novels are automatically saved in your browser's Indexeddb.
+- Backup function saves the current state to the cloud (supabase).
+- Automatic proofreading using Textlint is available (Japanese only).
+- You can output your novel as an EPUB e-book file.
+- You can use it for free, no user registration or login required!
+- Recommended browser is Chrome or Brave. You can install it on your desktop and use it like a native application.
 
-```
-git clone [雛形となるリポジトリのURL] .　←最後に"."をつけるとリポジトリの中身だけcloneされる
-```
+### Technology Stacks
 
-- 一度`git remote -v`コマンドでリモートの追跡対象を確認
+- Language: TypeScript
+- Framework: Next.js
+- Style framework: ChakraUI
+- State management：Recoil
+- Cloud DB：supabase
 
-```
-git remote -v
+See package.json for version
 
-origin  https://github.com/dende-h/[雛形のリポジトリ名].git (fetch)
-origin  https://github.com/dende-h/[雛型のリポジトリ名].git (push)
-```
+### Link to the actual application and how to use it
 
-- GitHubに新しいプロジェクトのリポジトリを作ってそこと連携する
+**[Re:terature](https://novel-editor-ver2.vercel.app/)**
 
-```
-git remote set-url origin [新しいリポジトリのURL]
+**[How to use Re:terature](https://www.notion.so/How-to-use-Re-terature-a746fd05c74a42cda7bd15fb2886b580?pvs=4)**
 
-git remote -v
+#### Click here to download a sample of the output e-book file.
 
-origin  https://github.com/dende-h/[新しいリポジトリ名].git (fetch)
-origin  https://github.com/dende-h/[新しいリポジトリ名].git (push)
-
-こうなればOK
-```
-
-- 最後に`git pull origin`を忘れずに
-
-```
-git pull origin
-```
+[Sample e-book file](https://www.dropbox.com/sh/gicqsm08gc07ukb/AAAVZW24DYQpJvGq28HTi5iUa?dl=0)
