@@ -8,6 +8,7 @@ import { DrawerLeftArea } from "../draftListArea/DrawerLeftArea";
 import { TimerPopover } from "../leftMenuBar/Timer/TimerPopover";
 import { ColorSwitchButton } from "./ColorSwitchButton";
 import { HeaderMenu } from "./HeaderMenu";
+import { TranslateButton } from "./TranslateButton";
 
 //ヘッダーコンポーネント
 export const Header = memo(() => {
@@ -60,6 +61,14 @@ export const Header = memo(() => {
 					<Tooltip label={"PomodoroTimer"} placement={"right-end"}>
 						<TimerPopover />
 					</Tooltip>
+					<TranslateButton
+						aria-label={"translate"}
+						bg={headerBgColor}
+						mr={1}
+						boxSize={7}
+						borderRadius={"full"}
+						_hover={{ bg: "gray.500", color: "gray.200" }}
+					/>
 					<ColorSwitchButton
 						bg={headerBgColor}
 						aria-label={"darkTheme"}

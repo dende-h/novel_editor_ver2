@@ -82,7 +82,7 @@ export const LeftMenuBar = memo(() => {
 				h={"100%"}
 				display={{ base: "none", lg: "block" }}
 				textAlign={"center"}
-				spacing={2}
+				spacing={4}
 				paddingY={8}
 			>
 				{menuIcons.map((item, index) => {

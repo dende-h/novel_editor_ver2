@@ -38,7 +38,7 @@ export const EditorArea = memo(() => {
 			{isClient ? (
 				selectedDraft ? (
 					<Box p={{ base: 2, md: 3, lg: 4, xl: 6 }} w={"100%"} position={"relative"} zIndex={1} h={"90vh"}>
-						<VStack spacing={4} w={"100%"}>
+						<VStack spacing={{ base: 8, md: 4 }} w={"100%"}>
 							<VStack w={"100%"}>
 								<Text
 									fontSize={{ base: "xs", md: "sm" }}
@@ -62,7 +62,7 @@ export const EditorArea = memo(() => {
 									onBlur={onBlurFocusTitleInput}
 								/>
 							</VStack>
-							<VStack w={"85%"} spacing={2}>
+							<VStack w={"85%"} spacing={4}>
 								<Text textColor={isCharCountOverflow && "red"} fontSize={{ base: "xs", md: "sm" }}>
 									{t.editorArea.currentChar} : {charCount} / {bodyMaxLength} {t.editorArea.char}
 								</Text>
