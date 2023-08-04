@@ -83,12 +83,23 @@ export const LexicalEditorArea = memo((props: { setValue: (value: SetStateAction
 					<Box
 						backgroundColor={boxColor}
 						position={"relative"}
-						padding={{ base: 6, lg: 8 }}
+						padding={4}
 						height={{ base: "73vh", lg: "73vh" }}
 						overflowY={"scroll"}
 					>
 						<PlainTextPlugin
-							contentEditable={<ChakraContentEditable outline={"none"} position={"relative"} zIndex={2} />}
+							contentEditable={
+								<ChakraContentEditable
+									outline={"none"}
+									position={"relative"}
+									zIndex={2}
+									fontSize={{ base: "11px", md: "14px" }}
+									fontFamily={"body"}
+									style={{ textDecoration: "underline", textDecorationColor: "rgba(0, 0, 0, 0.2)" }}
+									borderLeft={"1px"}
+									borderLeftColor={"gray.300"}
+								/>
+							}
 							placeholder={
 								<Box
 									color={"blue.500"}
