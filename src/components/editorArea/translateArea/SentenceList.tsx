@@ -14,7 +14,7 @@ type SentenceListProps = {
 export const SentenceList: FC<SentenceListProps> = ({ id, sentences, onRemove, onPlay }) => {
 	return (
 		<Accordion allowToggle minW={"300px"}>
-			{sentences.map((_, index) => (
+			{sentences?.map((_, index) => (
 				<SentenceItem key={index} index={index} id={id} onRemove={() => onRemove(index)} onPlay={() => onPlay(index)} />
 			))}
 		</Accordion>

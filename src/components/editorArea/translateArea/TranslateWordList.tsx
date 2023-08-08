@@ -47,7 +47,7 @@ export const TranslateWordList = (props: Props) => {
 	};
 
 	const handleRemoveSentence = (index: number) => {
-		setSentences(sentences.filter((_, i) => i !== index));
+		setSentences(sentences?.filter((_, i) => i !== index));
 	};
 
 	const handlePlaySentence = (index: number) => {
