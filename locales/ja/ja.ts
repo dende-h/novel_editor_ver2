@@ -156,7 +156,9 @@ export default {
 		title: "タイトル",
 		char60: "60文字",
 		currentChar: "現在の文字数",
-		char: "文字"
+		char: "文字",
+		preview: "プレビュー",
+		vertical: "縦書き"
 	},
 	translate: {
 		enterword: "翻訳ワードを入力(70文字まで)",
@@ -164,6 +166,7 @@ export default {
 		translation: "翻訳"
 	},
 	memoArea: {
+		memo: "メモ",
 		newMemo: "新しいメモ",
 		addMemo: "付箋を追加",
 		close: "とじる"

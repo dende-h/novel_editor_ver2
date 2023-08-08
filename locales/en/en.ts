@@ -158,7 +158,9 @@ export default {
 		title: "Title",
 		char60: "60 Char",
 		currentChar: "Current char",
-		char: "Character"
+		char: "Character",
+		preview: "preview",
+		vertical: "vertical"
 	},
 	translate: {
 		enterword: "Enter the translated word (70 characters)",
@@ -166,6 +168,7 @@ export default {
 		translation: "trans"
 	},
 	memoArea: {
+		memo: "memo",
 		newMemo: "New Memo",
 		addMemo: "Add sticky note",
 		close: "close"

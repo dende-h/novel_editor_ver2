@@ -12,6 +12,7 @@ import {
 	useDisclosure
 } from "@chakra-ui/react";
 import { FC, LegacyRef, memo, useRef } from "react";
+import { useLocale } from "../../hooks/useLocale";
 import { NovelViewer } from "../draftViewArea/NovelViwer";
 type Props = {
 	title: string;
@@ -20,6 +21,7 @@ type Props = {
 };
 
 export const PreviweModal: FC<Props> = memo((props: Props) => {
+	const { t } = useLocale();
 	const { title, body, isWritingHoraizontally } = props;
 	const btnRef: LegacyRef<HTMLButtonElement> = useRef();
 
@@ -40,7 +42,7 @@ export const PreviweModal: FC<Props> = memo((props: Props) => {
 				ml={4}
 				display={isWritingHoraizontally ? "block" : { base: "none", lg: "block" }}
 			>
-				{isWritingHoraizontally ? "preview" : "vertical"}
+				{isWritingHoraizontally ? t.editorArea.preview : t.editorArea.vertical}
 			</Button>
 
 			<Modal isOpen={isOpen} onClose={onClose} size="full">

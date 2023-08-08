@@ -130,7 +130,7 @@ export const Memo: React.FC<Props> = (props: Props) => {
 	return (
 		<>
 			<Button ref={btnRef} onClick={onOpen} borderRadius={2} size={"xs"} colorScheme="whatsapp" ml={4}>
-				Memo
+				{t.memoArea.memo}
 			</Button>
 			<Modal isOpen={isOpen} onClose={onClose} finalFocusRef={btnRef} size={"full"}>
 				<ModalOverlay />
