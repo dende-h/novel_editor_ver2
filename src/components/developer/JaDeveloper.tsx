@@ -93,6 +93,13 @@ export const JaDeveloper = () => {
 							<ListItem mb={1}>
 								<HStack spacing={0}>
 									<ListIcon as={MdSettings} color="green.500" />
+									<Text fontWeight={"bold"}>23/08/09</Text>
+								</HStack>
+								<Text>翻訳メモ機能のバグ解消と対応言語の追加</Text>
+							</ListItem>
+							<ListItem mb={1}>
+								<HStack spacing={0}>
+									<ListIcon as={MdSettings} color="green.500" />
 									<Text fontWeight={"bold"}>23/08/04</Text>
 								</HStack>
 								<Text>ボタン間隔の修正とメニュー項目の入れ替え、ポモドーロタイマーのボタン移動</Text>

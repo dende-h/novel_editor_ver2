@@ -165,7 +165,36 @@ export default {
 	translate: {
 		enterword: "Enter the translated word (70 characters)",
 		add: "Add word",
-		translation: "trans"
+		translation: "trans",
+		langSelect: "Please select a language.",
+		langlist: {
+			BG: "Bulgarian",
+			CS: "Czech",
+			DA: "Danish",
+			DE: "German",
+			EL: "Greek",
+			ENGB: "English (United Kingdom)",
+			ENUS: "English (United States)",
+			ES: "Spanish",
+			ET: "Estonian",
+			FI: "Finnish",
+			FR: "French",
+			HU: "Hungarian",
+			IT: "Italian",
+			JA: "Japanese",
+			LT: "Lithuanian",
+			LV: "Latvian",
+			NL: "Dutch",
+			PL: "Polish",
+			PTBR: "Portuguese (Brazil)",
+			PTPT: "Portuguese (excluding Brazil and Portuguese-speaking countries)",
+			RO: "Romanian",
+			RU: "Russian",
+			SK: "Slovak",
+			SL: "Slovenian",
+			SV: "Swedish",
+			ZH: "Chinese (Simplified)"
+		}
 	},
 	memoArea: {
 		memo: "memo",

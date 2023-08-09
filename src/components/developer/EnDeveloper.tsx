@@ -96,6 +96,13 @@ export const EnDeveloper = () => {
 							<ListItem mb={1}>
 								<HStack spacing={0}>
 									<ListIcon as={MdSettings} color="green.500" />
+									<Text fontWeight={"bold"}>23/08/09</Text>
+								</HStack>
+								<Text>Resolved bugs in the translation memo function and added supported languages</Text>
+							</ListItem>
+							<ListItem mb={1}>
+								<HStack spacing={0}>
+									<ListIcon as={MdSettings} color="green.500" />
 									<Text fontWeight={"bold"}>23/08/04</Text>
 								</HStack>
 								<Text>Corrected button spacing and replaced menu items, moved Pomodoro timer button</Text>
