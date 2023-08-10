@@ -250,6 +250,8 @@ function EpubForm() {
 								w={{ base: "100%", lg: "auto" }}
 								alignSelf={{ base: "center", lg: "flex-end" }}
 								colorScheme="facebook"
+								isDisabled={isLoading}
+								isLoading={isLoading}
 							>
 								{t.epubgen.addChapter}
 							</Button>
