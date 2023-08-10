@@ -55,7 +55,8 @@ export default {
 		delete: "deletion",
 		chapterTitleIsRequired: "Chapter title is a required field",
 		addChapter: "Additional Chapters",
-		generate: "generation"
+		generate: "generation",
+		bibi: "Open e-book reader"
 	},
 	drafts: {
 		draftsPage: "Manuscript List Page",

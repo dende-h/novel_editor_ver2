@@ -54,7 +54,8 @@ export default {
 		delete: "削除",
 		chapterTitleIsRequired: "章のタイトルは必須項目です",
 		addChapter: "章を追加",
-		generate: "生成"
+		generate: "生成",
+		bibi: "電子書籍リーダーを開く"
 	},
 	drafts: {
 		draftsPage: "原稿一覧ページ",
