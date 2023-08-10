@@ -28,6 +28,10 @@ export const SentenceItem: FC<SentenceItemProps> = ({ id, index, onRemove, onPla
 	const [isEditMode, setIsEditMode] = useState(false);
 	const [list, setList] = useRecoilState<SentenceData[]>(sentenceListAtoms);
 
+	if (list === null) {
+		setList([]);
+	}
+
 	const handleMemoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setList(
 			list.map((item, i) => {
