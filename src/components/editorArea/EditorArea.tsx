@@ -10,7 +10,7 @@ import { SelectMaxLengthSlider } from "./SelectMaxLengthSlider";
 import { LexicalEditorArea } from "./LexicalEditorArea";
 import { Memo } from "./memoArea/Memo";
 import { PreviweModal } from "./PreviweModal";
-// import { TranslateDrawer } from "./translateArea/TranslateDrawer";
+import { TranslateDrawer } from "./translateArea/TranslateDrawer";
 import { AddPrefaceAndPostscript } from "./addPrefaceAndPostscript/AddPrefaceAndPostscript";
 import { useLocale } from "../../hooks/useLocale";
 
@@ -68,7 +68,7 @@ export const EditorArea = memo(() => {
 								</Text>
 								<HStack>
 									<Memo id={selectedDraft.id} title={selectedDraft.title} />
-									{/* <TranslateDrawer id={selectedDraft.id} /> */}
+									<TranslateDrawer id={selectedDraft.id} />
 									<AddPrefaceAndPostscript
 										defaultPreface={selectedDraft.preface}
 										defaultPostscript={selectedDraft.postscript}
