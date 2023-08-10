@@ -1,8 +1,8 @@
 // src/pages/index.tsx
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Button, Center, Input, Select, Spinner, VStack } from "@chakra-ui/react";
 import { SentenceData, sentenceListAtoms } from "../../../globalState/atoms/sentenceListAtoms";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { SentenceList } from "./SentenceList";
 import { isClientState } from "../../../globalState/atoms/isClientState";
 import translate, { DeeplLanguages, Parameters } from "deepl";
@@ -24,6 +24,11 @@ export const TranslateWordList = (props: Props) => {
 	const [sentence, setSentence] = useState("");
 	const [sentences, setSentences] = useRecoilState<SentenceData[]>(sentenceListAtoms);
 	const [selectValue, setSelectValue] = useState<DeeplLanguages | "">("");
+	useEffect(() => {
+		if (sentences === null) {
+			setSentences([]);
+		}
+	}, []);
 
 	const handleSentenceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSentence(e.target.value);
