@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-sync-scripts */
 import { useForm, useFieldArray } from "react-hook-form";
 import { useRecoilValue } from "recoil";
 import {
@@ -13,15 +14,19 @@ import {
 	Flex,
 	FormErrorMessage,
 	Center,
-	Spinner
+	Spinner,
+	Text
 } from "@chakra-ui/react";
 import { draftObjectArray, drafts } from "../globalState/atoms/drafts";
 import { userName } from "../globalState/atoms/userName";
 import { useTextToHTML } from "../hooks/useTextToHTML";
 import { InfoForEpubGen } from "../components/epub/InfoForEpubGen";
-import { useState } from "react";
+// import { useEffect, useState } from "react";
 import Seo from "../components/util/Seo";
 import { useLocale } from "../hooks/useLocale";
+import { useState } from "react";
+
+// import { supabase } from "../../lib/supabaseClient";
 
 type FormValues = {
 	title: string;
@@ -31,9 +36,12 @@ type FormValues = {
 
 function EpubForm() {
 	const { t } = useLocale();
+
 	const { textToHtml } = useTextToHTML(); //テキストをHTML化するためのcustomフック
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-
+	// const joJsurl = supabase.storage.from("epub").getPublicUrl(`/bibi/and/jo.js`);
+	// const book = supabase.storage.from("epub").getPublicUrl("/bibi-bookshelf/yashiro.epub");
+	// const bibiUrl = supabase.storage.from("epub").getPublicUrl(`/bibi/index.html`);
 	const {
 		register,
 		handleSubmit,
@@ -130,6 +138,19 @@ function EpubForm() {
 		}
 		setIsLoading(false);
 	});
+
+	// useEffect(() => {
+	// 	// ページがクライアントサイドでレンダリングされた後に実行されるコード
+	// 	const scriptElement = document.createElement("script");
+	// 	scriptElement.src = joJsurl.data.publicUrl;
+	// 	document.body.appendChild(scriptElement);
+
+	// 	return () => {
+	// 		// コンポーネントがアンマウントされる際にスクリプトを削除
+	// 		document.body.removeChild(scriptElement);
+	// 	};
+	// }, []);
+
 	return (
 		<>
 			<Seo
@@ -246,7 +267,23 @@ function EpubForm() {
 							</Button>
 						</VStack>
 					</form>
+					<Button
+						colorScheme={"teal"}
+						onClick={() => window.open("/bibi/index.html", "_blank", "width=800,height=600")}
+					>
+						{t.epubgen.bibi}
+					</Button>
 				</VStack>
+				{/* <Box>
+					<Text
+						as={"a"}
+						href={`/bibi/index.html?book=${book.data.publicUrl}`}
+						data-bibi="embed"
+						data-bibi-style="width: 100%; height: 400px;"
+					>
+						本の名前
+					</Text>
+				</Box> */}
 			</Box>
 		</>
 	);

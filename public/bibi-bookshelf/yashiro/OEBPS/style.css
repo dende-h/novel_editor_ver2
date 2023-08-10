@@ -1,0 +1,9 @@
+
+    @font-face {
+      font-family: 'Noto Serif JP';
+      src: url('./fonts/NotoSerifJP-SemiBold.otf') format('opentype');
+    }
+    body {
+      font-family: 'Noto Serif JP', serif;
+    }
+  
