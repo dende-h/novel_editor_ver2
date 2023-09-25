@@ -18,6 +18,10 @@
 
 See package.json for version
 
+### Architecture
+
+![Architecture](./public/Next.drawio.png)
+
 ### Link to the actual application and how to use it
 
 **[Re:terature](https://novel-editor-ver2.vercel.app/)**
