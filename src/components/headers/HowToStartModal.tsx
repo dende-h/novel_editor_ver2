@@ -78,13 +78,13 @@ export const HowToStartModal: FC = memo(() => {
 							<Heading size="sm">{t.InstallGuide.head1}</Heading>
 							<Box>
 								<Heading size="xs">{t.InstallGuide.step1_1}</Heading>
-								<Box position="relative" w={{ base: "300px", lg: "600px" }} h={{ base: "200px", lg: "400px" }}>
+								<Box position="relative" w={{ base: "300px", md: "600px" }} h={{ base: "200px", md: "400px" }}>
 									<Image src="/menuButton.png" alt={"How To Install"} fill style={{ objectFit: "contain" }} priority />
 								</Box>
 							</Box>
 							<Box>
 								<Heading size="xs">{t.InstallGuide.step1_2}</Heading>
-								<Box position="relative" w={{ base: "300px", lg: "600px" }} h={{ base: "200px", lg: "400px" }}>
+								<Box position="relative" w={{ base: "300px", md: "600px" }} h={{ base: "200px", md: "400px" }}>
 									<Image
 										src="/installButton.png"
 										alt={"How To Install"}
@@ -96,7 +96,7 @@ export const HowToStartModal: FC = memo(() => {
 							</Box>
 							<Box>
 								<Heading size="xs">{t.InstallGuide.step1_3}</Heading>
-								<Box position="relative" w={{ base: "300px", lg: "600px" }} h={{ base: "200px", lg: "400px" }}>
+								<Box position="relative" w={{ base: "300px", md: "600px" }} h={{ base: "200px", md: "400px" }}>
 									<Image
 										src="/installStart.png"
 										alt={"How To Install"}
@@ -109,33 +109,33 @@ export const HowToStartModal: FC = memo(() => {
 							<Heading size="sm">{t.InstallGuide.head2}</Heading>
 							<Box>
 								<Heading size="xs">{t.InstallGuide.step2_1}</Heading>
-								<Box position="relative" w={{ base: "300px", lg: "600px" }} h={{ base: "200px", lg: "400px" }}>
-									<Image src="/appConfig.png" alt={"How To Install"} fill style={{ objectFit: "contain" }} priority />
+								<Box position="relative" w={{ base: "300px", md: "600px" }} h={{ base: "200px", md: "400px" }}>
+									<Image src="/appconfig.png" alt={"How To Install"} fill style={{ objectFit: "contain" }} priority />
 								</Box>
 							</Box>
 							<Box>
 								<Heading size="xs">{t.InstallGuide.step2_2}</Heading>
-								<Box position="relative" w={{ base: "300px", lg: "600px" }} h={{ base: "200px", lg: "400px" }}>
+								<Box position="relative" w={{ base: "300px", md: "600px" }} h={{ base: "200px", md: "400px" }}>
 									<Image src="/saitedata.png" alt={"How To Install"} fill style={{ objectFit: "contain" }} priority />
 								</Box>
 							</Box>
 							<Box>
 								<Heading size="xs">{t.InstallGuide.step2_3}</Heading>
-								<Box position="relative" w={{ base: "300px", lg: "600px" }} h={{ base: "200px", lg: "400px" }}>
+								<Box position="relative" w={{ base: "300px", md: "600px" }} h={{ base: "200px", md: "400px" }}>
 									<Image src="/manageData.png" alt={"How To Install"} fill style={{ objectFit: "contain" }} priority />
 								</Box>
 							</Box>
 							<Box>
 								<Heading size="xs">{t.InstallGuide.step2_4}</Heading>
 								<Text size="xs">{t.InstallGuide.step2_4Text}</Text>
-								<Box position="relative" w={{ base: "300px", lg: "600px" }} h={{ base: "200px", lg: "400px" }}>
+								<Box position="relative" w={{ base: "300px", md: "600px" }} h={{ base: "200px", md: "400px" }}>
 									<Image src="/arrowSave.png" alt={"How To Install"} fill style={{ objectFit: "contain" }} priority />
 								</Box>
 							</Box>
 							<Heading size="sm">{t.InstallGuide.head3}</Heading>
 							<Box>
 								<Heading size="xs">{t.InstallGuide.step3_1}</Heading>
-								<Box position="relative" w={{ base: "300px", lg: "600px" }} h={{ base: "200px", lg: "400px" }}>
+								<Box position="relative" w={{ base: "300px", md: "600px" }} h={{ base: "200px", md: "400px" }}>
 									<Image src="/uninstall.png" alt={"How To Install"} fill style={{ objectFit: "contain" }} priority />
 								</Box>
 							</Box>
