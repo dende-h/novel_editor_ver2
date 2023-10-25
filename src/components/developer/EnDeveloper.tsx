@@ -96,6 +96,13 @@ export const EnDeveloper = () => {
 							<ListItem mb={1}>
 								<HStack spacing={0}>
 									<ListIcon as={MdSettings} color="green.500" />
+									<Text fontWeight={"bold"}>23/10/25</Text>
+								</HStack>
+								<Text>Installation guide added</Text>
+							</ListItem>
+							<ListItem mb={1}>
+								<HStack spacing={0}>
+									<ListIcon as={MdSettings} color="green.500" />
 									<Text fontWeight={"bold"}>23/08/10</Text>
 								</HStack>
 								<Text>E-book reader Bibi added</Text>

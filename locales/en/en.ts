@@ -292,5 +292,28 @@ export default {
 		bodyLine2: "Do you want to completely erase your backups?",
 		cancel: "cancel",
 		delete: "deletion"
+	},
+	InstallGuide: {
+		header: "App Quick Guide",
+		note: "** Important Usage Notes **",
+		noteText1: "This app uses the storage capacity of your browser.",
+		noteText2: "Deleting browser cookies and site data will erase all data.",
+		noteText3: "It's possible to restore backed-up data. (Username and password required)",
+		noteText4: "Data recovery is not possible if the user and password are not known.",
+		head1: "App Installation Method",
+		step1_1: "1. Open the menu from the three-dot icon at the top right of Google Chrome",
+		step1_2: "2. Save and Share → Install Re:terature",
+		step1_3: "3. Click Install",
+		head2: "How to Check Data Save Settings",
+		step2_1: "1. Select app info from the three-dot menu",
+		step2_2: "2. Choose Cookies and Site Data",
+		step2_3: "3. Choose Manage Cookies and Site Data",
+		step2_4: "4. Set to Allow Data Storage (default is allowed)",
+		step2_4Text: "If this setting is not allowed, the app will not function properly",
+		head3: "Uninstallation Method",
+		step3_1: "Choose Uninstall Re:terature from the three-dot menu",
+		link: "Click here for more detailed usage instructions",
+		footer: "You can open this guide anytime from the header menu",
+		close: "Close"
 	}
 };

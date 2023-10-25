@@ -8,6 +8,7 @@ import { DrawerLeftArea } from "../draftListArea/DrawerLeftArea";
 import { TimerPopover } from "../leftMenuBar/Timer/TimerPopover";
 import { ColorSwitchButton } from "./ColorSwitchButton";
 import { HeaderMenu } from "./HeaderMenu";
+import { HowToStartModal } from "./HowToStartModal";
 import { TranslateButton } from "./TranslateButton";
 
 //ヘッダーコンポーネント
@@ -45,7 +46,7 @@ export const Header = memo(() => {
 						<Heading
 							as={"h1"}
 							ml={{ lg: "20px" }}
-							fontSize={{ base: "xl", lg: "2xl" }}
+							fontSize={{ base: "md", md: "xl", lg: "2xl" }}
 							fontWeight={"light"}
 							_hover={{ opacity: 0.8, cursor: "pointer" }}
 							fontFamily={"heading"}
@@ -58,6 +59,7 @@ export const Header = memo(() => {
 				</Box>
 
 				<Flex>
+					<HowToStartModal />
 					<Tooltip label={"PomodoroTimer"} placement={"right-end"}>
 						<TimerPopover />
 					</Tooltip>
