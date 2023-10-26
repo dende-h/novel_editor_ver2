@@ -37,14 +37,16 @@ export const useTextToHTML = () => {
 		return text.replace(/\r?\n/g, "<br>");
 	}
 
-	function textToHtml(text: string, imageUrl?: string) {
+	function textToHtml(text: string, imageUrl?: string, title?: string) {
 		const aText = addLinkTags(text);
 		const boutenText = addBoutenTags(aText);
 		const rubyText = addRubyTags(boutenText);
 		let brText = addBrTags(rubyText);
 
 		if (imageUrl) {
-			if (imageUrl) {
+			if (title) {
+				brText = `<div><img src="${imageUrl}" alt="coverImage" /></div><h3>${title}</h3><br>` + brText;
+			} else {
 				brText = `<div><img src="${imageUrl}" alt="coverImage" /></div>` + brText;
 			}
 		}

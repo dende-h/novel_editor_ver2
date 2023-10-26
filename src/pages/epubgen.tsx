@@ -84,7 +84,7 @@ function EpubForm() {
 			const foundDraft = draftsData.find((draft) => draft.id === chapter.title); //chaoter.titleには小説のIdが格納
 			return {
 				title: foundDraft.title,
-				content: textToHtml(foundDraft.body, imgURL)
+				content: textToHtml(foundDraft.body, imgURL, foundDraft.title)
 			};
 		});
 
