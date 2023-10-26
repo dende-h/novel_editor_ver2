@@ -94,6 +94,7 @@ function EpubForm() {
 			author: author,
 			cover: imgURL,
 			publisher: data.publisher,
+			prependChapterTitles: false,
 			tocTitle: t.epubgen.toc,
 			version: 3,
 			verbose: false,
