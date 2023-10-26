@@ -45,7 +45,7 @@ export const useTextToHTML = () => {
 
 		if (imageUrl) {
 			if (imageUrl) {
-				brText = `<div><img src="${imageUrl}" alt="coverImage" /><div>` + brText;
+				brText = `<div><img src="${imageUrl}" alt="coverImage" /></div>` + brText;
 			}
 		}
 
