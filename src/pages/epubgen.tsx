@@ -14,8 +14,7 @@ import {
 	Flex,
 	FormErrorMessage,
 	Center,
-	Spinner,
-	Text
+	Spinner
 } from "@chakra-ui/react";
 import { draftObjectArray, drafts } from "../globalState/atoms/drafts";
 import { userName } from "../globalState/atoms/userName";
@@ -79,17 +78,15 @@ function EpubForm() {
 				epub = module.default;
 			});
 		}
-
+		const imgURL = draftsData.find((draft) => draft.id === data.chapters[0].title).imageUrl;
 		//チャプターとして選択された小説のタイトルと本文をライブラリで使用する配列オブジェクト化
 		const chapters = data.chapters.map((chapter) => {
 			const foundDraft = draftsData.find((draft) => draft.id === chapter.title); //chaoter.titleには小説のIdが格納
 			return {
 				title: foundDraft.title,
-				content: textToHtml(foundDraft.body)
+				content: textToHtml(foundDraft.body, imgURL)
 			};
 		});
-
-		const imgURL = draftsData.find((draft) => draft.id === data.chapters[0].title).imageUrl;
 
 		//必要データをoptionsにまとめる
 		const options = {
