@@ -1,17 +1,9 @@
-import localforage from "localforage";
 import { atom } from "recoil";
-import { recoilPersist } from "../../components/util/customRecoilPersist";
-
-localforage.config({
-	driver: localforage.INDEXEDDB,
-	name: "indexeddb",
-	version: 2,
-	storeName: "reterature"
-});
+import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist({
 	key: "recoil-isFirstVisit",
-	storage: typeof window === "undefined" ? undefined : localforage
+	storage: typeof window === "undefined" ? undefined : localStorage
 });
 
 export const isFirstVisit = atom({
