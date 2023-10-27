@@ -6,12 +6,14 @@ import localforage from "localforage";
 
 export type draftObjectArray = draftObject[];
 
-localforage.config({
-	driver: localforage.INDEXEDDB,
-	name: "indexeddb",
-	version: 2,
-	storeName: "reterature"
-});
+typeof window === "undefined"
+	? undefined
+	: localforage.config({
+			driver: localforage.INDEXEDDB,
+			name: "indexeddb",
+			version: 2,
+			storeName: "reterature"
+	  });
 
 const { persistAtom } = recoilPersist({
 	key: "recoil-drafts",
