@@ -1,3 +1,4 @@
+"use client";
 import { atom } from "recoil";
 import { recoilPersist } from "../../components/util/customRecoilPersist";
 import { draftObject } from "../selector/editorState";

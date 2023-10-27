@@ -1,3 +1,4 @@
+"use client";
 import localforage from "localforage";
 import { atom } from "recoil";
 import { recoilPersist } from "../../components/util/customRecoilPersist";
