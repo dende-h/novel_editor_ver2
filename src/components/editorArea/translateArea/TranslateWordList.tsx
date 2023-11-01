@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { Box, Button, Center, Input, Select, Spinner, VStack } from "@chakra-ui/react";
 import { SentenceData, sentenceListAtoms } from "../../../globalState/atoms/sentenceListAtoms";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { SentenceList } from "./SentenceList";
 import { isClientState } from "../../../globalState/atoms/isClientState";
 import translate, { DeeplLanguages, Parameters } from "deepl";

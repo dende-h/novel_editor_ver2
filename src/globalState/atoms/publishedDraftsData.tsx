@@ -3,7 +3,7 @@ import localforage from "localforage";
 import { atom } from "recoil";
 import { recoilPersist } from "../../components/util/customRecoilPersist";
 
-export type draftData = { id: string; goodMark: number };
+export type draftData = { id: string; good_mark: number };
 
 typeof window === "undefined"
 	? undefined

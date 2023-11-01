@@ -17,7 +17,7 @@ export const useDraft = () => {
 	const [isSelect, setIsSelect] = useRecoilState(isSelected);
 	const [defaultUserName, setUserName] = useRecoilState(userName);
 	const { onCopy, setValue, hasCopied } = useClipboard("");
-	const [fetchDraftsData, setFetchDraftsData] = useRecoilState(publishedDraftsData);
+	const [fetchDraftsData, setFetchDraftsData] = useRecoilState<draftData[]>(publishedDraftsData);
 	const setDraftJson = useSetRecoilState<DraftJson[]>(draftsJson);
 	const [memos, setMemos] = useRecoilState<Items[]>(memoState);
 
@@ -105,66 +105,48 @@ export const useDraft = () => {
 
 	//下書き一覧をクリックもしくはフォーカスしてエンターキーでセレクトのオンオフ
 	const onClickOpenDraft = async (selectIndex: number) => {
-		if (isSelect === false) {
-			setDraft(
-				draft.map((item, index) =>
-					selectIndex === index ? { ...item, isSelected: true } : { ...item, isSelected: false }
-				)
-			);
-			const draftId = draft.filter((_, index) => {
-				return selectIndex === index;
-			})[0].id;
-			if (
-				memos.findIndex((item) => {
-					return item.id === draftId;
-				}) === -1
-			) {
-				setMemos([
-					...memos,
-					{
-						id: draftId,
-						memoList: {
-							item1: { t: "Click to edit", x: 100, y: 100, c: 0 },
-							item2: { t: "Move by drag & drop", x: 200, y: 200, c: 0 }
-						}
-					}
-				]);
-			}
-			setIsSelect(true);
-		} else {
-			if (draft[selectIndex].isSelected) {
-				await selectStateReset();
-			} else {
-				await selectStateReset();
-				setDraft(
-					draft.map((item, index) =>
-						selectIndex === index ? { ...item, isSelected: true } : { ...item, isSelected: false }
-					)
-				);
-				const draftId = draft.filter((_, index) => {
-					return selectIndex === index;
-				})[0].id;
-				if (
-					memos.findIndex((item) => {
-						return item.id === draftId;
-					}) === -1
-				) {
-					setMemos([
-						...memos,
-						{
-							id: draftId,
-							memoList: {
-								item1: { t: "Click to edit", x: 100, y: 100, c: 0 },
-								item2: { t: "Move by drag & drop", x: 200, y: 200, c: 0 }
-							}
-						}
-					]);
+		//小説選択状態かつ選択状態の小説をクリックした場合
+		if (isSelect && draft[selectIndex].isSelected) {
+			await selectStateReset();
+			return;
+		}
+		//小説選択状態で非選択状態の小説をクリックした場合
+		if (isSelect) {
+			await selectStateReset();
+		}
+		//小説の選択状態に関わらず非選択の小説をクリックした場合
+		setSelectedDraftByIndex(selectIndex);
+		addMemoForSelectedDraftIfAbsent(selectIndex);
+		setIsSelect(true);
+	};
+
+	//選択された小説の選択状態を示すフラグをtrueする
+	const setSelectedDraftByIndex = (selectIndex: number) => {
+		setDraft(
+			draft.map((item, index) => ({
+				...item,
+				isSelected: selectIndex === index
+			}))
+		);
+	};
+
+	//選択した小説にメモ自体が存在しなかった場合に追加する関数
+	const addMemoForSelectedDraftIfAbsent = (selectIndex: number) => {
+		const draftId = draft[selectIndex].id;
+
+		if (memos.findIndex((item) => item.id === draftId) === -1) {
+			const newMemo = {
+				id: draftId,
+				memoList: {
+					item1: { t: "Click to edit", x: 100, y: 100, c: 0 },
+					item2: { t: "Move by drag & drop", x: 200, y: 200, c: 0 }
 				}
-				setIsSelect(true);
-			}
+			};
+			setMemos([...memos, newMemo]);
 		}
 	};
 
+	//小説リストにフォーカス状態でエンターキー押した際に発火する関数
 	const onEnterKey = (key: string, selectIndex: number) => {
 		if (key === "Enter") {
 			onClickOpenDraft(selectIndex);
@@ -194,46 +176,48 @@ export const useDraft = () => {
 
 	//draftObjectの削除処理
 	const deleteAction = useCallback(() => {
-		const newDraft = draft.filter((item) => item.isSelected === false);
-		const newFetchDraftsData: draftData = fetchDraftsData.filter((item) => {
-			const findId = newDraft.findIndex((draft) => draft.id === item.id);
-			return findId !== -1;
-		});
-		const newMemos: Items[] = memos.filter((item) => {
-			const findRemove = newDraft.findIndex((draft) => draft.id === item.id);
-			return findRemove !== -1;
-		});
-		setDraft(newDraft);
-		setFetchDraftsData(newFetchDraftsData);
+		//選択状態の小説を削除した配列
+		const remainingDrafts = draft.filter((item) => !item.isSelected);
+		//削除後の小説のID配列
+		const remainingDraftIds = remainingDrafts.map((item) => item.id);
+		//fetchDraftDataから削除後のID配列に含まないIDを持つアイテムを削除
+		const updatedFetchDraftsData = fetchDraftsData.filter((item: draftData) => remainingDraftIds.includes(item.id));
+		//memosから削除後のID配列に含まないIDを持つアイテムを削除
+		const updatedMemos = memos.filter((item: Items) => remainingDraftIds.includes(item.id));
+
+		//それぞれの状態を更新する
+		setDraft(remainingDrafts);
+		setFetchDraftsData(updatedFetchDraftsData);
 		setIsSelect(false);
-		setMemos(newMemos);
+		setMemos(updatedMemos);
 	}, []);
 
+	//userNameの変更
 	const onSetUserName = useCallback((newUserName: string) => {
 		setDraft(draft.map((item) => ({ ...item, userName: newUserName })));
 		setUserName(newUserName);
 	}, []);
 
+	//公開設定、非公開設定の変更
 	const onPublishedChange = () => {
-		setDraft(
-			draft.map((item) =>
-				item.isSelected ? (item.isPublished ? { ...item, isPublished: false } : { ...item, isPublished: true }) : item
-			)
-		);
+		setDraft(draft.map((item) => (item.isSelected ? { ...item, isPublished: !item.isPublished } : item)));
 	};
 
+	//文字数オーバーした場合の動作分岐
 	const onLengthOver = (lengthOver: boolean) => {
 		setDraft(
 			draft.map((item) => {
-				return item.isSelected
-					? lengthOver
-						? { ...item, isPublished: false, lengthOver: true }
-						: { ...item, lengthOver: false }
-					: item;
+				if (!item.isSelected) return item;
+
+				if (lengthOver) {
+					return { ...item, isPublished: false, lengthOver: true };
+				}
+				return { ...item, lengthOver: false };
 			})
 		);
 	};
 
+	//小説に表紙画像を追加した際の動作
 	const onAddImage = (url: string, name: string) => {
 		const editTime = new Date();
 		setDraft(
@@ -245,6 +229,7 @@ export const useDraft = () => {
 		);
 	};
 
+	//小説のイメージ画像を削除した際の動作
 	const onRemoveImage = () => {
 		const editTime = new Date();
 		setDraft(
@@ -256,10 +241,10 @@ export const useDraft = () => {
 		);
 	};
 
+	//小説の前書き後書きを追加した際の動作
 	const setPrefaceAndPostScript = (preface: string, postscript: string) => {
 		const newPreface = preface;
 		const newPostScript = postscript;
-
 		setDraft(
 			draft.map((item) => (item.isSelected ? { ...item, preface: newPreface, postscript: newPostScript } : item))
 		);
