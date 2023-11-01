@@ -28,8 +28,8 @@ export const PrimaryIconButton = memo((props: Props) => {
 			<IconButton
 				{...IconButtonProps}
 				transitionProperty="all"
-				transitionDuration="0.5s"
-				transitionTimingFunction={"ease-out"}
+				transitionDuration="0.2s"
+				transitionTimingFunction={"ease"}
 				fontSize={"20px"}
 				_hover={isDisableHoverAnimation ? { color: defaultColor } : { color: changeColor, fontSize: "24px" }}
 				_focus={{ boxShadow: focusOutline }}
