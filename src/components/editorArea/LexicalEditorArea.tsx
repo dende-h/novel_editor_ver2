@@ -101,13 +101,7 @@ export const LexicalEditorArea = memo((props: { setValue: (value: SetStateAction
 								/>
 							}
 							placeholder={
-								<Box
-									color={"blue.500"}
-									position={"absolute"}
-									top={{ base: 6, lg: 8 }}
-									left={{ base: 6, lg: 8 }}
-									zIndex={1}
-								>
+								<Box color={"blue.500"} position={"absolute"} top={{ base: 3, lg: 4 }} left={5} zIndex={1}>
 									Enter the text...
 								</Box>
 							}

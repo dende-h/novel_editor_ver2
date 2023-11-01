@@ -1,8 +1,8 @@
 // src/pages/index.tsx
 import { useEffect, useState } from "react";
-import { Box, Button, Center, Input, Select, Spinner, VStack } from "@chakra-ui/react";
+import { Box, Button, Center, Input, Select, Spinner, useColorModeValue, VStack } from "@chakra-ui/react";
 import { SentenceData, sentenceListAtoms } from "../../../globalState/atoms/sentenceListAtoms";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { SentenceList } from "./SentenceList";
 import { isClientState } from "../../../globalState/atoms/isClientState";
 import translate, { DeeplLanguages, Parameters } from "deepl";
@@ -24,6 +24,7 @@ export const TranslateWordList = (props: Props) => {
 	const [sentence, setSentence] = useState("");
 	const [sentences, setSentences] = useRecoilState<SentenceData[]>(sentenceListAtoms);
 	const [selectValue, setSelectValue] = useState<DeeplLanguages | "">("");
+	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	useEffect(() => {
 		if (sentences === null) {
 			setSentences([]);
@@ -98,7 +99,7 @@ export const TranslateWordList = (props: Props) => {
 	];
 
 	return (
-		<Box p={4} bg="gray.50" minH="100vh">
+		<Box p={4} bg={backgroundColor} minH="100vh">
 			<VStack spacing={4} maxW="800px" m="auto">
 				{isClient ? (
 					<>
