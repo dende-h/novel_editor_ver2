@@ -96,11 +96,14 @@ export const useDraft = () => {
 			good_mark: 0
 		};
 		setFetchDraftsData([setId, ...fetchDraftsData]);
-		setIsSelect(true);
 
 		//各原稿のメモ用初期データを追加
 		const newMemos = createNewMemo(id);
 		setMemos([...memos, newMemos]);
+
+		setTimeout(() => {
+			setIsSelect(true);
+		}, 300);
 	};
 
 	//下書き一覧をクリックもしくはフォーカスしてエンターキーでセレクトのオンオフ
@@ -117,7 +120,9 @@ export const useDraft = () => {
 		//小説の選択状態に関わらず非選択の小説をクリックした場合
 		setSelectedDraftByIndex(selectIndex);
 		addMemoForSelectedDraftIfAbsent(selectIndex);
-		setIsSelect(true);
+		setTimeout(() => {
+			setIsSelect(true);
+		}, 300);
 	};
 
 	//選択された小説の選択状態を示すフラグをtrueする
