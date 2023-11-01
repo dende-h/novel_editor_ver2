@@ -39,7 +39,7 @@ export const useDraft = () => {
 			isSelected: true,
 			lengthOver: false,
 			isImageUpload: false,
-			maxLength: 3800,
+			maxLength: 12000,
 			isPublished: false,
 			tag: [],
 			lastEditedTime: createTime,
