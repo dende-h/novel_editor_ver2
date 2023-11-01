@@ -150,7 +150,14 @@ export const EditorArea = memo(() => {
 						transitionTimingFunction={"ease-out"}
 						transform={styleProps.transform}
 					>
-						<Box display={{ base: "block", lg: "none" }} position={"fixed"} bottom={"35px"} right={"30px"} zIndex={2}>
+						<Box
+							display={{ base: "block", lg: "none" }}
+							position={"fixed"}
+							bottom={"35px"}
+							right={"30px"}
+							zIndex={2}
+							opacity={1}
+						>
 							<IconButton
 								icon={<ImPlus />}
 								aria-label="addNovel"
