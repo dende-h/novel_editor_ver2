@@ -118,7 +118,7 @@ export const LeftColumnArea = memo(() => {
 													ref={provided.innerRef}
 												>
 													<Box
-														opacity={isSelect && !item.isSelected && 0.6}
+														opacity={!item.isSelected && 0.6}
 														sx={
 															isSelect
 																? item.isSelected
@@ -130,7 +130,7 @@ export const LeftColumnArea = memo(() => {
 																		_hover: { shadow: "lg", cursor: "pointer" }
 																  }
 														}
-														shadow={item.isSelected ? "2xl" : "none"}
+														shadow={item.isSelected ? "lg" : "none"}
 														h={item.isSelected ? "200px" : "155px"}
 														color={!item.isSelected && fontColorIsNotSelectedDraft}
 														marginBottom={item.isSelected ? 8 : 1}
@@ -138,7 +138,7 @@ export const LeftColumnArea = memo(() => {
 															item.isSelected ? bgColorIsSelectedDraftCard : bgColorIsNotSelectedDraftCard
 														}
 														// ここから下は固定値、上は受け取った真偽値によって変化
-														paddingTop={6}
+														paddingTop={"30px"}
 														w={"300px"}
 														marginTop={3}
 														borderRadius={5}
@@ -174,7 +174,7 @@ export const LeftColumnArea = memo(() => {
 																	left={2}
 																	w={"100%"}
 																>
-																	<Icon as={ImPriceTag} boxSize={4} color={"teal.400"} />
+																	<Icon as={ImPriceTag} boxSize={{ base: 3.5, xl: 4 }} color={"teal.400"} />
 																	<Text fontSize={{ base: "xs", xl: "md" }}>{t.leftColumnArea.noConfig}</Text>
 																</HStack>
 															) : (
@@ -198,24 +198,38 @@ export const LeftColumnArea = memo(() => {
 																	</Text>
 																</HStack>
 															)}
-															<VStack position={"absolute"} top={5} left={1} spacing={0}>
-																<Text fontSize={"xs"} fontWeight={"bold"} fontStyle={"italic"}>
+															{/* <VStack position={"absolute"} top={5} left={1} spacing={0}> */}
+															{/* <Text fontSize={"xs"} fontWeight={"bold"} fontStyle={"italic"}>
 																	{item.maxLength <= veryShortNovel
 																		? `《 ${t.leftColumnArea.veryShort} 》`
 																		: item.maxLength <= shortShortNovel
 																		? `《 ${t.leftColumnArea.SS} 》`
 																		: `《 ${t.leftColumnArea.Short} 》`}
+																</Text> */}
+															{item.isPublished ? (
+																<Text
+																	color={"twitter.600"}
+																	fontWeight={"bold"}
+																	fontSize={"xs"}
+																	position={"absolute"}
+																	top={5}
+																	left={4}
+																>
+																	{t.leftColumnArea.published}
 																</Text>
-																{item.isPublished ? (
-																	<Text color={"twitter.600"} fontWeight={"bold"} fontSize={"xs"}>
-																		{t.leftColumnArea.published}
-																	</Text>
-																) : (
-																	<Text color={"red.600"} fontWeight={"bold"} fontSize={"xs"}>
-																		{t.leftColumnArea.notPublished}
-																	</Text>
-																)}
-															</VStack>
+															) : (
+																<Text
+																	color={"red.600"}
+																	fontWeight={"bold"}
+																	fontSize={"xs"}
+																	position={"absolute"}
+																	top={5}
+																	left={4}
+																>
+																	{t.leftColumnArea.notPublished}
+																</Text>
+															)}
+															{/* </VStack> */}
 															<IntroductionNovelBody bodyText={item.body} lastEditedTime={item.lastEditedTime} />
 															<DraftControllButton isAccordionOpen={item.isSelected} />
 														</VStack>

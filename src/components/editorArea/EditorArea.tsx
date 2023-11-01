@@ -25,6 +25,24 @@ export const EditorArea = memo(() => {
 	const inputFocusBgColor = useColorModeValue("gray.100", "gray.700");
 	const isClient = useRecoilValue(isClientState);
 	const { onCopy, setValue, hasCopied } = useClipboard("");
+	const [styleProps, setStyleProps] = useState({
+		opacity: 0,
+		transform: "70px"
+	});
+
+	useEffect(() => {
+		if (isSelect && selectedDraft) {
+			setStyleProps({
+				opacity: 1,
+				transform: "translateY(0px)"
+			});
+		} else {
+			setStyleProps({
+				opacity: 0,
+				transform: "translateY(70px)"
+			});
+		}
+	}, [isSelect, selectedDraft]);
 
 	useEffect(() => {
 		calcCharCount(selectedDraft ? selectedDraft.body : "", selectedDraft ? selectedDraft.maxLength : 0);
@@ -39,7 +57,17 @@ export const EditorArea = memo(() => {
 		<>
 			{isClient ? (
 				isSelect && selectedDraft ? (
-					<Box p={{ base: 2, md: 3, lg: 4, xl: 6 }} w={"100%"} position={"relative"} zIndex={1} h={"90vh"}>
+					<Box
+						p={{ base: 2, md: 3, lg: 4, xl: 6 }}
+						w={"100%"}
+						position={"relative"}
+						zIndex={1}
+						h={"90vh"}
+						opacity={styleProps.opacity}
+						transitionDuration="0.3s"
+						transitionTimingFunction={"ease"}
+						transform={styleProps.transform}
+					>
 						<VStack spacing={{ base: 8, md: 4 }} w={"100%"}>
 							<VStack w={"100%"}>
 								<Text
@@ -115,7 +143,13 @@ export const EditorArea = memo(() => {
 						</Box>
 					</Box>
 				) : (
-					<Box h={"90vh"}>
+					<Box
+						h={"90vh"}
+						opacity={styleProps.opacity}
+						transitionDuration="0.6s"
+						transitionTimingFunction={"ease-out"}
+						transform={styleProps.transform}
+					>
 						<Box display={{ base: "block", lg: "none" }} position={"fixed"} bottom={"35px"} right={"30px"} zIndex={2}>
 							<IconButton
 								icon={<ImPlus />}
