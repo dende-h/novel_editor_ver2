@@ -8,7 +8,7 @@ import { userName } from "../globalState/atoms/userName";
 import { useClipboard } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
 import { draftData, publishedDraftsData } from "../globalState/atoms/publishedDraftsData";
-import { draftsJson } from "../globalState/atoms/draftJson";
+import { DraftJson, draftsJson } from "../globalState/atoms/draftJson";
 import { Items, memoState } from "../globalState/atoms/memoState";
 
 //タイトルエリアの編集時のカスタムフック
@@ -18,36 +18,20 @@ export const useDraft = () => {
 	const [defaultUserName, setUserName] = useRecoilState(userName);
 	const { onCopy, setValue, hasCopied } = useClipboard("");
 	const [fetchDraftsData, setFetchDraftsData] = useRecoilState(publishedDraftsData);
-	const setDraftJson = useSetRecoilState(draftsJson);
+	const setDraftJson = useSetRecoilState<DraftJson[]>(draftsJson);
 	const [memos, setMemos] = useRecoilState<Items[]>(memoState);
-	//オブジェクト内のisSelectedプロパティにより処理を行う
-	//isSelectedプロパティは配列内でtrueは常に一つであり重複しない。重複する場合想定する動作をしないため修正必要
 
-	//ノベル追加ボタンで新規の小説を追加する
-	const onAddNovel = () => {
-		const id = uuidv4();
-		const createTime = new Date();
-		setDraftJson((prevItem) => {
-			return prevItem === null
-				? [
-						{
-							id: id,
-							json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}'
-						}
-				  ]
-				: [
-						...prevItem,
-						{
-							id: id,
-							json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}'
-						}
-				  ];
-		});
-		const setId = {
+	//新規小説の本文用初期データをJson形式で作成。Lexicalのデータ構造に合わせて空のデータを作る関数
+	const generateDraftJson = (id: string) => {
+		return {
 			id: id,
-			good_mark: 0
+			json: '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}'
 		};
-		const newDraft: draftObject = {
+	};
+
+	//新規小説データを作成する関数
+	const createNewDraft = (id: string, createTime: Date): draftObject => {
+		return {
 			id: id,
 			title: "untitled",
 			body: "",
@@ -62,31 +46,61 @@ export const useDraft = () => {
 			imageUrl: "",
 			imageName: ""
 		};
-		const oldDraft = [...draft].map((item) => {
-			return { ...item, isSelected: false };
-		});
-		setDraft([newDraft, ...oldDraft]);
-		setFetchDraftsData([setId, ...fetchDraftsData]);
-		setIsSelect(true);
-		setMemos([
-			...memos,
-			{
-				id: id,
-				memoList: {
-					item1: { t: "Click to edit", x: 100, y: 100, c: 0 },
-					item2: { t: "Move by drag & drop", x: 200, y: 200, c: 0 }
-				}
-			}
-		]);
 	};
 
-	const selectStateReset = () => {
-		setDraft(
-			draft.map((item) => {
-				return { ...item, isSelected: false };
-			})
-		);
+	//全ての小説の選択状態を示すフラグをfalseに設定する関数
+	const deselectAllDrafts = (drafts: draftObject[]): draftObject[] => {
+		return drafts.map((item) => ({ ...item, isSelected: false }));
+	};
+	//小説原稿ごとに付随するメモの初期化データを作成する関数
+	const createNewMemo = (id: string) => {
+		return {
+			id: id,
+			memoList: {
+				item1: { t: "Click to edit", x: 100, y: 100, c: 0 },
+				item2: { t: "Move by drag & drop", x: 200, y: 200, c: 0 }
+			}
+		};
+	};
+
+	//小説の選択状態をすべて解除する関数
+	const selectStateReset = async () => {
+		setDraft(deselectAllDrafts(draft));
 		setIsSelect(false);
+	};
+
+	//ノベル追加ボタンで新規の小説を追加する
+	//オブジェクト内のisSelectedプロパティにより処理を行う
+	//isSelectedプロパティは配列内でtrueは常に一つであり重複しない。重複する場合想定する動作をしないため修正必要
+	const onAddNovel = async () => {
+		if (isSelect) {
+			await selectStateReset();
+		}
+
+		//引数ようにidとcreateTimeを作成
+		const id = uuidv4();
+		const createTime = new Date();
+
+		//本文初期化ようのJsonをセット
+		const newDraftJson = generateDraftJson(id);
+		setDraftJson((prevItem) => (prevItem ? [...prevItem, newDraftJson] : [newDraftJson]));
+
+		//新しい原稿を配列にセット
+		const newDraft = createNewDraft(id, createTime);
+		const oldDraft = deselectAllDrafts(draft);
+		setDraft([newDraft, ...oldDraft]);
+
+		//取得した投稿済みの小説に付いたいいね数を保存しておくデータに新規小説分を追加
+		const setId = {
+			id: id,
+			good_mark: 0
+		};
+		setFetchDraftsData([setId, ...fetchDraftsData]);
+		setIsSelect(true);
+
+		//各原稿のメモ用初期データを追加
+		const newMemos = createNewMemo(id);
+		setMemos([...memos, newMemos]);
 	};
 
 	//下書き一覧をクリックもしくはフォーカスしてエンターキーでセレクトのオンオフ
@@ -118,7 +132,36 @@ export const useDraft = () => {
 			}
 			setIsSelect(true);
 		} else {
-			selectStateReset();
+			if (draft[selectIndex].isSelected) {
+				await selectStateReset();
+			} else {
+				await selectStateReset();
+				setDraft(
+					draft.map((item, index) =>
+						selectIndex === index ? { ...item, isSelected: true } : { ...item, isSelected: false }
+					)
+				);
+				const draftId = draft.filter((_, index) => {
+					return selectIndex === index;
+				})[0].id;
+				if (
+					memos.findIndex((item) => {
+						return item.id === draftId;
+					}) === -1
+				) {
+					setMemos([
+						...memos,
+						{
+							id: draftId,
+							memoList: {
+								item1: { t: "Click to edit", x: 100, y: 100, c: 0 },
+								item2: { t: "Move by drag & drop", x: 200, y: 200, c: 0 }
+							}
+						}
+					]);
+				}
+				setIsSelect(true);
+			}
 		}
 	};
 

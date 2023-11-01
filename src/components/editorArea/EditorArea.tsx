@@ -13,12 +13,14 @@ import { PreviweModal } from "./PreviweModal";
 import { TranslateDrawer } from "./translateArea/TranslateDrawer";
 import { AddPrefaceAndPostscript } from "./addPrefaceAndPostscript/AddPrefaceAndPostscript";
 import { useLocale } from "../../hooks/useLocale";
+import { isSelected } from "../../globalState/atoms/isSelected";
 
 export const EditorArea = memo(() => {
 	const { t } = useLocale();
 	const { onChangeTitleArea, onBlurFocusTitleInput, onLengthOver, onAddNovel, selectStateReset } = useDraft(); //Draftオブジェクトの操作hooks
 	const { charCount, calcCharCount, isCharCountOverflow } = useCalcCharCount(); //文字数計算のロジック部
 	const selectedDraft: draftObject = useRecoilValue(editorState);
+	const isSelect = useRecoilValue(isSelected);
 	const [bodyMaxLength, setBodyMaxLength] = useState<number>(0);
 	const inputFocusBgColor = useColorModeValue("gray.100", "gray.700");
 	const isClient = useRecoilValue(isClientState);
@@ -36,7 +38,7 @@ export const EditorArea = memo(() => {
 	return (
 		<>
 			{isClient ? (
-				selectedDraft ? (
+				isSelect ? (
 					<Box p={{ base: 2, md: 3, lg: 4, xl: 6 }} w={"100%"} position={"relative"} zIndex={1} h={"90vh"}>
 						<VStack spacing={{ base: 8, md: 4 }} w={"100%"}>
 							<VStack w={"100%"}>
