@@ -38,7 +38,7 @@ export const EditorArea = memo(() => {
 	return (
 		<>
 			{isClient ? (
-				isSelect ? (
+				isSelect && selectedDraft ? (
 					<Box p={{ base: 2, md: 3, lg: 4, xl: 6 }} w={"100%"} position={"relative"} zIndex={1} h={"90vh"}>
 						<VStack spacing={{ base: 8, md: 4 }} w={"100%"}>
 							<VStack w={"100%"}>

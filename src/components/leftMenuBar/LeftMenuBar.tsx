@@ -7,9 +7,7 @@ import { IoLibrarySharp } from "react-icons/io5";
 import { HiLibrary } from "react-icons/hi";
 import { BiHelpCircle } from "react-icons/bi";
 import { TbBookDownload, TbDeviceDesktopAnalytics } from "react-icons/tb";
-import { ColorSwitchButton } from "../headers/ColorSwitchButton";
 import Link from "next/link";
-import { TimerPopover } from "./Timer/TimerPopover";
 import { MdBackup } from "react-icons/md";
 import { FaInfo } from "react-icons/fa";
 import { useLocale } from "../../hooks/useLocale";
@@ -82,7 +80,6 @@ export const LeftMenuBar = memo(() => {
 				h={"100%"}
 				display={{ base: "none", lg: "block" }}
 				textAlign={"center"}
-				spacing={4}
 				paddingY={8}
 			>
 				{menuIcons.map((item, index) => {
@@ -100,6 +97,7 @@ export const LeftMenuBar = memo(() => {
 										colorScheme={"twitter"}
 										fontSize="24px"
 										boxSize={10}
+										my={2}
 									/>
 								</Link>
 							</Tooltip>
