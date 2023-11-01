@@ -1,15 +1,18 @@
+"use client";
 import localforage from "localforage";
 import { atom } from "recoil";
 import { recoilPersist } from "../../components/util/customRecoilPersist";
 
 export type draftData = { id: string; goodMark: number };
 
-localforage.config({
-	driver: localforage.INDEXEDDB,
-	name: "indexeddb",
-	version: 2,
-	storeName: "reterature"
-});
+typeof window === "undefined"
+	? undefined
+	: localforage.config({
+			driver: localforage.INDEXEDDB,
+			name: "indexeddb",
+			version: 2,
+			storeName: "reterature"
+	  });
 
 const { persistAtom } = recoilPersist({
 	key: "recoil-publishedDraftsData",

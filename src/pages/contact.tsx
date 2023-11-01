@@ -32,7 +32,7 @@ export default function Contact() {
 	} = useForm<FormValues>({ mode: "onChange" });
 	const { executeRecaptcha } = useGoogleReCaptcha();
 
-	const onSubmit = handleSubmit(async (data) => {
+	const onSubmit = handleSubmit(async (data: FormValues) => {
 		if (!executeRecaptcha) return;
 		const token = await executeRecaptcha("submit");
 		data.googleReCaptchaToken = token;

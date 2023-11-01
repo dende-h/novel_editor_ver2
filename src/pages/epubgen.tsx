@@ -61,7 +61,7 @@ function EpubForm() {
 	const draftsData = useRecoilValue<draftObjectArray>(drafts);
 	const author = useRecoilValue<string>(userName);
 
-	const onSubmit = handleSubmit(async (data) => {
+	const onSubmit = handleSubmit(async (data: FormValues) => {
 		setIsLoading(true);
 
 		if (data.chapters.length === 0) {
