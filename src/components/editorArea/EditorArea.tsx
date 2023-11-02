@@ -63,10 +63,10 @@ export const EditorArea = memo(() => {
 						position={"relative"}
 						zIndex={1}
 						h={"90vh"}
-						opacity={styleProps.opacity}
-						transitionDuration="0.3s"
-						transitionTimingFunction={"ease"}
-						transform={styleProps.transform}
+						opacity={{ lg: styleProps.opacity }}
+						transitionDuration={{ lg: "0.3s" }}
+						transitionTimingFunction={{ lg: "ease" }}
+						transform={{ lg: styleProps.transform }}
 					>
 						<VStack spacing={{ base: 8, md: 4 }} w={"100%"}>
 							<VStack w={"100%"}>
@@ -145,19 +145,12 @@ export const EditorArea = memo(() => {
 				) : (
 					<Box
 						h={"90vh"}
-						opacity={styleProps.opacity}
-						transitionDuration="0.6s"
-						transitionTimingFunction={"ease-out"}
-						transform={styleProps.transform}
+						opacity={{ lg: styleProps.opacity }}
+						transitionDuration={{ lg: "0.6s" }}
+						transitionTimingFunction={{ lg: "ease-out" }}
+						transform={{ lg: styleProps.transform }}
 					>
-						<Box
-							display={{ base: "block", lg: "none" }}
-							position={"fixed"}
-							bottom={"35px"}
-							right={"30px"}
-							zIndex={2}
-							opacity={1}
-						>
+						<Box display={{ base: "block", lg: "none" }} position={"fixed"} bottom={"35px"} right={"30px"} zIndex={2}>
 							<IconButton
 								icon={<ImPlus />}
 								aria-label="addNovel"
