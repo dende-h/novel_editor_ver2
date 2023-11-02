@@ -92,14 +92,15 @@ export const EnDeveloper = () => {
 						◆ Site Updates
 					</Heading>
 					<Box pb={6}>
-						<ListItem mb={1}>
-							<HStack spacing={0}>
-								<ListIcon as={MdSettings} color="green.500" />
-								<Text fontWeight={"bold"}>23/11/02</Text>
-							</HStack>
-							<Text>Fixed behavior when switching novels</Text>
-						</ListItem>
 						<List>
+							<ListItem mb={1}>
+								<HStack spacing={0}>
+									<ListIcon as={MdSettings} color="green.500" />
+									<Text fontWeight={"bold"}>23/11/02</Text>
+								</HStack>
+								<Text>Fixed behavior when switching novels</Text>
+							</ListItem>
+
 							<ListItem mb={1}>
 								<HStack spacing={0}>
 									<ListIcon as={MdSettings} color="green.500" />
