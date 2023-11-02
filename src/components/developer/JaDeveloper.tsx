@@ -93,6 +93,13 @@ export const JaDeveloper = () => {
 							<ListItem mb={1}>
 								<HStack spacing={0}>
 									<ListIcon as={MdSettings} color="green.500" />
+									<Text fontWeight={"bold"}>23/11/02</Text>
+								</HStack>
+								<Text>小説切替の際の挙動を修正</Text>
+							</ListItem>
+							<ListItem mb={1}>
+								<HStack spacing={0}>
+									<ListIcon as={MdSettings} color="green.500" />
 									<Text fontWeight={"bold"}>23/10/25</Text>
 								</HStack>
 								<Text>インストールガイド追加</Text>

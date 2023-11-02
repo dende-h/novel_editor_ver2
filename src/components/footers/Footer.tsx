@@ -33,7 +33,7 @@ export const Footer = memo(() => {
 						</Box>
 					</Link>
 				</Flex>
-				<Center>©2023 dende-h</Center>
+				<Center>©2023 dende-h ver.2.7.2</Center>
 			</Box>
 		</>
 	);
