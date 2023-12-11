@@ -27,6 +27,7 @@ import { publishSettingsDraftsSelector } from "../../globalState/selector/publis
 import { useLocale } from "../../hooks/useLocale";
 import { useNovelPublished } from "../../hooks/useNovelPublished";
 import { useUserIntroductionInput } from "../../hooks/useUserIntroductionInput";
+import { pagesPath } from "../../lib/$path";
 import { ChangeUserNameModal } from "./ChangeUserNameModal";
 import { UploadProfileImageModal } from "./UploadProfileImageModal";
 
@@ -85,7 +86,7 @@ export const ProfileArea = memo(() => {
 									<CardBody height="100%" p={{ base: "11px", lg: "auto" }}>
 										<Flex alignItems="center">
 											{item.heading === "Published" ? (
-												<Link href={"/published"} passHref>
+												<Link href={pagesPath.published.$url()} passHref>
 													<Heading
 														as={"a"}
 														fontSize={{ base: "sm", lg: "lg" }}

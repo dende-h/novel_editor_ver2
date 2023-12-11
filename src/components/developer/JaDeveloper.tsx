@@ -13,6 +13,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { MdSettings } from "react-icons/md";
+import { pagesPath } from "../../lib/$path";
 import Seo from "../util/Seo";
 
 export const JaDeveloper = () => {
@@ -80,7 +81,7 @@ export const JaDeveloper = () => {
 						</ListItem>
 						<ListItem mb={1}>
 							<Text fontWeight={"bold"}>問い合わせ</Text>
-							<Link href="/contact" passHref>
+							<Link href={pagesPath.contact.$url()} passHref>
 								<Text color="blue.500">contactフォーム</Text>
 							</Link>
 						</ListItem>

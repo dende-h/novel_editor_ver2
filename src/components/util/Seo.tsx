@@ -3,7 +3,17 @@ import Head from "next/head";
 import { useLocale } from "../../hooks/useLocale";
 import Script from "next/script";
 
-const Seo = ({ pageTitle, pageDescription, pagePath, pageImg, pageImgWidth, pageImgHeight }) => {
+type Props = {
+	pageTitle: string;
+	pageDescription: string;
+	pagePath: string;
+	pageImg: string;
+	pageImgWidth: string;
+	pageImgHeight: string;
+	scriptBiBi?: boolean;
+};
+
+const Seo = ({ pageTitle, pageDescription, pagePath, pageImg, pageImgWidth, pageImgHeight, scriptBiBi }: Props) => {
 	const { locale } = useLocale();
 
 	const defaultTitle = "Re:terature";
@@ -46,6 +56,7 @@ const Seo = ({ pageTitle, pageDescription, pagePath, pageImg, pageImgWidth, page
 				src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9778569212499788"
 				crossOrigin="anonymous"
 			/>
+			{scriptBiBi && <Script async src="/bibi/and/jo.js" crossOrigin="anonymous" />}
 		</>
 	);
 };

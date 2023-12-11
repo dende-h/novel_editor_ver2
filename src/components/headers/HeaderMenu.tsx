@@ -3,6 +3,7 @@ import { Menu, MenuButton, Button, MenuList, MenuItem, useColorModeValue } from 
 import Link from "next/link";
 import { memo } from "react";
 import { useLocale } from "../../hooks/useLocale";
+import { pagesPath } from "../../lib/$path";
 
 export const HeaderMenu = memo(() => {
 	const { t } = useLocale();
@@ -33,17 +34,17 @@ export const HeaderMenu = memo(() => {
 						p={2}
 						_focus={{ outline: "none" }}
 					>
-						<Link href={"/"} passHref>
+						<Link href={pagesPath.$url()} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
 								{t.headerMenu.manuscriptList}
 							</MenuItem>
 						</Link>
-						<Link href={"/profile"} passHref>
+						<Link href={pagesPath.profile.$url()} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
 								{t.headerMenu.profileAndAchievements}
 							</MenuItem>
 						</Link>
-						<Link href={"/published"} passHref>
+						<Link href={pagesPath.published.$url()} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
 								{t.headerMenu.verticalReading}
 							</MenuItem>
@@ -64,12 +65,12 @@ export const HeaderMenu = memo(() => {
 							</MenuItem>
 						</Link>
 
-						<Link href={"/contact"} passHref>
+						<Link href={pagesPath.contact.$url()} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
 								{t.headerMenu.contactForm}
 							</MenuItem>
 						</Link>
-						<Link href={"/backup"} passHref>
+						<Link href={pagesPath.backup.$url()} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
 								{t.headerMenu.backupAndRestore}
 							</MenuItem>
@@ -86,17 +87,17 @@ export const HeaderMenu = memo(() => {
 								{t.headerMenu.howToUse}
 							</MenuItem>
 						</Link>
-						<Link href={"/epubgen"} passHref>
+						<Link href={pagesPath.epubgen.$url()} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
 								{t.headerMenu.exportToEPUB}
 							</MenuItem>
 						</Link>
-						<Link href={"/textlint"} passHref>
+						<Link href={pagesPath.textlint.$url()} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
 								{t.headerMenu.autoCorrectionTool}
 							</MenuItem>
 						</Link>
-						<Link href={"/developer"} passHref>
+						<Link href={pagesPath.developer.$url()} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
 								{t.headerMenu.developerIntro}
 							</MenuItem>

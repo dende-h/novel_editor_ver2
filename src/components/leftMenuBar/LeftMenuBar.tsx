@@ -11,6 +11,7 @@ import Link from "next/link";
 import { MdBackup } from "react-icons/md";
 import { FaInfo } from "react-icons/fa";
 import { useLocale } from "../../hooks/useLocale";
+import { pagesPath } from "../../lib/$path";
 
 export const LeftMenuBar = memo(() => {
 	const { locale } = useLocale();
@@ -57,17 +58,17 @@ export const LeftMenuBar = memo(() => {
 	];
 
 	const path = [
-		"/",
-		"/profile",
-		"/published",
+		pagesPath.$url().pathname,
+		pagesPath.profile.$url().pathname,
+		pagesPath.published.$url().pathname,
 		"https://next-novel-site.vercel.app/",
 		"https://notion-blog-nextjs-nine.vercel.app/",
-		"/contact",
-		"/backup",
+		pagesPath.contact.$url().pathname,
+		pagesPath.backup.$url().pathname,
 		"https://perpetual-hemisphere-7a3.notion.site/How-to-use-Write-Novel-Now-a746fd05c74a42cda7bd15fb2886b580",
-		"/epubgen",
-		"/textlint",
-		"/developer"
+		pagesPath.epubgen.$url().pathname,
+		pagesPath.textlint.$url().pathname,
+		pagesPath.developer.$url().pathname
 	];
 
 	return (

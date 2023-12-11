@@ -1,6 +1,7 @@
 import { Box, Center, Flex, Heading, useColorModeValue } from "@chakra-ui/react";
 import Link from "next/link";
 import { memo } from "react";
+import { pagesPath } from "../../lib/$path";
 
 export const Footer = memo(() => {
 	//ライトテーマとダークテーマの背景色の切替
@@ -11,21 +12,21 @@ export const Footer = memo(() => {
 		<>
 			<Box width={"full"} bgColor={footerBgColor} h={"43px"}>
 				<Flex justify="center">
-					<Link href="/contact" passHref>
+					<Link href={pagesPath.contact.$url()} passHref>
 						<Box mr={4}>
 							<Heading as="h4" fontSize="sm">
 								Contact
 							</Heading>
 						</Box>
 					</Link>
-					<Link href="/policy" passHref>
+					<Link href={pagesPath.policy.$url()} passHref>
 						<Box mr={4}>
 							<Heading as="h4" fontSize="sm">
 								Policy
 							</Heading>
 						</Box>
 					</Link>
-					<Link href="/developer" passHref>
+					<Link href={pagesPath.developer.$url()} passHref>
 						<Box mr={4}>
 							<Heading as="h4" fontSize="sm">
 								Developer

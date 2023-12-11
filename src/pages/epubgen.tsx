@@ -14,7 +14,8 @@ import {
 	Flex,
 	FormErrorMessage,
 	Center,
-	Spinner
+	Spinner,
+	Text
 } from "@chakra-ui/react";
 import { draftObjectArray, drafts } from "../globalState/atoms/drafts";
 import { userName } from "../globalState/atoms/userName";
@@ -24,6 +25,7 @@ import { InfoForEpubGen } from "../components/epub/InfoForEpubGen";
 import Seo from "../components/util/Seo";
 import { useLocale } from "../hooks/useLocale";
 import { useState } from "react";
+import { staticPath } from "../lib/$path";
 
 // import { supabase } from "../../lib/supabaseClient";
 
@@ -158,6 +160,7 @@ function EpubForm() {
 				pageImg={null}
 				pageImgWidth="1200"
 				pageImgHeight="630"
+				// scriptBiBi={true}
 			/>
 			<Box p="4" w="100%" h={"90vh"} overflowY="scroll">
 				<VStack spacing="6">
@@ -269,7 +272,7 @@ function EpubForm() {
 					</form>
 					<Button
 						colorScheme={"teal"}
-						onClick={() => window.open("/bibi/index.html", "_blank", "width=800,height=600")}
+						onClick={() => window.open(staticPath.bibi.index_html, "_blank", "width=800,height=600")}
 					>
 						{t.epubgen.bibi}
 					</Button>
@@ -277,8 +280,7 @@ function EpubForm() {
 				{/* <Box>
 					<Text
 						as={"a"}
-						href={`/bibi/index.html?book=${book.data.publicUrl}`}
-						data-bibi="embed"
+						href={`${staticPath.bibi.index_html}?book=yashiro`}
 						data-bibi-style="width: 100%; height: 400px;"
 					>
 						本の名前

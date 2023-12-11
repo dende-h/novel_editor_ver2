@@ -14,6 +14,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { MdSettings } from "react-icons/md";
+import { pagesPath } from "../../lib/$path";
 import Seo from "../util/Seo";
 
 export const EnDeveloper = () => {
@@ -83,7 +84,7 @@ export const EnDeveloper = () => {
 						</ListItem>
 						<ListItem mb={1}>
 							<Text fontWeight={"bold"}>inquiry</Text>
-							<Link href="/contact" passHref>
+							<Link href={pagesPath.contact.$url()} passHref>
 								<Text color="blue.500">contact form</Text>
 							</Link>
 						</ListItem>

@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { memo } from "react";
 import { useRecoilValue } from "recoil";
 import { isSelected } from "../../globalState/atoms/isSelected";
+import { pagesPath } from "../../lib/$path";
 import { DrawerLeftArea } from "../draftListArea/DrawerLeftArea";
 import { ColorSwitchButton } from "./ColorSwitchButton";
 import { HeaderMenu } from "./HeaderMenu";
@@ -41,7 +42,7 @@ export const Header = memo(() => {
 					)}
 				</Box>
 				<Box>
-					<Link href={"/"} passHref>
+					<Link href={pagesPath.$url()} passHref>
 						<Heading
 							as={"h1"}
 							ml={{ lg: "20px" }}

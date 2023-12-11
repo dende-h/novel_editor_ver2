@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { Box, Heading, VStack, Text } from "@chakra-ui/react";
 import { useLocale } from "../hooks/useLocale";
+import { pagesPath } from "../lib/$path";
 
 export default function Error() {
 	const { t } = useLocale();
@@ -19,7 +20,7 @@ export default function Error() {
 					<Text>{t.errorPage.error}</Text>
 					<Text>{t.errorPage.afterShortTime}</Text>
 					<Box>
-						<Link href="/" color="blue.500">
+						<Link href={pagesPath.$url()} color="blue.500">
 							Back to Home
 						</Link>
 					</Box>
