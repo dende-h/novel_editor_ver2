@@ -11,6 +11,7 @@ import { Global } from "@emotion/react";
 import GoogleAnalytics from "../components/util/GoogleAnalytics";
 import usePageView from "../hooks/usePageView";
 import { Analytics } from "@vercel/analytics/react";
+import { ServiceNoticeModal } from "../components/notice/ServiceNoticeModal";
 
 const SiteKey = process.env.NEXT_PUBLIC_GOOGLE_RECAOTCHA_KEY;
 
@@ -42,6 +43,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 						<IsClient />
 						<GoogleAnalytics />
 						<Analytics />
+						<ServiceNoticeModal />
 						<Component {...pageProps} />
 					</GoogleReCaptchaProvider>
 				</HeaderFooterLayout>

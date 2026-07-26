@@ -58,3 +58,10 @@ export const infoEpubGenForEn: string[] = [
 	"If you need to revise your manuscript, please do so before downloading. Edits cannot be made after downloading.",
 	"Privacy Note: We do not store or share any of the content of the eBooks you create."
 ];
+
+//お知らせダイアログの識別子。内容を差し替えたらここを更新すると全ユーザーに再表示される
+export const currentNoticeId = "2026-service-close";
+
+//後継エディタ「コトノハ-leaf-」の紹介ページ
+export const successorEditorUrl = "https://cotonoha-leaf.org/lp";
+
