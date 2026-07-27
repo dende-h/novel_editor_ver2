@@ -315,5 +315,25 @@ export default {
 		link: "Click here for more detailed usage instructions",
 		footer: "You can open this guide anytime from the header menu",
 		close: "Close"
+	},
+	serviceNotice: {
+		header: "Service Closure and Our New Editor",
+		lead: "Thank you very much for using Re:terature.",
+		closeTitle: "Re:terature and Lit:Bite will be closing",
+		closeText1:
+			"We regret to inform you that the novel editor Re:terature and the reading site Lit:Bite will be discontinued around December 2026.",
+		closeText2: "We will announce the exact closing date as soon as it is decided.",
+		editorTitle: "Our successor editor, Kotonoha-leaf-, is now available",
+		editorText1: "We have released a new novel editor to succeed Re:terature.",
+		editorText2: "It is free to use. We hope you will try it as the new home for your writing.",
+		editorLink: "Open Kotonoha-leaf-",
+		platformTitle: "A new publishing service is in development",
+		platformText:
+			"We are currently developing a novel publishing service to replace Lit:Bite. We will let you know once it is ready, so please bear with us a little longer.",
+		dataTitle: "About your manuscripts",
+		dataText1: "After the service closes, your manuscripts, published works, and backup data will no longer be accessible.",
+		dataText2: "Please save your important manuscripts locally before the closing date, for example by using the EPUB export.",
+		closing: "We are sincerely grateful for your continued support.",
+		closeButton: "Close"
 	}
 };
