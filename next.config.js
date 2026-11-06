@@ -1,19 +1,18 @@
+// サービス終了につき、どのURLにアクセスしても終了告知ページ（/）を表示する
+/** @type {import('next').NextConfig} */
 module.exports = {
-	images: {
-		remotePatterns: [
-			{
-				protocol: 'https',
-				hostname: 'enjzxtbbcyrptkkutovq.supabase.co'
-			}
-		]
+	reactStrictMode: true,
+	poweredByHeader: false,
+	async rewrites() {
+		return {
+			// public/ や pages/ に存在しないパスはすべて / に書き換える（旧ページ・旧APIを含む）
+			fallback: [{ source: '/:path*', destination: '/' }]
+		};
 	},
-	experimental: {
-		scrollRestoration: true
-	},
-	i18n: {
-		// 使用する言語を英語と日本語に指定します
-		locales: ['en', 'ja'],
-		// デフォルトの言語を指定します
-		defaultLocale: 'en'
+	async headers() {
+		return [
+			{ source: '/:path*', headers: [{ key: 'X-Robots-Tag', value: 'noindex' }] },
+			{ source: '/sw.js', headers: [{ key: 'Cache-Control', value: 'no-cache, no-store, must-revalidate' }] }
+		];
 	}
 };
